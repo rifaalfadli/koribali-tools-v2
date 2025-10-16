@@ -1,0 +1,138 @@
+.profile-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3em 0em;
+  background: #f9fafb;
+}
+
+.profile-card {
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  padding: 2em 3em;
+  max-width: 600px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile-photo-section {
+  text-align: center;
+  margin-bottom: 1.5em;
+}
+
+.profile-photo {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #0d3b66;
+  box-shadow: 0 3px 8px rgba(13, 59, 102, 0.2);
+}
+
+.photo-upload-btn {
+  display: inline-block;
+  margin-top: 10px;
+  background: linear-gradient(to right, #0d3b66, #3399cc);
+  color: #fff;
+  padding: 0.4em 1.2em;
+  border-radius: 8px;
+  font-size: 0.85em;
+  cursor: pointer;
+  position: relative;
+}
+
+.photo-upload-btn input {
+  position: absolute;
+  opacity: 0;
+  inset: 0;
+  cursor: pointer;
+}
+
+.profile-info {
+  width: 100%;
+}
+
+.info-row {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1em;
+}
+
+.info-row label {
+  font-weight: 600;
+  color: #0d3b66;
+  margin-bottom: 0.3em;
+}
+
+.info-row p {
+  background: #f3f4f6;
+  padding: 0.7em;
+  border-radius: 8px;
+  color: #333;
+}
+
+.info-row input {
+  padding: 0.6em;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  outline: none;
+  transition: 0.2s;
+}
+
+.info-row input:focus {
+  border-color: #3399cc;
+  box-shadow: 0 0 4px rgba(51, 153, 204, 0.4);
+}
+
+.profile-buttons {
+  display: flex;
+  gap: 1em;
+  justify-content: center;
+  margin-top: 1.5em;
+}
+
+button {
+  padding: 0.6em 1.4em;
+  border-radius: 10px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.btn-edit {
+  background: linear-gradient(to right, #0d3b66, #3399cc);
+  color: white;
+}
+
+.btn-edit:hover {
+  transform: scale(1.05);
+}
+
+.btn-save {
+  background: #16a34a;
+  color: white;
+}
+
+.btn-save:hover {
+  background: #15803d;
+}
+
+.btn-cancel {
+  background: #e5e7eb;
+  color: #333;
+}
+
+.btn-cancel:hover {
+  background: #d1d5db;
+}
+
+.profile-loading {
+  text-align: center;
+  margin-top: 100px;
+  color: #555;
+  font-size: 1.2em;
+}

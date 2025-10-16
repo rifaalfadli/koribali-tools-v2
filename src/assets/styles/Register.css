@@ -1,0 +1,278 @@
+/* ========== GLOBAL PAGE STYLING ========== */
+.begin-page {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(to right, #0d3b66, #3399cc);
+  font-family: "Poppins", sans-serif;
+  animation: fadeIn 1s ease forwards;
+}
+
+/* Fade in effect for the whole page */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ========== CARD CONTAINER ========== */
+.begin-card {
+  background-color: white;
+  padding: 3em 4em;
+  border-radius: 1.2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  max-width: 550px;
+  text-align: center;
+  transform: scale(0.97);
+  opacity: 0;
+  animation: popIn 0.8s ease forwards;
+}
+
+/* Slight "pop" animation when the card appears */
+@keyframes popIn {
+  from {
+    transform: scale(0.9) translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+/* ========== TITLE ========== */
+.begin-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #0d3b66;
+  margin-bottom: 2rem;
+  letter-spacing: 0.5px;
+  position: relative;
+  animation: slideDown 0.8s ease;
+}
+
+/* Title animation */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ========== FORM LAYOUT ========== */
+.register-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  animation: fadeUp 0.8s ease forwards;
+}
+
+/* Fade-up effect for form inputs */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ========== INPUT FIELD ========== */
+.input-field {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.9rem 1.2rem;
+  border: 1px solid #d1d5db;
+  border-radius: 999px;
+  outline: none;
+  font-size: 0.95rem;
+  transition: all 0.25s ease;
+  background-color: #fafafa;
+}
+
+.input-field:hover {
+  border-color: #0d3b66;
+  background-color: #f0f7ff;
+}
+
+.input-field:focus {
+  border-color: #0d3b66;
+  background-color: #fff;
+  box-shadow: 0 0 8px rgba(13, 59, 102, 0.35);
+  transform: scale(1.02);
+}
+
+/* ========== PASSWORD FIELD ========== */
+.password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-input {
+  width: 100%;
+  padding-right: 45px;
+}
+
+.eye-icon {
+  position: absolute;
+  right: 18px;
+  top: 55%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #7a7a7a;
+  transition: color 0.2s ease, transform 0.1s ease;
+}
+
+.eye-icon:hover {
+  color: #1d3557;
+  transform: translateY(-50%) scale(1.1);
+}
+
+/* ========== ERROR CONTAINER (ALWAYS PRESENT) ========== */
+.error-container {
+  min-height: 1.2rem; /* always reserve space */
+  text-align: left;
+  padding-left: 1.2rem;
+  transition: all 0.3s ease;
+}
+
+.error-text {
+  color: #e11d48; /* red-600 */
+  font-size: 0.8rem;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: all 0.3s ease;
+}
+
+.error-container:has(.error-text) .error-text {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ========== BUTTON ========== */
+.submit-btn {
+  width: 100%;
+  background-color: #0d3b66;
+  color: white;
+  border: none;
+  border-radius: 9999px;
+  padding: 0.9rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.submit-btn::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.3);
+  transition: all 0.4s ease;
+}
+
+.submit-btn:hover {
+  background-color: #09314f;
+  transform: translateY(-2px);
+}
+
+.submit-btn:hover::after {
+  left: 100%;
+}
+
+/* ========== LINK SECTION ========== */
+.login-link {
+  font-size: 0.9rem;
+  color: #6b7280;
+  margin-top: 1rem;
+  animation: fadeIn 1s ease forwards;
+}
+
+.login-link a {
+  color: #0d3b66;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.login-link a:hover {
+  text-decoration: underline;
+  color: #07294a;
+}
+
+/* ========== RESPONSIVE DESIGN ========== */
+@media (max-width: 600px) {
+  .begin-card {
+    padding: 2em;
+    max-width: 90%;
+  }
+
+  .begin-title {
+    font-size: 1.5rem;
+  }
+}
+
+/* ========== TEXT ANIMATION ========== */
+.text {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: textAppear 1s ease forwards;
+  animation-delay: 1s; /* muncul sedikit setelah form */
+}
+
+@keyframes textAppear {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Efek underline animasi di link "Log in here" */
+.text a {
+  position: relative;
+  color: #0d3b66;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.text a::after {
+  content: "";
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background-color: #0d3b66;
+  transition: width 0.3s ease;
+}
+
+.text a:hover {
+  color: #09314f;
+}
+
+.text a:hover::after {
+  width: 100%;
+}
