@@ -156,6 +156,7 @@ header {
 .navbar-area {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   gap: 1.5em;
 }
 
@@ -1043,7 +1044,7 @@ textarea.form-control {
 /* === Structure Page === */
 /* Container umum */
 .container-struktur {
-  max-width: 1000px;
+  max-width: 1250px;
   margin: 0 auto;
   padding: 2em 1em;
   margin-top: 2em;
@@ -1066,7 +1067,26 @@ table {
   background-color: #ffffff;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   border-radius: 8px;
+  table-layout: fixed; /* kunci lebar kolom */
   overflow: hidden;
+}
+
+/* Tentukan lebar kolom */
+th:nth-child(1),
+td:nth-child(1) {
+  width: 10%; /* Kolom "No" */
+  text-align: center;
+}
+
+th:nth-child(2),
+td:nth-child(2) {
+  width: 40%; /* Kolom "Nama" */
+}
+
+th:nth-child(3),
+td:nth-child(3) {
+  width: 50%; /* Kolom "Email" */
+  word-break: break-word; /* Supaya email panjang tetap rapi */
 }
 
 /* Header tabel */
@@ -1099,7 +1119,7 @@ td:first-child {
   width: 60px;
 }
 
-/* 🌊 ========== CONTAINER UTAMA ========== */
+/* ========== CONTAINER UTAMA ========== */
 .container-proyek {
   max-width: 1200px;
   margin: 0 auto;
@@ -1125,7 +1145,7 @@ td:first-child {
   }
 }
 
-/* 🏷️ JUDUL UTAMA */
+/* JUDUL UTAMA */
 .container-proyek h2 {
   grid-column: 1 / -1;
   text-align: center;
@@ -1157,7 +1177,7 @@ td:first-child {
   }
 }
 
-/* 📰 ARTIKEL */
+/* ARTIKEL */
 .container-proyek article {
   background: #fff;
   padding: 1.8rem;
@@ -1172,7 +1192,7 @@ td:first-child {
   box-shadow: 0 10px 25px rgba(13, 59, 102, 0.15);
 }
 
-/* 🖼️ GAMBAR */
+/* GAMBAR */
 .container-proyek article img {
   width: 100%;
   border-radius: 10px;
@@ -1184,7 +1204,7 @@ td:first-child {
   transform: scale(1.03);
 }
 
-/* 🧾 JUDUL ARTIKEL */
+/* JUDUL ARTIKEL */
 .container-proyek article h3 {
   font-size: 1.4rem;
   color: #0d3b66;
@@ -1197,14 +1217,14 @@ td:first-child {
   color: #144e8c;
 }
 
-/* 📜 PARAGRAF */
+/* PARAGRAF */
 .container-proyek article p {
   font-size: 1rem;
   line-height: 1.7;
   color: #555;
 }
 
-/* 🔘 LINK "LIHAT SELENGKAPNYA" (MODERN BUTTON) */
+/* LINK "LIHAT SELENGKAPNYA" (MODERN BUTTON) */
 .container-proyek article a {
   display: inline-block;
   margin-top: 1.2rem;
@@ -1243,7 +1263,7 @@ td:first-child {
   box-shadow: 0 6px 15px rgba(13, 59, 102, 0.3);
 }
 
-/* 📚 SIDEBAR ELEGAN (KANAN ATAS) */
+/* SIDEBAR ELEGAN (KANAN ATAS) */
 aside {
   position: sticky;
   top: 1.5rem;

@@ -214,14 +214,19 @@
     gap: 0.4em;
   }
 
-  .navbar-logo label {
+  .navbar-area {
+    gap: 1.25m;
+  }
+
+  .icon-navbar label {
     cursor: pointer;
     position: relative;
   }
 
-  .navbar-logo label img {
+  .icon-navbar label img {
     display: flex;
     align-items: center;
+    justify-content: center;
     width: 35px;
     height: 35px;
   }

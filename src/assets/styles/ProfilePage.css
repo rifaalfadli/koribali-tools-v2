@@ -74,18 +74,18 @@
   color: #333;
 }
 
-.info-row input {
+/* .info-row input {
   padding: 0.6em;
   border-radius: 8px;
   border: 1px solid #ccc;
   outline: none;
   transition: 0.2s;
-}
+} */
 
-.info-row input:focus {
+/* .info-row input:focus {
   border-color: #3399cc;
   box-shadow: 0 0 4px rgba(51, 153, 204, 0.4);
-}
+} */
 
 .profile-buttons {
   display: flex;
@@ -135,4 +135,54 @@ button {
   margin-top: 100px;
   color: #555;
   font-size: 1.2em;
+}
+
+/* ========== FULL IMAGE PREVIEW ========== */
+.image-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+}
+
+.image-popup {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+  animation: scaleIn 0.3s ease;
+}
+
+.image-full {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
+/* Animasi lembut */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0.8);
+  }
+  to {
+    transform: scale(1);
+  }
 }

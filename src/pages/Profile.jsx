@@ -2,23 +2,30 @@ import Hero from "../components/Hero";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Breadcrumb from "../components/Breadcrumb";
+import { Field, Formik, Form, ErrorMessage } from "formik";
+import * as Yup from "yup";
 import { useEffect, useState } from "react";
 import "../assets/styles/ProfilePage.css";
 import "../assets/styles/Style.css";
 import "../assets/styles/Responsive.css";
+import "../assets/styles/Register.css";
 
 export default function ProfilePage() {
   // State utama yang menampung data user yang sedang login
   const [user, setUser] = useState(null);
-
-  // State sementara saat user sedang mengedit profile
-  const [updatedUser, setUpdatedUser] = useState(null);
+  const [originalUser, setOriginalUser] = useState(null);
 
   // State untuk menandai apakah dalam mode edit atau tidak
   const [editMode, setEditMode] = useState(false);
 
   // State untuk menampung preview foto baru (base64)
   const [preview, setPreview] = useState(null);
+
+  // State untuk menampilkan foto penuh
+  const [showFullImage, setShowFullImage] = useState(false);
+
+  // Fungsi untuk toggle foto besar
+  const toggleFullImage = () => setShowFullImage(!showFullImage);
 
   // =====================================================
   // Ambil data user yang sedang login dari localStorage
@@ -36,7 +43,6 @@ export default function ProfilePage() {
       const data = await res.json();
       // Set data user ke state
       setUser(data);
-      setUpdatedUser(data);
     } catch (err) {
       console.error("Error fetching user:", err);
     }
@@ -47,14 +53,21 @@ export default function ProfilePage() {
     fetchUser();
   }, []);
 
-  // =====================================================
-  // Handle perubahan input teks saat dalam mode edit
-  // =====================================================
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    // update nilai field sesuai yang diedit
-    setUpdatedUser((prev) => (prev ? { ...prev, [name]: value } : prev));
-  };
+  // Validation schema using Yup
+  const ProfileSchema = Yup.object().shape({
+    fullname: Yup.string()
+      .min(2, "Too Short!") // Minimal 2 karakter
+      .max(50, "Too Long!") // Maksimal 50 karakter
+      .required("Name is required"), // Wajib diisi
+    email: Yup.string()
+      .email("Invalid Email") // Format email harus valid
+      .required("Email is required"), // Wajib diisi
+    phoneNumber: Yup.string()
+      .matches(/^[0-9]+$/, "Phone number must contain only digits") // hanya angka
+      .min(10, "Phone number must be at least 10 digits") // minimal 10 angka (opsional)
+      .max(15, "Phone number can't be longer than 15 digits") // maksimal 15 angka (opsional)
+      .required("Phone Number is required"),
+  });
 
   // =====================================================
   // Handle saat user memilih foto baru (preview sebelum disimpan)
@@ -71,53 +84,42 @@ export default function ProfilePage() {
   // =====================================================
   // Simpan perubahan user ke database + update localStorage
   // =====================================================
-  const handleSave = async () => {
+  const handleSave = async (updatedUser) => {
     if (!updatedUser) return;
 
     try {
-      // Kirim data hasil edit ke server menggunakan PUT
+      // Gabungkan field lama (user) dengan yang baru (updatedUser)
+      const mergedUser = { ...user, ...updatedUser };
+
       const res = await fetch(
-        `http://localhost:5000/anggota/${updatedUser.id}`,
+        `http://localhost:5000/anggota/${mergedUser.id}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(updatedUser), // kirim data user yang sudah diubah
+          body: JSON.stringify(mergedUser), // kirim data lengkap
         }
       );
 
       if (!res.ok) {
-        // kalau server gagal menyimpan
-        const text = await res.text();
-        console.error("Server error:", text);
-        alert("Failed to update profile!");
+        const errorText = await res.text();
+        console.error("Server error:", errorText);
+        alert("Failed to update profile! Server said: " + errorText);
         return;
       }
 
-      // Dapatkan data user terbaru dari server
       const savedUser = await res.json();
-
-      // Update state di React agar langsung tampil perubahan
       setUser(savedUser);
-      setUpdatedUser(savedUser);
+      setOriginalUser(savedUser);
       setEditMode(false);
       setPreview(null);
 
-      // =====================================================
-      // Update juga localStorage agar data login terbaru tersimpan
-      // =====================================================
+      // Update localStorage
       const stored = localStorage.getItem("user");
       if (stored) {
-        try {
-          const parsed = JSON.parse(stored);
-          parsed.fullname = savedUser.fullname;
-          parsed.id = savedUser.id;
-          localStorage.setItem("user", JSON.stringify(parsed));
-        } catch {
-          localStorage.setItem(
-            "user",
-            JSON.stringify({ fullname: savedUser.fullname, id: savedUser.id })
-          );
-        }
+        const parsed = JSON.parse(stored);
+        parsed.fullname = savedUser.fullname;
+        parsed.id = savedUser.id;
+        localStorage.setItem("user", JSON.stringify(parsed));
       } else {
         localStorage.setItem(
           "user",
@@ -129,6 +131,8 @@ export default function ProfilePage() {
     } catch (err) {
       console.error("Update failed:", err);
       alert("Error updating profile!");
+    } finally {
+      setEditMode(false);
     }
   };
 
@@ -147,6 +151,8 @@ export default function ProfilePage() {
               src={preview || user.photo || "/images/avatar.svg"}
               alt="Profile"
               className="profile-photo"
+              onClick={toggleFullImage}
+              style={{ cursor: "pointer" }}
             />
             {editMode && (
               <label className="photo-upload-btn">
@@ -160,71 +166,164 @@ export default function ProfilePage() {
             )}
           </div>
 
-          <div className="profile-info">
-            <div className="info-row">
-              <label>Name:</label>
-              {editMode ? (
-                <input
-                  type="text"
-                  name="fullname"
-                  value={updatedUser?.fullname || ""}
-                  onChange={handleChange}
-                />
-              ) : (
-                <p>{user.fullname}</p>
-              )}
-            </div>
+          <Formik
+            enableReinitialize
+            initialValues={{
+              id: user.id,
+              fullname: user.fullname || "",
+              email: user.email || "",
+              phoneNumber: user.phoneNumber || "",
+            }}
+            validationSchema={ProfileSchema}
+            onSubmit={(values) => handleSave(values)}
+          >
+            {({ isValid, dirty, resetForm }) => (
+              <Form className="profile-info">
+                {/* Fullname Field */}
+                <div className="form-group info-row">
+                  <Field name="fullname">
+                    {({ field, meta }) => (
+                      <div
+                        className={`form-group ${
+                          meta.touched && meta.error ? "shake" : ""
+                        }`}
+                      >
+                        <label>Name:</label>
+                        <input
+                          {...field}
+                          id="fullname"
+                          readOnly={!editMode}
+                          className={`input-field ${
+                            meta.touched && meta.error ? "input-error" : ""
+                          }`}
+                        />
+                        <div className="error-container">
+                          <ErrorMessage
+                            name="fullname"
+                            component="div"
+                            className="error-text"
+                          />
+                        </div>
+                      </div>
+                    )}
+                  </Field>
+                </div>
 
-            <div className="info-row">
-              <label>Email:</label>
-              {editMode ? (
-                <input
-                  type="email"
-                  name="email"
-                  value={updatedUser?.email || ""}
-                  onChange={handleChange}
-                />
-              ) : (
-                <p>{user.email}</p>
-              )}
-            </div>
+                {/* Email Field */}
+                <div className="form-group info-row">
+                  <Field name="email">
+                    {({ field, meta }) => (
+                      <div
+                        className={`form-group ${
+                          meta.touched && meta.error ? "shake" : ""
+                        }`}
+                      >
+                        <label>Email:</label>
+                        <input
+                          {...field}
+                          id="email"
+                          readOnly={!editMode}
+                          className={`input-field ${
+                            meta.touched && meta.error ? "input-error" : ""
+                          }`}
+                        />
+                        <div className="error-container">
+                          <ErrorMessage
+                            name="email"
+                            component="div"
+                            className="error-text"
+                          />
+                        </div>
+                      </div>
+                    )}
+                  </Field>
+                </div>
 
-            <div className="info-row">
-              <label>Phone:</label>
-              {editMode ? (
-                <input
-                  type="text"
-                  name="phoneNumber"
-                  value={updatedUser?.phoneNumber || ""}
-                  onChange={handleChange}
-                />
-              ) : (
-                <p>{user.phoneNumber}</p>
-              )}
-            </div>
+                {/* Phone Number Field */}
+                <div className="form-group info-row">
+                  <Field name="phoneNumber">
+                    {({ field, meta }) => (
+                      <div
+                        className={`form-group ${
+                          meta.touched && meta.error ? "shake" : ""
+                        }`}
+                      >
+                        <label>Phone Number:</label>
+                        <input
+                          {...field}
+                          id="phoneNumber"
+                          readOnly={!editMode}
+                          className={`input-field ${
+                            meta.touched && meta.error ? "input-error" : ""
+                          }`}
+                        />
+                        <div className="error-container">
+                          <ErrorMessage
+                            name="phoneNumber"
+                            component="div"
+                            className="error-text"
+                          />
+                        </div>
+                      </div>
+                    )}
+                  </Field>
+                </div>
 
-            <div className="profile-buttons">
-              {editMode ? (
-                <>
-                  <button className="btn-save" onClick={handleSave}>
-                    Save
-                  </button>
-                  <button
-                    className="btn-cancel"
-                    onClick={() => setEditMode(false)}
-                  >
-                    Cancel
-                  </button>
-                </>
-              ) : (
-                <button className="btn-edit" onClick={() => setEditMode(true)}>
-                  Edit Profile
-                </button>
-              )}
-            </div>
-          </div>
+                {/* Button */}
+                <div className="profile-buttons">
+                  {editMode ? (
+                    <>
+                      <button
+                        type="submit"
+                        className="btn-save"
+                        disabled={!isValid || !dirty}
+                      >
+                        Save
+                      </button>
+                      <button
+                        type="button"
+                        className="btn-cancel"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          if (originalUser) setUser(originalUser);
+                          setEditMode(false);
+                          setPreview(null);
+                          resetForm({ values: originalUser });
+                        }}
+                      >
+                        Cancel
+                      </button>
+                    </>
+                  ) : (
+                    <button
+                      type="button"
+                      className="btn-edit"
+                      onClick={() => {
+                        setOriginalUser(user);
+                        setEditMode(true);
+                      }}
+                    >
+                      Edit Profile
+                    </button>
+                  )}
+                </div>
+              </Form>
+            )}
+          </Formik>
         </div>
       </div>
+      {showFullImage && (
+        <div className="image-overlay" onClick={toggleFullImage}>
+          <div className="image-popup">
+            <img
+              src={preview || user.photo || "/images/avatar.svg"}
+              alt="Full Profile"
+              className="image-full"
+            />
+          </div>
+        </div>
+      )}
+
       <Footer />
     </>
   );

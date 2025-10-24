@@ -16,7 +16,11 @@ function Register() {
     email: Yup.string()
       .email("Invalid Email") // Format email harus valid
       .required("Email is required"), // Wajib diisi
-    phoneNumber: Yup.string().required("Phone Number is required"), // Wajib diisi
+    phoneNumber: Yup.string()
+      .matches(/^[0-9]+$/, "Phone number must contain only digits") // hanya angka
+      .min(10, "Phone number must be at least 10 digits") // minimal 10 angka (opsional)
+      .max(15, "Phone number can't be longer than 15 digits") // maksimal 15 angka (opsional)
+      .required("Phone Number is required"),
     password: Yup.string()
       .required("Password is required") // Wajib diisi
       .min(8, "Min 8 chars") // Minimal 8 karakter
@@ -76,7 +80,7 @@ function Register() {
   return (
     <div className="begin-page">
       <div className="begin-card">
-        <h1 className="begin-title">Create an Account!</h1>
+        <h1 className="begin-title">Create Your Account</h1>
         <Formik
           initialValues={{
             fullname: "",
@@ -90,79 +94,131 @@ function Register() {
           <Form className="register-form">
             {/* Fullname Field */}
             <div className="form-group">
-              <Field
-                id="fullname"
-                name="fullname"
-                placeholder="Name"
-                className="input-field"
-              />
-              <div className="error-container">
-                <ErrorMessage
-                  name="fullname"
-                  component="div"
-                  className="error-text"
-                />
-              </div>
+              <Field name="fullname">
+                {({ field, meta }) => (
+                  <div
+                    className={`form-group ${
+                      meta.touched && meta.error ? "shake" : ""
+                    }`}
+                  >
+                    <input
+                      {...field}
+                      id="fullname"
+                      placeholder="Name"
+                      className={`input-field ${
+                        meta.touched && meta.error ? "input-error" : ""
+                      }`}
+                    />
+                    <div className="error-container">
+                      <ErrorMessage
+                        name="fullname"
+                        component="div"
+                        className="error-text"
+                      />
+                    </div>
+                  </div>
+                )}
+              </Field>
             </div>
 
             {/* Email Field */}
             <div className="form-group">
-              <Field
-                id="email"
-                name="email"
-                placeholder="Email"
-                className="input-field"
-              />
-              <div className="error-container">
-                <ErrorMessage
-                  name="email"
-                  component="div"
-                  className="error-text"
-                />
-              </div>
+              <Field name="email">
+                {({ field, meta }) => (
+                  <div
+                    className={`form-group ${
+                      meta.touched && meta.error ? "shake" : ""
+                    }`}
+                  >
+                    <input
+                      {...field}
+                      id="email"
+                      placeholder="Email"
+                      className={`input-field ${
+                        meta.touched && meta.error ? "input-error" : ""
+                      }`}
+                    />
+                    <div className="error-container">
+                      <ErrorMessage
+                        name="email"
+                        component="div"
+                        className="error-text"
+                      />
+                    </div>
+                  </div>
+                )}
+              </Field>
             </div>
 
             {/* Phone Number Field */}
             <div className="form-group">
-              <Field
-                id="phoneNumber"
-                name="phoneNumber"
-                placeholder="Phone Number"
-                className="input-field"
-              />
-              <div className="error-container">
-                <ErrorMessage
-                  name="phoneNumber"
-                  component="div"
-                  className="error-text"
-                />
-              </div>
+              <Field name="phoneNumber">
+                {({ field, meta }) => (
+                  <div
+                    className={`form-group ${
+                      meta.touched && meta.error ? "shake" : ""
+                    }`}
+                  >
+                    <input
+                      {...field}
+                      id="phoneNumber"
+                      placeholder="Phone Number"
+                      className={`input-field ${
+                        meta.touched && meta.error ? "input-error" : ""
+                      }`}
+                    />
+                    <div className="error-container">
+                      <ErrorMessage
+                        name="phoneNumber"
+                        component="div"
+                        className="error-text"
+                      />
+                    </div>
+                  </div>
+                )}
+              </Field>
             </div>
 
             {/* Password Field */}
             <div className="form-group password-group">
-              <div className="password-wrapper">
-                <Field
-                  id="password"
-                  name="password"
-                  type={showPassword ? "text" : "password"}
-                  placeholder="Password"
-                  className="input-field password-input"
-                />
-                <span
-                  className="eye-icon"
-                  onClick={() => setShowPassword(!showPassword)}
-                >
-                  {showPassword ? <EyeOff size={25} /> : <Eye size={25} />}
-                </span>
-              </div>
-              <div className="error-container">
-                <ErrorMessage
-                  name="password"
-                  component="div"
-                  className="error-text"
-                />
-              </div>
+              <Field name="password">
+                {({ field, meta }) => (
+                  <div
+                    className={`form-group password-group ${
+                      meta.touched && meta.error ? "shake" : ""
+                    }`}
+                  >
+                    <div className="password-wrapper">
+                      <input
+                        {...field}
+                        id="password"
+                        type={showPassword ? "text" : "password"}
+                        placeholder="Password"
+                        className={`input-field password-input ${
+                          meta.touched && meta.error ? "input-error" : ""
+                        }`}
+                      />
+                      <span
+                        className="eye-icon"
+                        onClick={() => setShowPassword(!showPassword)}
+                      >
+                        {showPassword ? (
+                          <EyeOff size={25} />
+                        ) : (
+                          <Eye size={25} />
+                        )}
+                      </span>
+                    </div>
+                    <div className="error-container">
+                      <ErrorMessage
+                        name="password"
+                        component="div"
+                        className="error-text"
+                      />
+                    </div>
+                  </div>
+                )}
+              </Field>
             </div>
 
             {/* Submit Button */}

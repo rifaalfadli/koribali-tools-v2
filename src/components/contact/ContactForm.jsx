@@ -25,10 +25,27 @@ export const ContactForm = () => {
 
   const handleSubmit = async (values, { resetForm }) => {
     try {
+      // Tambahkan data waktu kirim
+      const now = new Date();
+      const timestamp = now.toLocaleString("id-ID", {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+      });
+
+      // const timestamp = new Date().toISOString(); // opsi 2
+
+      // Gabungkan ke data yang dikirim
+      const payload = { ...values, timestamp };
+
       const response = await fetch("http://localhost:5000/pesan", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
+        body: JSON.stringify(payload),
       });
 
       if (!response.ok) {
@@ -56,76 +73,127 @@ export const ContactForm = () => {
     >
       {() => (
         <Form className="contact-form">
+          {/* Name Field */}
           <div className="form-group">
             <label htmlFor="name">Nama:</label>
-            <Field
-              id="name"
-              name="name"
-              className="form-control"
-              placeholder="Masukkan Nama Anda"
-            />
-            <div className="error-container">
-              <ErrorMessage
-                name="name"
-                component="div"
-                className="error-text"
-              />
-            </div>
+            <Field name="name">
+              {({ field, meta }) => (
+                <div
+                  className={`form-group ${
+                    meta.touched && meta.error ? "shake" : ""
+                  }`}
+                >
+                  <input
+                    {...field}
+                    id="name"
+                    placeholder="Masukkan Nama Anda"
+                    className={`form-control ${
+                      meta.touched && meta.error ? "input-error" : ""
+                    }`}
+                  />
+                  <div className="error-container">
+                    <ErrorMessage
+                      name="name"
+                      component="div"
+                      className="error-text"
+                    />
+                  </div>
+                </div>
+              )}
+            </Field>
           </div>
 
           <div className="form-row">
+            {/* Email Field */}
             <div className="form-group">
               <label htmlFor="email">Email:</label>
-              <Field
-                id="email"
-                name="email"
-                className="form-control"
-                placeholder="Masukkan Email Anda"
-              />
-              <div className="error-container">
-                <ErrorMessage
-                  name="email"
-                  component="div"
-                  className="error-text"
-                />
-              </div>
+              <Field name="email">
+                {({ field, meta }) => (
+                  <div
+                    className={`form-group ${
+                      meta.touched && meta.error ? "shake" : ""
+                    }`}
+                  >
+                    <input
+                      {...field}
+                      id="email"
+                      placeholder="Masukkan Email Anda"
+                      className={`form-control ${
+                        meta.touched && meta.error ? "input-error" : ""
+                      }`}
+                    />
+                    <div className="error-container">
+                      <ErrorMessage
+                        name="email"
+                        component="div"
+                        className="error-text"
+                      />
+                    </div>
+                  </div>
+                )}
+              </Field>
             </div>
 
+            {/* Telephone Field */}
             <div className="form-group">
               <label htmlFor="telephone">No Telepon:</label>
-              <Field
-                id="telephone"
-                name="telephone"
-                className="form-control"
-                placeholder="Masukkan Nomor Telepon Anda"
-              />
-              <div className="error-container">
-                <ErrorMessage
-                  name="telephone"
-                  component="div"
-                  className="error-text"
-                />
-              </div>
+              <Field name="telephone">
+                {({ field, meta }) => (
+                  <div
+                    className={`form-group ${
+                      meta.touched && meta.error ? "shake" : ""
+                    }`}
+                  >
+                    <input
+                      {...field}
+                      id="telephone"
+                      placeholder="Masukkan Nomor Telepon Anda"
+                      className={`form-control ${
+                        meta.touched && meta.error ? "input-error" : ""
+                      }`}
+                    />
+                    <div className="error-container">
+                      <ErrorMessage
+                        name="telephone"
+                        component="div"
+                        className="error-text"
+                      />
+                    </div>
+                  </div>
+                )}
+              </Field>
             </div>
           </div>
 
+          {/* Message Field */}
           <div className="form-group">
             <label htmlFor="message">Pesan:</label>
-            <Field
-              as="textarea"
-              id="message"
-              name="message"
-              className="form-control"
-              rows="5"
-              placeholder="Masukkan Pesan Anda"
-            />
-            <div className="error-container">
-              <ErrorMessage
-                name="message"
-                component="div"
-                className="error-text"
-              />
-            </div>
+            <Field name="message">
+              {({ field, meta }) => (
+                <div
+                  className={`form-group ${
+                    meta.touched && meta.error ? "shake" : ""
+                  }`}
+                >
+                  <textarea
+                    {...field}
+                    id="message"
+                    placeholder="Masukkan Pesan Anda"
+                    rows="5"
+                    className={`form-control ${
+                      meta.touched && meta.error ? "input-error" : ""
+                    }`}
+                  />
+                  <div className="error-container">
+                    <ErrorMessage
+                      name="message"
+                      component="div"
+                      className="error-text"
+                    />
+                  </div>
+                </div>
+              )}
+            </Field>
           </div>
 
           <div>

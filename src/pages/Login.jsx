@@ -51,7 +51,7 @@ function Login() {
   return (
     <div className="begin-page">
       <div className="begin-card">
-        <h1 className="begin-title">Login to Your Account</h1>
+        <h1 className="begin-title">Welcome Back!</h1>
         <Formik
           initialValues={{ email: "", password: "" }}
           validationSchema={LoginSchema}
@@ -61,45 +61,73 @@ function Login() {
             <Form className="register-form">
               {/* Email */}
               <div className="form-group">
-                <Field
-                  id="email"
-                  name="email"
-                  placeholder="Email"
-                  className="input-field"
-                />
-                <div className="error-container">
-                  <ErrorMessage
-                    name="email"
-                    component="div"
-                    className="error-text"
-                  />
-                </div>
+                <Field name="email">
+                  {({ field, meta }) => (
+                    <div
+                      className={`form-group ${
+                        meta.touched && meta.error ? "shake" : ""
+                      }`}
+                    >
+                      <input
+                        {...field}
+                        id="email"
+                        placeholder="Email"
+                        className={`input-field ${
+                          meta.touched && meta.error ? "input-error" : ""
+                        }`}
+                      />
+                      <div className="error-container">
+                        <ErrorMessage
+                          name="email"
+                          component="div"
+                          className="error-text"
+                        />
+                      </div>
+                    </div>
+                  )}
+                </Field>
               </div>
 
               {/* Password */}
               <div className="form-group password-group">
-                <div className="password-wrapper">
-                  <Field
-                    id="password"
-                    name="password"
-                    type={showPassword ? "text" : "password"}
-                    placeholder="Password"
-                    className="input-field password-input"
-                  />
-                  <span
-                    className="eye-icon"
-                    onClick={() => setShowPassword(!showPassword)}
-                  >
-                    {showPassword ? <EyeOff size={25} /> : <Eye size={25} />}
-                  </span>
-                </div>
-                <div className="error-container">
-                  <ErrorMessage
-                    name="password"
-                    component="div"
-                    className="error-text"
-                  />
-                </div>
+                <Field name="password">
+                  {({ field, meta }) => (
+                    <div
+                      className={`form-group password-group ${
+                        meta.touched && meta.error ? "shake" : ""
+                      }`}
+                    >
+                      <div className="password-wrapper">
+                        <input
+                          {...field}
+                          id="password"
+                          type={showPassword ? "text" : "password"}
+                          placeholder="Password"
+                          className={`input-field password-input ${
+                            meta.touched && meta.error ? "input-error" : ""
+                          }`}
+                        />
+                        <span
+                          className="eye-icon"
+                          onClick={() => setShowPassword(!showPassword)}
+                        >
+                          {showPassword ? (
+                            <EyeOff size={25} />
+                          ) : (
+                            <Eye size={25} />
+                          )}
+                        </span>
+                      </div>
+                      <div className="error-container">
+                        <ErrorMessage
+                          name="password"
+                          component="div"
+                          className="error-text"
+                        />
+                      </div>
+                    </div>
+                  )}
+                </Field>
               </div>
 
               {/* Tombol Submit */}

@@ -5,30 +5,36 @@ import "../assets/styles/ProfileMenu.css";
 
 export default function ProfileMenu() {
   const [showProfileMenu, setShowProfileMenu] = useState(false);
+  const [showTooltip, setShowTooltip] = useState(false);
   const userData = JSON.parse(localStorage.getItem("user") || "{}");
   const username = userData.fullname;
 
-  // Tutup popup kalau klik di luar area profil
   useEffect(() => {
     const handleClickOutside = (e) => {
-      const target = e.target;
-      if (!target.closest(".profile-section")) {
+      if (!e.target.closest(".profile-section")) {
         setShowProfileMenu(false);
       }
     };
-
     document.addEventListener("click", handleClickOutside);
     return () => document.removeEventListener("click", handleClickOutside);
   }, []);
 
   return (
-    <div className="profile-section">
+    <div
+      className="profile-section"
+      onMouseEnter={() => setShowTooltip(true)}
+      onMouseLeave={() => setShowTooltip(false)}
+    >
       <img
         src="/images/avatar.svg"
         alt="User"
         className="profile-avatar"
         onClick={() => setShowProfileMenu(!showProfileMenu)}
       />
+
+      {showTooltip && !showProfileMenu && (
+        <span className="profile-tooltip">My Account</span>
+      )}
 
       {showProfileMenu && (
         <div className="profile-popup">
