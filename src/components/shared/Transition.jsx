@@ -6,13 +6,14 @@ const PageTransition = () => {
 
   useEffect(() => {
     // Jalankan animasi buka tirai
-    setTimeout(() => setActive(true), 100);
+    const timer = setTimeout(() => setActive(true), 100);
+    return () => clearTimeout(timer); // bersihkan timer saat unmount
   }, []);
 
   return (
-    <div className={`page-transition ${active ? "active" : ""}`}>
-      <div className="transition-top"></div>
-      <div className="transition-bottom"></div>
+    <div className={`page-Transition ${active ? "active" : ""}`}>
+      <div className="transition-Top"></div>
+      <div className="transition-Bottom"></div>
     </div>
   );
 };

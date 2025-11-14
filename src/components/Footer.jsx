@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+import { Instagram, Linkedin, Twitter, Youtube, Mail } from "lucide-react";
 import "../assets/styles/Style.css";
 import "../assets/styles/Responsive.css";
 
@@ -7,104 +9,110 @@ export default function Footer() {
       <div className="footer-top container">
         <div className="footer-brand">
           <div className="footer-brand-container">
-            <a href="/">
+            {/* Logo Kori Bali */}
+            <Link to="/" className="logo-koribali-box">
               <img
                 src="/images/logo-koribali.png"
                 alt="logo koribali"
-                width="100px"
                 className="footer-logo-kb"
               />
-            </a>
+            </Link>
 
+            {/* Mitra Utama */}
             <div className="footer-mitra">
               <h3>Mitra Utama:</h3>
               <div className="mitra-logo">
-                <a
-                  href="https://www.ypole.co.jp/english/"
+                <Link
+                  to="https://www.ypole.co.jp/english/"
                   target="_blank"
                   rel="noreferrer"
+                  className="mitra-box"
                 >
                   <img src="/images/logo-yp.png" alt="logo yoshimoto pole" />
-                </a>
-                <a
-                  href="https://www.yspole.co.jp/index.html"
+                </Link>
+                <Link
+                  to="https://www.yspole.co.jp/index.html"
                   target="_blank"
                   rel="noreferrer"
+                  className="mitra-box"
                 >
                   <img src="/images/logo-ys.png" alt="logo ys pole" />
-                </a>
+                </Link>
               </div>
             </div>
           </div>
 
+          {/* Sosial Media */}
           <div className="sosmed-icons">
-            <a href="#">
-              <img src="/images/instagram-logo.svg" alt="icon ig" />
-            </a>
-            <a href="#">
-              <img src="/images/linkedin-logo.svg" alt="icon linkedin" />
-            </a>
-            <a href="#">
-              <img src="/images/twitter-logo.svg" alt="icon twitter" />
-            </a>
-            <a href="#">
-              <img src="/images/tiktok-logo.svg" alt="icon tiktok" />
-            </a>
-            <a href="#">
-              <img src="/images/youtube-logo.svg" alt="icon youtube" />
-            </a>
+            <Link to="#" className="icon-box ig">
+              <Instagram />
+            </Link>
+            <Link to="#" className="icon-box">
+              <Linkedin />
+            </Link>
+            <Link to="#" className="icon-box">
+              <Twitter />
+            </Link>
+            <Link to="#" className="icon-box yt">
+              <Youtube />
+            </Link>
           </div>
         </div>
 
+        {/* Footer Links */}
         <div className="footer-links">
           <ul>
             <li>
-              <a href="/beranda">
+              <Link to="/">
                 <h4>Beranda</h4>
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="/struktur">
+              <Link to="/struktur">
                 <h4>Struktur Pegawai</h4>
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="/proyek">
+              <Link to="/proyek">
                 <h4>Proyek</h4>
-              </a>
+              </Link>
               <ol>
                 <li>
-                  <a href="/proyek/proyek-2D">Proyek 2D</a>
+                  <Link to="/proyek/proyek-2D">Proyek 2D</Link>
                 </li>
                 <li>
-                  <a href="/proyek/proyek-3D">Proyek 3D</a>
+                  <Link to="/proyek/proyek-3D">Proyek 3D</Link>
                 </li>
                 <li>
-                  <a href="/proyek/proyek-VBA">Proyek VBA</a>
+                  <Link to="/proyek/proyek-VBA">Proyek VBA</Link>
                 </li>
                 <li>
-                  <a href="/proyek/proyek-rendering">Proyek Rendering</a>
+                  <Link to="/proyek/proyek-rendering">Proyek Rendering</Link>
                 </li>
               </ol>
             </li>
             <li>
-              <a href="/galeri">
+              <Link to="/galeri">
                 <h4>Galeri</h4>
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="/kontak">
+              <Link to="/kontak">
                 <h4>Kontak</h4>
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
       </div>
 
+      {/* Footer Bottom */}
       <div className="footer-bottom">
-        <p>
-          Have questions or feedback? Email us at{" "}
-          <a href="mailto:cv.koribali@gmail.com">cv.koribali@gmail.com</a>
+        <p className="footer-email">
+          <Mail className="mail-icon" />
+          <span>
+            Have questions or feedback? Email us at{" "}
+            <Link to="mailto:cv.koribali@gmail.com">cv.koribali@gmail.com</Link>
+          </span>
         </p>
         <p>&copy; 2025 CV. KORI BALI. All rights reserved.</p>
       </div>

@@ -18,6 +18,26 @@
   align-items: center;
 }
 
+/* ========== MODE EDIT STATE ========== */
+.profile-card-edit {
+  background: linear-gradient(to bottom right, #ffffff, #f0f8ff);
+  transform: scale(1.01);
+  transition: all 0.4s ease;
+  box-shadow: 0 0 20px rgba(13, 59, 102, 0.3), 0 0 40px rgba(13, 59, 102, 0.15);
+  border: 2px solid rgba(13, 59, 102, 0.4);
+}
+
+/* Animasi halus saat masuk/keluar mode edit */
+.profile-card {
+  transition: all 0.4s ease;
+}
+
+/* ========================== INPUT COLOR STATES ========================== */
+.input-green {
+  border-color: #16a34a !important;
+  box-shadow: 0 0 8px rgba(22, 163, 74, 0.4);
+}
+
 .profile-photo-section {
   text-align: center;
   margin-bottom: 1.5em;
@@ -42,6 +62,11 @@
   font-size: 0.85em;
   cursor: pointer;
   position: relative;
+}
+
+.photo-upload-btn:hover {
+  background: linear-gradient(135deg, #3399cc, #0d3b66);
+  transform: translateY(-1px);
 }
 
 .photo-upload-btn input {
@@ -94,7 +119,7 @@
   margin-top: 1.5em;
 }
 
-button {
+.button-profile {
   padding: 0.6em 1.4em;
   border-radius: 10px;
   font-weight: 600;
@@ -130,12 +155,12 @@ button {
   background: #d1d5db;
 }
 
-.profile-loading {
+/* .profile-loading {
   text-align: center;
   margin-top: 100px;
   color: #555;
   font-size: 1.2em;
-}
+} */
 
 /* ========== FULL IMAGE PREVIEW ========== */
 .image-overlay {
@@ -153,19 +178,21 @@ button {
 }
 
 .image-popup {
-  max-width: 90%;
-  max-height: 90%;
+  width: 90vw;
+  height: 90vh;
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
   animation: scaleIn 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .image-full {
   width: 100%;
-  height: auto;
-  display: block;
-  object-fit: contain;
+  height: 100%;
+  object-fit: contain; /* Ini kunci biar gak kepotong */
 }
 
 /* Animasi lembut */
@@ -184,5 +211,320 @@ button {
   }
   to {
     transform: scale(1);
+  }
+}
+
+/* ========== INPUT FIELD ========== */
+.input-field {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.9rem 1.2rem;
+  border: 1px solid #d1d5db;
+  border-radius: 999px;
+  outline: none;
+  font-size: 0.95rem;
+  transition: all 0.25s ease;
+  background-color: #fafafa;
+}
+
+.input-field:hover {
+  border-color: #0d3b66;
+  background-color: #f0f7ff;
+}
+
+.input-field:focus {
+  border-color: #0d3b66;
+  background-color: #fff;
+  box-shadow: 0 0 8px rgba(13, 59, 102, 0.35);
+  transform: scale(1.02);
+}
+
+.input-field {
+  transition: all 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* ===== READONLY STATE (tidak interaktif sama sekali) ===== */
+.input-field.readonly {
+  background-color: transparent;
+  border: none;
+  color: #333;
+  cursor: default;
+  pointer-events: none;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+/* Pastikan tidak ada efek hover/focus */
+.input-field.readonly:hover,
+.input-field.readonly:focus {
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+/* ========== ERROR CONTAINER (ALWAYS PRESENT) ========== */
+.error-container {
+  min-height: 1.2rem; /* always reserve space */
+  text-align: left;
+  padding-left: 1.2rem;
+  transition: all 0.3s ease;
+}
+
+.error-text {
+  color: #e11d48; /* red-600 */
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: all 0.3s ease;
+}
+
+.error-container:has(.error-text) .error-text {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ======= ERROR STYLE ======= */
+.input-error {
+  border-color: #e11d48 !important;
+  background-color: #fff5f5;
+  box-shadow: 0 0 6px rgba(225, 29, 72, 0.3);
+  transition: all 0.3s ease;
+}
+
+.input-error:focus {
+  border-color: #be123c !important;
+  box-shadow: 0 0 10px rgba(190, 18, 60, 0.5);
+}
+
+/* Shake Animation*/
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  20%,
+  60% {
+    transform: translateX(-6px);
+  }
+  40%,
+  80% {
+    transform: translateX(6px);
+  }
+}
+
+/* Terapkan animasi hanya ketika field error */
+.shake {
+  animation: shake 0.4s ease;
+}
+
+/* ===== SUCCESS MESSAGE (KETIKA VALID) ===== */
+.success-text {
+  color: #16a34a; /* green-600 */
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: all 0.3s ease;
+}
+
+.success-container {
+  min-height: 1.2rem;
+  text-align: left;
+  transition: all 0.3s ease;
+}
+
+/* Aktif (muncul dengan animasi halus) */
+.success-container.active .success-text {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Kotak notifikasi */
+.message-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 0.95rem;
+  gap: 3.1em;
+  animation: fadeIn 0.3s ease forwards;
+  transition: all 0.3s ease;
+  opacity: 1;
+}
+
+/* Error */
+.message-error {
+  background-color: #ffe5e5;
+  color: #d93025;
+  border: 1px solid #f5b0b0;
+  word-break: break-word;
+}
+
+/* Success */
+.message-success {
+  background-color: #e9fce8;
+  color: #2e7d32;
+  border: 1px solid #b5e3b7;
+}
+
+/* Tombol close (X) */
+.message-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(
+    255,
+    0,
+    0,
+    0.08
+  ); /* merah lembut, biar nyambung sama tone error */
+  border: 1px solid rgba(255, 0, 0, 0.2);
+  border-radius: 50%;
+  cursor: pointer;
+  color: #d93025; /* merah khas error modern */
+  padding: 4px;
+  transition: all 0.25s ease;
+}
+
+/* Hover: biar kelihatan tombol aktif */
+.message-close:hover {
+  background-color: rgba(255, 0, 0, 0.15);
+  border-color: rgba(255, 0, 0, 0.4);
+  transform: scale(1.1);
+}
+
+/* Saat ditekan */
+.message-close:active {
+  transform: scale(0.95);
+  background-color: rgba(255, 0, 0, 0.25);
+}
+
+/* Konten di dalam pesan (ikon + teks) */
+.message-content {
+  display: flex;
+  align-items: center;
+}
+
+/* Supaya ikon tidak mengecil/mepet */
+.message-box svg {
+  flex-shrink: 0;
+}
+
+/* Animasi muncul */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Saat pesan menghilang (smooth fade out) */
+.message-box.fade-out {
+  opacity: 0;
+  transform: translateY(-10px);
+  margin-bottom: 0;
+}
+
+/* ========== POPUP SUCCESS ========== */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(8px); /* efek blur modern */
+  background-color: rgba(13, 59, 102, 0.25); /* warna lembut transparan */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  animation: fadeInPopup 0.3s ease forwards;
+}
+
+/* Kotak popup */
+.popup-box {
+  background: rgba(
+    255,
+    255,
+    255,
+    0.75
+  ); /* semi-transparan, biar efek blur makin terasa */
+  backdrop-filter: blur(16px); /* efek kaca */
+  border-radius: 1rem;
+  padding: 2.5rem 3rem;
+  text-align: center;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  animation: scaleUp 0.35s ease forwards;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.4); /* garis halus biar tampak premium */
+}
+
+/* Teks popup */
+.popup-box p {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #0d3b66;
+  margin: 0;
+  letter-spacing: 0.3px;
+}
+
+/* Ikon */
+.popup-box svg {
+  background-color: rgba(46, 125, 50, 0.15);
+  color: #2e7d32;
+  border-radius: 50%;
+  padding: 10px;
+  width: 48px;
+  height: 48px;
+}
+
+/* Animasi muncul */
+@keyframes fadeInPopup {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleUp {
+  from {
+    transform: scale(0.95);
+    opacity: 0.6;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Tambahan: animasi halus saat hilang (optional) */
+.popup-overlay.fade-out {
+  animation: fadeOutPopup 0.3s ease forwards;
+}
+
+@keyframes fadeOutPopup {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
   }
 }

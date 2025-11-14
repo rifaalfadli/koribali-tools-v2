@@ -1,13 +1,20 @@
+import { Link } from "react-router-dom";
+import { Home, ChevronRight } from "lucide-react";
 import "../assets/styles/Style.css";
 import "../assets/styles/Responsive.css";
-import { Link } from "react-router-dom";
 
 export default function Breadcrumb({ page }) {
   return (
     <nav className="breadcrumb">
       <ol className="container">
         <li>
-          <Link to="/beranda">Beranda</Link>
+          <Link to="/" className="breadcrumb-link">
+            <Home size={16} strokeWidth={2} />
+            <span>Beranda</span>
+          </Link>
+        </li>
+        <li className="breadcrumb-separator">
+          <ChevronRight size={14} strokeWidth={2} />
         </li>
         <li>{page}</li>
       </ol>

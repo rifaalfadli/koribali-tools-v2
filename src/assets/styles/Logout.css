@@ -1,93 +1,101 @@
-.logout-link {
+.logout-Link {
   cursor: pointer;
   color: #333;
   font-weight: 500;
   text-decoration: none;
   display: inline-block;
   transition: all 0.3s ease;
-  transform: scale(1);
 }
 
-.logout-link:hover {
+.logout-Link:hover {
   color: #b91c1c;
-  transform: scale(1.08);
-  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transform: scale(1.06);
+  text-shadow: 0 2px 8px rgba(220, 38, 38, 0.3);
 }
 
-/* Overlay hitam transparan */
-.logout-overlay {
+/* Overlay transparan dengan blur */
+.logout-Overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.55);
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(6px);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 999;
-  animation: fadeIn 0.2s ease;
+  animation: fadeIn 0.25s ease forwards;
 }
 
-/* Modal box */
-.logout-modal {
-  background: #fff;
-  padding: 24px;
-  border-radius: 16px;
-  width: 320px;
+/* Modal box glass effect */
+.logout-Modal {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 20px;
+  padding: 28px 26px;
+  width: 340px;
   text-align: center;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-  animation: popUp 0.25s ease;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(10px);
+  transform: translateY(20px) scale(0.95);
+  opacity: 0;
+  animation: modalIn 0.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
-/* Judul & teks */
-.logout-modal h2 {
-  font-size: 18px;
+/* Header dan teks */
+.logout-Modal h2 {
+  font-size: 1.1rem;
   font-weight: 600;
-  margin-bottom: 10px;
-  color: #111;
+  color: #111827;
+  margin-bottom: 8px;
 }
 
-.logout-modal p {
-  font-size: 14px;
-  color: #444;
-  margin-bottom: 20px;
+.logout-Modal p {
+  font-size: 0.9rem;
+  color: #4b5563;
+  margin-bottom: 22px;
 }
 
 /* Tombol */
-.logout-buttons {
+.logout-Buttons {
   display: flex;
   justify-content: center;
-  gap: 10px;
+  gap: 12px;
 }
 
-.logout-buttons button {
+.logout-Buttons button {
   border: none;
-  padding: 8px 16px;
-  border-radius: 6px;
-  font-size: 14px;
+  padding: 9px 20px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.25s ease;
 }
 
-/* Cancel button */
-.btn-cancel {
-  background-color: #e5e7eb;
-  color: #333;
+/* Cancel */
+.btn-Cancel {
+  background: #c6c9cf;
+  color: #1b2029;
 }
 
-.btn-cancel:hover {
-  background-color: #d1d5db;
+.btn-Cancel:hover {
+  background: #c8ccd3;
+  transform: translateY(-2px);
 }
 
-/* Logout button */
-.btn-logout {
-  background-color: #dc2626;
-  color: white;
+/* Logout */
+.btn-Logout {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: #fff;
+  box-shadow: 0 0 0 rgba(239, 68, 68, 0.4);
 }
 
-.btn-logout:hover {
-  background-color: #b91c1c;
+.btn-Logout:hover {
+  background: linear-gradient(135deg, #dc2626, #b91c1c);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(239, 68, 68, 0.4);
 }
 
-/* Animasi lembut */
+/* Animasi */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -97,13 +105,13 @@
   }
 }
 
-@keyframes popUp {
+@keyframes modalIn {
   from {
-    transform: scale(0.9);
-    opacity: 0.7;
+    transform: translateY(20px) scale(0.95);
+    opacity: 0;
   }
   to {
-    transform: scale(1);
+    transform: translateY(0) scale(1);
     opacity: 1;
   }
 }

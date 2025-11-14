@@ -5,11 +5,12 @@ import "../assets/styles/Style.css";
 import "../assets/styles/Responsive.css";
 
 export default function Header() {
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 960);
+  const [isMobile, setIsMobile] = useState(false);
 
   // Update otomatis kalau layar di-resize
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth <= 960);
+    handleResize(); // cek awal setelah komponen ter-mount
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
@@ -23,7 +24,7 @@ export default function Header() {
         <input type="checkbox" id="menu" />
         <div className="navbar-logo">
           <div className="logo">
-            <Link to="/beranda">
+            <Link to="/">
               <img
                 src="/images/logo-koribali.png"
                 alt="logo koribali"
@@ -32,7 +33,7 @@ export default function Header() {
               />
             </Link>
             <div className="navbar-title">
-              <Link to="/beranda">
+              <Link to="/">
                 <h1>
                   KORI<span>BALI</span>
                 </h1>
@@ -53,7 +54,7 @@ export default function Header() {
           <div className="navbar-menu">
             <ul>
               <li>
-                <Link to="/beranda">Beranda</Link>
+                <Link to="/">Beranda</Link>
               </li>
               <li>
                 <Link to="/struktur">Struktur Pegawai</Link>
@@ -84,7 +85,7 @@ export default function Header() {
         <input type="checkbox" id="menu" />
         <div className="navbar-logo">
           <div className="logo">
-            <Link to="/beranda">
+            <Link to="/">
               <img
                 src="/images/logo-koribali.png"
                 alt="logo koribali"
@@ -93,7 +94,7 @@ export default function Header() {
               />
             </Link>
             <div className="navbar-title">
-              <Link to="/beranda">
+              <Link to="/">
                 <h1>
                   KORI<span>BALI</span>
                 </h1>
@@ -118,7 +119,7 @@ export default function Header() {
         <div className="navbar-menu">
           <ul>
             <li>
-              <Link to="/beranda">Beranda</Link>
+              <Link to="/">Beranda</Link>
             </li>
             <li>
               <Link to="/struktur">Struktur Pegawai</Link>
