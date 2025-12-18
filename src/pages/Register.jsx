@@ -316,7 +316,7 @@ function Register() {
               </button>
 
               <p className="text">
-                <Link to="/">Already have an account? Log in here</Link>.
+                <Link to="/login">Already have an account? Log in here</Link>.
               </p>
             </Form>
           </Formik>
