@@ -10,7 +10,7 @@ export default function Breadcrumb({ page }) {
         <li>
           <Link to="/" className="breadcrumb-link">
             <Home size={16} strokeWidth={2} />
-            <span>Beranda</span>
+            <span>Home</span>
           </Link>
         </li>
         <li className="breadcrumb-separator">

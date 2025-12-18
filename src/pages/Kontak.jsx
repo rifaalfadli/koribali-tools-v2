@@ -14,15 +14,15 @@ export default function Kontak() {
       <Header />
       <div className="page-wrapper">
         <Helmet>
-          <title>Kontak - CV. KORI BALI</title>
+          <title>Contact - CV. KORI BALI</title>
           <meta
             name="description"
             content="Hubungi CV. KORI BALI untuk pertanyaan, informasi layanan, atau kerja sama bisnis. Kami siap membantu Anda."
           />
         </Helmet>
 
-        <Hero title="Informasi Kontak" />
-        <Breadcrumb page="Kontak" />
+        <Hero title="Contact Information" />
+        <Breadcrumb page="Contact" />
 
         <main>
           <section className="informasi-kontak container">

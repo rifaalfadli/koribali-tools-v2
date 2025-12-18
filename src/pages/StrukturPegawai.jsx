@@ -132,15 +132,15 @@ export default function StrukturPegawai() {
       <Header />
       <div className="page-wrapper">
         <Helmet>
-          <title>Struktur Pegawai - CV. KORI BALI</title>
+          <title>Our Team - CV. KORI BALI</title>
           <meta
             name="description"
             content="Halaman struktur pegawai CV. KORI BALI yang menampilkan susunan tim setiap divisi."
           />
         </Helmet>
 
-        <Hero title="Struktur Pegawai" />
-        <Breadcrumb page="Struktur Pegawai" />
+        <Hero title="Our Team" />
+        <Breadcrumb page="Our Team" />
 
         <main>
           <DivisiTable id="ys" title="Divisi YS" data={ys} />

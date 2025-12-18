@@ -20,7 +20,7 @@ export default function Footer() {
 
             {/* Mitra Utama */}
             <div className="footer-mitra">
-              <h3>Mitra Utama:</h3>
+              <h3>key partner:</h3>
               <div className="mitra-logo">
                 <Link
                   to="https://www.ypole.co.jp/english/"
@@ -64,41 +64,41 @@ export default function Footer() {
           <ul>
             <li>
               <Link to="/">
-                <h4>Beranda</h4>
+                <h4>Home</h4>
               </Link>
             </li>
             <li>
               <Link to="/struktur">
-                <h4>Struktur Pegawai</h4>
+                <h4>Our Team</h4>
               </Link>
             </li>
             <li>
               <Link to="/proyek">
-                <h4>Proyek</h4>
+                <h4>Project</h4>
               </Link>
               <ol>
                 <li>
-                  <Link to="/proyek/proyek-2D">Proyek 2D</Link>
+                  <Link to="/proyek/proyek-2D">2D Project</Link>
                 </li>
                 <li>
-                  <Link to="/proyek/proyek-3D">Proyek 3D</Link>
+                  <Link to="/proyek/proyek-3D">3D Project</Link>
                 </li>
                 <li>
-                  <Link to="/proyek/proyek-VBA">Proyek VBA</Link>
+                  <Link to="/proyek/proyek-VBA">VBA Project</Link>
                 </li>
                 <li>
-                  <Link to="/proyek/proyek-rendering">Proyek Rendering</Link>
+                  <Link to="/proyek/proyek-rendering">Rendering Project</Link>
                 </li>
               </ol>
             </li>
             <li>
               <Link to="/galeri">
-                <h4>Galeri</h4>
+                <h4>Gallery</h4>
               </Link>
             </li>
             <li>
               <Link to="/kontak">
-                <h4>Kontak</h4>
+                <h4>Contact</h4>
               </Link>
             </li>
           </ul>

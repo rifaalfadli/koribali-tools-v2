@@ -13,15 +13,15 @@ export default function ProyekPage() {
       <Header />
       <div className="page-wrapper">
         <Helmet>
-          <title>Proyek Kami - CV. KORI BALI</title>
+          <title>Our Project - CV. KORI BALI</title>
           <meta
             name="description"
             content="Lihat daftar proyek yang telah diselesaikan oleh CV. KORI BALI, lengkap dengan dokumentasi dan foto hasil kerja."
           />
         </Helmet>
 
-        <Hero title="Proyek Kami" />
-        <Breadcrumb page="Proyek" />
+        <Hero title="Our Project" />
+        <Breadcrumb page="Project" />
         <MainPage />
       </div>
       <Footer />

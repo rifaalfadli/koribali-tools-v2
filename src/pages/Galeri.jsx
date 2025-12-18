@@ -52,15 +52,15 @@ export default function Galeri() {
       <Header />
       <div className="page-wrapper">
         <Helmet>
-          <title>Galeri Produk - CV. KORI BALI</title>
+          <title>Product Gallery - CV. KORI BALI</title>
           <meta
             name="description"
             content="Lihat hasil pekerjaan CV. KORI BALI dalam bentuk foto dan dokumentasi proyek dari berbagai divisi."
           />
         </Helmet>
 
-        <Hero title="Galeri Produk" />
-        <Breadcrumb page="Galeri" />
+        <Hero title="Product Gallery" />
+        <Breadcrumb page="Gallery" />
 
         <main>
           <section id="galeri-preview" className="carousel-container">

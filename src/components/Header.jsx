@@ -66,7 +66,7 @@ export default function Header() {
                 <Link to="/">Home</Link>
               </li>
               <li>
-                <Link to="/struktur">Employee Structure</Link>
+                <Link to="/struktur">Our Team</Link>
               </li>
               <li>
                 <Link to="/proyek">Project</Link>
@@ -160,7 +160,7 @@ export default function Header() {
               <Link to="/">Home</Link>
             </li>
             <li>
-              <Link to="/struktur">Employee Structure</Link>
+              <Link to="/struktur">Our Team</Link>
             </li>
             <li>
               <Link to="/proyek">Project</Link>

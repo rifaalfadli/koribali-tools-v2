@@ -290,7 +290,7 @@ export default function ProfilePage() {
       <Header />
       <div className="page-wrapper">
         <Helmet>
-          <title>Profil Pengguna - CV. KORI BALI</title>
+          <title>User Profile - CV. KORI BALI</title>
           <meta
             name="description"
             content="Halaman profil pengguna CV. KORI BALI untuk melihat dan mengedit data pribadi akun Anda."
