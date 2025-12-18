@@ -9,7 +9,7 @@ export default function GaleriSection() {
   const galeriRef = useRef(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [scrollIndex, setScrollIndex] = useState(0);
-  const images = [14, 15, 16, 17, 18, 19];
+  const images = [14, 15, 16, 17, 18, 19, 20, 21, 22];
 
   const handleHover = (index) => {
     setActiveIndex(index);
