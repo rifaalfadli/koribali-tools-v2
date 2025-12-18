@@ -38,22 +38,22 @@ export default function Entry() {
             <div
               onClick={() => navigate("/login")}
               className="group relative cursor-pointer overflow-hidden rounded-2xl bg-white p-8
-                   shadow-md transition-all duration-500 ease-out
-                   hover:scale-[1.035] hover:shadow-xl"
+              shadow-md transition-all duration-500 ease-out
+              hover:scale-[1.035] hover:shadow-xl"
             >
               {/* BLUE OVERLAY */}
               <div
                 className="pointer-events-none absolute inset-0 bg-gradient-to-br
-                     from-[#0d3b66]/15 via-[#0d3b66]/5 to-transparent
-                     opacity-0 transition-opacity duration-500
-                     group-hover:opacity-100"
+                from-[#0d3b66]/15 via-[#0d3b66]/5 to-transparent
+                opacity-0 transition-opacity duration-500
+                group-hover:opacity-100"
               />
 
               <div
                 className="relative z-10 mx-auto flex h-16 w-16 items-center justify-center rounded-full
-                     bg-[#0d3b66]/10 text-[#0d3b66]
-                     transition-all duration-500
-                     group-hover:scale-110 group-hover:shadow-md"
+                bg-[#0d3b66]/10 text-[#0d3b66]
+                transition-all duration-500
+                group-hover:scale-110 group-hover:shadow-md"
               >
                 <User size={32} />
               </div>
@@ -70,22 +70,22 @@ export default function Entry() {
             <div
               onClick={handleGuest}
               className="group relative cursor-pointer overflow-hidden rounded-2xl bg-white p-8
-                   shadow-md transition-all duration-500 ease-out
-                   hover:scale-[1.035] hover:shadow-xl"
+              shadow-md transition-all duration-500 ease-out
+              hover:scale-[1.035] hover:shadow-xl"
             >
               {/* BLUE OVERLAY */}
               <div
                 className="pointer-events-none absolute inset-0 bg-gradient-to-br
-                     from-[#3399cc]/20 via-[#3399cc]/10 to-transparent
-                     opacity-0 transition-opacity duration-500
-                     group-hover:opacity-100"
+                from-[#3399cc]/20 via-[#3399cc]/10 to-transparent
+                opacity-0 transition-opacity duration-500
+                group-hover:opacity-100"
               />
 
               <div
                 className="relative z-10 mx-auto flex h-16 w-16 items-center justify-center rounded-full
-                     bg-[#3399cc]/10 text-[#3399cc]
-                     transition-all duration-500
-                     group-hover:scale-110 group-hover:shadow-md"
+                bg-[#3399cc]/10 text-[#3399cc]
+                transition-all duration-500
+                group-hover:scale-110 group-hover:shadow-md"
               >
                 <UserX size={32} />
               </div>

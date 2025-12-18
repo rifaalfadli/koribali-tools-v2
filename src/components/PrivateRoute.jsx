@@ -36,7 +36,7 @@ import Cookies from "js-cookie";
 const ProtectedRoute = ({ children }) => {
   const userCookie = Cookies.get("user");
 
-  // 1️⃣ Belum login sama sekali → Entry page
+  // Belum login sama sekali => Entry page
   if (!userCookie) {
     return <Navigate to="/entry" replace />;
   }
@@ -45,13 +45,13 @@ const ProtectedRoute = ({ children }) => {
     const parsedUser = JSON.parse(userCookie);
     const { id, role } = parsedUser;
 
-    // 2️⃣ Cookie ada tapi tidak valid → Login
+    // Cookie ada tapi tidak valid => Login
     if (!id || !role) {
       Cookies.remove("user");
-      return <Navigate to="/entry" replace />;
+      return <Navigate to="/login" replace />;
     }
 
-    // 3️⃣ Guest & Member boleh masuk
+    // Guest & Member boleh masuk
     return children;
   } catch (err) {
     console.error("Auth error:", err);

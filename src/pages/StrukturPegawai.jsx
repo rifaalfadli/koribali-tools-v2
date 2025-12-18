@@ -91,16 +91,17 @@ export default function StrukturPegawai() {
   useEffect(() => {
     const loadAnggota = async () => {
       try {
-        // 1️⃣ ambil data default (database.json)
+        // ambil data default (database.json)
         const res = await fetch("/database.json");
         const json = await res.json();
         const defaultAnggota = json.anggota || [];
 
-        // 2️⃣ ambil data hasil register
-        const localAnggota = JSON.parse(localStorage.getItem("anggota")) || [];
+        // ambil data hasil register
+        // const localAnggota = JSON.parse(localStorage.getItem("anggota")) || [];
 
-        // 3️⃣ gabungkan & sanitasi
-        const merged = [...defaultAnggota, ...localAnggota].map(
+        // gabungkan & sanitasi
+        // const merged = [...defaultAnggota, ...localAnggota].map(
+        const merged = [...defaultAnggota].map(
           ({ fullname, email, divisi }) => ({
             fullname,
             email,
