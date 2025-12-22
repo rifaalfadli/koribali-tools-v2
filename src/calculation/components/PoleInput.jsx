@@ -72,8 +72,8 @@ export function PoleInput({
               onChange={(e) => onUpdate({ poleType: e.target.value })}
               className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#3399cc] focus:border-[#3399cc] outline-none transition-all bg-white"
             >
-              <option value="Taper">Taper</option>
               <option value="Straight">Straight</option>
+              <option value="Taper">Taper</option>
             </select>
           </div>
         </div>
