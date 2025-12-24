@@ -18,7 +18,7 @@ export const CoverInputModal = ({
         <div className="bg-gradient-to-r from-[#0d3b66] to-[#3399cc] p-4 flex items-center justify-between">
           <div className="bg-white/10 backdrop-blur-sm px-3 py-2 rounded-lg border border-white/20">
             <h2 className="text-white font-bold text-[16px]">
-              Input Cover Information
+              Cover Information
             </h2>
           </div>
 

@@ -270,14 +270,14 @@ export const handleCalculateResults = (
 
   // VALIDATION: condition information
   if (!handleIsConditionComplete()) {
-    showToast("Please complete all Condition Information fields!");
+    showToast("Please complete all Standard and Condition fields.");
     errors.condition = true;
   }
 
   // VALIDATION: each section pole
   for (let section of sections) {
     if (!handleIsSectionComplete(section)) {
-      showToast("Please complete all Section Pole fields!");
+      showToast("Please complete all Pole Specification fields.");
       errors.section = true;
       break;
     }
@@ -318,30 +318,26 @@ export const makeReport = (
 
   // CHECK 1: Results
   if (results.length === 0) {
-    showToast("No calculation results to generate report!");
+    showToast("No calculation results available.");
     errors.results = true;
   }
 
   // CHECK 2: Cover
   if (!handleIsCoverComplete()) {
-    showToast("Please complete all Cover Information before making report!");
+    showToast("Please complete the Cover Information first.");
     errors.cover = true;
   }
 
   // CHECK 3: Condition
   if (!handleIsConditionComplete()) {
-    showToast(
-      "Please complete all Condition Information before making report!"
-    );
+    showToast("Please complete complete all Standard and Condition first.");
     errors.condition = true;
   }
 
   // CHECK 4: Sections
   for (let section of sections) {
     if (!handleIsSectionComplete(section)) {
-      showToast(
-        "Please complete all Section Pole fields before making report!"
-      );
+      showToast("Please complete all Pole Specification first.");
       errors.section = true;
       break;
     }

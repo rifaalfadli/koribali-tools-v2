@@ -1,7 +1,7 @@
 import { RotateCcw, AlertCircle } from "lucide-react";
 
 export function CoverInput({ cover, onUpdate, onMake, errors }) {
-  // Function to reset all inputs to default (empty)
+  // Function to reset all imputs to default (empty)
   const handleReset = () => {
     onUpdate({
       managementMark: "",

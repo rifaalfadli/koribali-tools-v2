@@ -338,9 +338,7 @@ export function PoleCalculator() {
         >
           {/* Judul cover */}
           <div className="bg-white/10 backdrop-blur-sm px-4 py-2 rounded-lg border border-white/20">
-            <h2 className="text-white font-bold">
-              Input Standard and Condition
-            </h2>
+            <h2 className="text-white font-bold">Standard and Condition</h2>
           </div>
 
           {/* Icon toggle (up/down) */}
@@ -381,7 +379,7 @@ export function PoleCalculator() {
           {/* Judul cover */}
           <div className="bg-white/10 backdrop-blur-sm px-4 py-2 rounded-lg border border-white/20">
             <h2 id="pole-section-title" className="text-white font-bold">
-              Input Step Pole
+              Pole Specifications
             </h2>
           </div>
 
