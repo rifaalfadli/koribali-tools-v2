@@ -8,19 +8,19 @@ import {
   Circle,
 } from "lucide-react";
 
-export function DirectObjectInput({
-  directObjects,
-  doInputValue,
-  setDoInputValue,
+export function OverheadWireInput({
+  overheadWires,
+  ohwInputValue,
+  setOhwInputValue,
   onUpdate,
   errors,
-  onAddDo,
-  onCopyDo,
-  onPasteDo,
+  onAddOhw,
+  onCopyOhw,
+  onPasteOhw,
   hasClipboard,
-  setConfirmDeleteDo,
-  resetCurrentDo,
-  handleAddDo,
+  setConfirmDeleteOhw,
+  resetCurrentOhw,
+  handleAddOhw,
 }) {
   // Function to helper class input
   const inputClass = (hasError) =>
@@ -39,24 +39,24 @@ export function DirectObjectInput({
       </div>
     ) : null;
 
-  const doValueNumber = Number(doInputValue);
-  const isDoInputValue =
-    !doInputValue ||
-    isNaN(doInputValue) ||
-    doValueNumber <= 0 ||
-    doValueNumber > 25;
+  const ohwValueNumber = Number(ohwInputValue);
+  const isOhwInputValue =
+    !ohwInputValue ||
+    isNaN(ohwInputValue) ||
+    ohwValueNumber <= 0 ||
+    ohwValueNumber > 25;
 
   return (
     <div className="rounded-b-2xl shadow-sm border border-gray-200 overflow-hidden bg-white">
       <div className="px-6 pt-6 pb-3">
         <div>
-          {/* HEADER DIRECT OBJECT INPUT */}
+          {/* HEADER OVERHEAD WIRE INPUT */}
           <div className="flex items-center justify-between mb-1">
             <div>
               <h2 className="text-[#0d3b66] font-medium text-sm flex items-center gap-1">
                 <div className="w-1 h-4 bg-[#3399cc] rounded-full mr-1"></div>
                 <span className="font-semibold">
-                  Configure up to 25 Direct Objects
+                  Configure up to 8 Overhead Wires
                 </span>
                 <span>with detailed specifications</span>
               </h2>
@@ -72,25 +72,25 @@ export function DirectObjectInput({
             <input
               type="number"
               min={1}
-              max={25}
-              placeholder="Object Count"
-              value={doInputValue}
-              onChange={(e) => setDoInputValue(e.target.value)}
+              max={8}
+              placeholder="OHW Count"
+              value={ohwInputValue}
+              onChange={(e) => setOhwInputValue(e.target.value)}
               className="w-[180px] px-7 py-2.5 text-center text-sm rounded-lg outline-none transition-all border border-[#3399cc] bg-white focus:ring-1 focus:ring-[#3399cc]"
             />
 
             <button
-              onClick={onAddDo}
-              disabled={isDoInputValue}
+              onClick={onAddOhw}
+              disabled={isOhwInputValue}
               className={`flex items-center gap-2 px-7 py-2.5 text-sm font-medium rounded-lg transition-all shadow-md border 
                     ${
-                      isDoInputValue
+                      isOhwInputValue
                         ? "bg-gray-50 border-gray-300 text-gray-600 opacity-40 cursor-not-allowed"
                         : "bg-blue-50 border-blue-500 text-blue-700 hover:bg-blue-100"
                     }`}
             >
               {/* Status Icon */}
-              {isDoInputValue ? (
+              {isOhwInputValue ? (
                 <Circle className="w-5 h-5 text-gray-400" />
               ) : (
                 <CheckCircle className="w-5 h-5 text-blue-500" />
@@ -102,29 +102,29 @@ export function DirectObjectInput({
           {/* Show Object Count */}
           <div className="flex items-center gap-2 px-7 py-2.5 text-sm rounded-lg bg-slate-50 border border-slate-200 text-slate-700 font-medium">
             <span className="text-[#0d3b66] font-semibold">
-              {directObjects.length}
+              {overheadWires.length}
             </span>
             <span className="text-slate-400">/</span>
-            <span className="text-slate-600">25 Direct Objects</span>
+            <span className="text-slate-600">8 Overhead Wires</span>
           </div>
         </div>
       </div>
 
-      {directObjects.length === 0 && (
+      {overheadWires.length === 0 && (
         <div className="text-center text-gray-400 text-sm py-6">
-          No Direct Object added yet
+          No Overhead Wire added yet
         </div>
       )}
 
-      {/* ACTIVE DO INPUT */}
-      {directObjects.map((directObject, index) => {
-        const doError = errors?.[directObject.idDo] || {};
-        const isLast = index === directObjects.length - 1;
-        const hasMultiple = directObjects.length > 1;
+      {/* ACTIVE OHW INPUT */}
+      {overheadWires.map((overheadWire, index) => {
+        const ohwError = errors?.[overheadWire.idOhw] || {};
+        const isLast = index === overheadWire.length - 1;
+        const hasMultiple = overheadWires.length > 1;
 
         return (
           <div
-            key={directObject.idDo}
+            key={overheadWire.idOhw}
             className={`hover:bg-blue-50 p-6 
             ${hasMultiple && !isLast ? "border-b border-gray-200" : ""}`}
           >
@@ -142,11 +142,10 @@ export function DirectObjectInput({
 
                 <div>
                   <h4 className="text-base text-[#0d3b66] text-sm font-medium leading-snug">
-                    Direct Object
-                    {directObject.nameDo && ` - ${directObject.nameDo}`}
+                    Overhide Wire
                   </h4>
                   <p className="text-xs text-gray-500">
-                    {directObject.typeOfDo} Type
+                    {overheadWire.nameOhw && `${overheadWire.nameOhw}`}
                   </p>
                 </div>
               </div>
@@ -156,8 +155,8 @@ export function DirectObjectInput({
                 <div className="flex items-center gap-2 ml-2">
                   {/* COPY */}
                   <button
-                    onClick={() => onCopyDo(directObject)}
-                    title="Copy this Direct Object"
+                    onClick={() => onCopyOhw(overheadWire)}
+                    title="Copy this Overhead Wire"
                     className="
                       p-2 rounded-md border
                       bg-blue-50 text-blue-600
@@ -170,12 +169,12 @@ export function DirectObjectInput({
 
                   {/* PASTE */}
                   <button
-                    onClick={() => onPasteDo(directObject.idDo)}
+                    onClick={() => onPasteOhw(overheadWire.idOhw)}
                     disabled={!hasClipboard}
                     title={
                       hasClipboard
-                        ? "Paste copied Direct Object"
-                        : "No copied Direct Object"
+                        ? "Paste copied Overhead Wire"
+                        : "No copied Overhead Wire"
                     }
                     className={`
                       p-2 rounded-md border transition
@@ -190,7 +189,7 @@ export function DirectObjectInput({
                   </button>
                 </div>
                 <button
-                  onClick={() => resetCurrentDo(directObject.idDo)}
+                  onClick={() => resetCurrentOhw(overheadWire.idOhw)}
                   className="flex items-center gap-2
                   px-5 py-2 h-[40px] text-xs
                   bg-[#eef2f6] text-[#0d3b66]
@@ -207,7 +206,7 @@ export function DirectObjectInput({
                 <button
                   onClick={(e) => {
                     e.stopPropagation();
-                    setConfirmDeleteDo(directObject.idDo);
+                    setConfirmDeleteOhw(overheadWire.idOhw);
                   }}
                   className="flex items-center gap-2
                   px-4 py-2 h-[40px]
@@ -220,7 +219,7 @@ export function DirectObjectInput({
                   text-sm font-medium"
                 >
                   <Trash2 className="w-4 h-4" />
-                  <span>Delete Object</span>
+                  <span>Delete OHW</span>
                 </button>
               </div>
             </div>
@@ -228,202 +227,215 @@ export function DirectObjectInput({
             {/* FORM CARD WRAPPER */}
             <div>
               <div className="flex space-x-2">
-                {/* Direct Object Name Input */}
+                {/* Overhead Wire Name Input */}
                 <div className="relative w-[200px]">
                   <label className="block text-sm text-gray-700 mb-2">
-                    Object Name
+                    OHW Name
                   </label>
                   <input
                     type="text"
-                    value={directObject.nameDo}
+                    value={overheadWire.nameOhw}
                     onChange={(e) =>
-                      onUpdate(directObject.idDo, { nameDo: e.target.value })
+                      onUpdate(overheadWire.idOhw, { nameOhw: e.target.value })
                     }
-                    placeholder="e.g., 灯具"
-                    className={inputClass(doError.nameDo)}
+                    placeholder="e.g., DV2.6-2C"
+                    className={inputClass(ohwError.nameOhw)}
                   />
-                  <ErrorText show={doError.nameDo} text="Required field" />
+                  <ErrorText show={ohwError.nameOhw} text="Required field" />
                 </div>
 
-                {/* Type of Direct Object Selector */}
-                <div className="relative w-[140px]">
-                  <label className="block text-sm text-gray-700 mb-2">
-                    Type of DO
-                  </label>
-                  <select
-                    value={directObject.typeOfDo}
-                    onChange={(e) =>
-                      onUpdate(directObject.idDo, { typeOfDo: e.target.value })
-                    }
-                    className={inputClass(doError.typeOfDo)}
-                  >
-                    <option value="omni">Omni</option>
-                    <option value="directional">Directional</option>
-                  </select>
-                  <ErrorText show={doError.typeOfDo} text="Required field" />
-                </div>
-
-                {/* Front Area Direct Object Input */}
-                <div className="relative w-[140px]">
-                  <label className="block text-sm text-gray-700 mb-2">
-                    Front Area
-                  </label>
-                  <div className="relative">
-                    <input
-                      type="number"
-                      value={directObject.frontAreaDo}
-                      onChange={(e) =>
-                        onUpdate(directObject.idDo, {
-                          frontAreaDo: e.target.value,
-                        })
-                      }
-                      className={`${inputClass(doError.frontAreaDo)} pr-6`}
-                    />
-                    <span className="absolute right-2 top-1/2 -translate-y-1/2 text-xs text-black-400">
-                      m<sup>2</sup>
-                    </span>
-                  </div>
-                  <ErrorText show={doError.frontAreaDo} text="Required field" />
-                </div>
-
-                {/* Side Area Direct Object Input */}
-                {directObject.typeOfDo === "directional" && (
-                  <div className="relative w-[140px]">
-                    <label className="block text-sm text-gray-700 mb-2">
-                      Side Area
-                    </label>
-                    <div className="relative">
-                      <input
-                        type="number"
-                        value={directObject.sideAreaDo}
-                        onChange={(e) =>
-                          onUpdate(directObject.idDo, {
-                            sideAreaDo: e.target.value,
-                          })
-                        }
-                        className={`${inputClass(doError.sideAreaDo)} pr-6`}
-                      />
-                      <span className="absolute right-2 top-1/2 -translate-y-1/2 text-xs text-black-400">
-                        m<sup>2</sup>
-                      </span>
-                    </div>
-                    <ErrorText
-                      show={doError.sideAreaDo}
-                      text="Required field"
-                    />
-                  </div>
-                )}
-
-                {/* Weight Direct Object Input */}
-                <div className="relative w-[140px]">
+                {/* Weight Massa Overhead Wire Input */}
+                <div className="relative w-[150px]">
                   <label className="block text-sm text-gray-700 mb-2">
                     Weight
                   </label>
                   <div className="relative">
                     <input
                       type="number"
-                      value={directObject.weightDo}
+                      value={overheadWire.weightOhw}
                       onChange={(e) =>
-                        onUpdate(directObject.idDo, {
-                          weightDo: e.target.value,
+                        onUpdate(overheadWire.idOhw, {
+                          weightOhw: e.target.value,
                         })
                       }
-                      className={`${inputClass(doError.weightDo)} pr-6`}
+                      className={`${inputClass(ohwError.weightOhw)} pr-10`}
                     />
                     <span className="absolute right-2 top-1/2 -translate-y-1/2 text-xs text-black-400">
-                      kg
+                      kg/m
                     </span>
                   </div>
-                  <ErrorText show={doError.weightDo} text="Required field" />
+                  <ErrorText show={ohwError.weightOhw} text="Required field" />
                 </div>
 
-                {/* Z (Height) Direct Object Input */}
+                {/* Diameter Overhead Wire Input */}
                 <div className="relative w-[140px]">
                   <label className="block text-sm text-gray-700 mb-2">
-                    Z (Height)
+                    Diameter
                   </label>
                   <div className="relative">
                     <input
                       type="number"
-                      value={directObject.heightDo}
+                      value={overheadWire.diameterOhw}
                       onChange={(e) =>
-                        onUpdate(directObject.idDo, {
-                          heightDo: e.target.value,
+                        onUpdate(overheadWire.idOhw, {
+                          diameterOhw: e.target.value,
                         })
                       }
-                      className={`${inputClass(doError.heightDo)} pr-8`}
+                      className={`${inputClass(ohwError.diameterOhw)} pr-8`}
                     />
                     <span className="absolute right-2 top-1/2 -translate-y-1/2 text-xs text-black-400">
                       mm
                     </span>
                   </div>
-                  <ErrorText show={doError.heightDo} text="Required field" />
+                  <ErrorText
+                    show={ohwError.diameterOhw}
+                    text="Required field"
+                  />
                 </div>
 
-                {/* nnC Direct Object Input */}
-                <div className="relative w-[140px]">
+                {/* Fix Height Overhead Wire Input */}
+                <div className="relative w-[150px]">
+                  <label className="block text-sm text-gray-700 mb-2">
+                    Fix Height (Z)
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="number"
+                      value={overheadWire.fixheightOhw}
+                      onChange={(e) =>
+                        onUpdate(overheadWire.idOhw, {
+                          fixheightOhw: e.target.value,
+                        })
+                      }
+                      className={`${inputClass(ohwError.fixheightOhw)} pr-8`}
+                    />
+                    <span className="absolute right-2 top-1/2 -translate-y-1/2 text-xs text-black-400">
+                      mm
+                    </span>
+                  </div>
+                  <ErrorText
+                    show={ohwError.fixheightOhw}
+                    text="Required field"
+                  />
+                </div>
+
+                {/* Span Overhead Wire Input */}
+                <div className="relative w-[150px]">
+                  <label className="block text-sm text-gray-700 mb-2">
+                    Span
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="number"
+                      value={overheadWire.spanOhw}
+                      onChange={(e) =>
+                        onUpdate(overheadWire.idOhw, {
+                          spanOhw: e.target.value,
+                        })
+                      }
+                      className={`${inputClass(ohwError.spanOhw)} pr-8`}
+                    />
+                    <span className="absolute right-2 top-1/2 -translate-y-1/2 text-xs text-black-400">
+                      mm
+                    </span>
+                  </div>
+                  <ErrorText show={ohwError.spanOhw} text="Required field" />
+                </div>
+
+                {/* Sagging Ratio Overhead Wire Input */}
+                <div className="relative w-[125px]">
+                  <label className="block text-sm text-gray-700 mb-2">
+                    Sagging Ratio
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="number"
+                      value={overheadWire.saggingOhw}
+                      onChange={(e) =>
+                        onUpdate(overheadWire.idOhw, {
+                          saggingOhw: e.target.value,
+                        })
+                      }
+                      className={`${inputClass(ohwError.saggingOhw)} pr-4`}
+                    />
+                    <span className="absolute right-2 top-1/2 -translate-y-1/2 text-xs text-black-400">
+                      %
+                    </span>
+                  </div>
+                  <ErrorText show={ohwError.saggingOhw} text="Required field" />
+                </div>
+
+                {/* nnC Overhead Wire Input */}
+                <div className="relative w-[125px]">
                   <label className="block text-sm text-gray-700 mb-2">
                     nnC
                   </label>
                   <input
                     type="number"
-                    value={directObject.nncDo}
+                    value={overheadWire.nncOhw}
                     onChange={(e) =>
-                      onUpdate(directObject.idDo, { nncDo: e.target.value })
+                      onUpdate(overheadWire.idOhw, {
+                        nncOhw: e.target.value,
+                      })
                     }
-                    className={inputClass(doError.nncDo)}
+                    className={`${inputClass(ohwError.nncOhw)}`}
                   />
-                  <ErrorText show={doError.nncDo} text="Required field" />
+                  <ErrorText show={ohwError.nncOhw} text="Required field" />
                 </div>
 
-                {/* Quantity Direct Object Input */}
-                <div className="relative w-[100px]">
+                {/* Fix Angle Overhead Wire Input */}
+                <div className="relative w-[130px]">
                   <label className="block text-sm text-gray-700 mb-2">
-                    Quantity
+                    Fix Angle
                   </label>
                   <div className="relative">
                     <input
                       type="number"
-                      value={directObject.qtyDo}
+                      value={overheadWire.fixAngleOhw}
                       onChange={(e) =>
-                        onUpdate(directObject.idDo, { qtyDo: e.target.value })
+                        onUpdate(overheadWire.idOhw, {
+                          fixAngleOhw: e.target.value,
+                        })
                       }
-                      className={`${inputClass(doError.qtyDo)} pr-8`}
+                      className={`${inputClass(ohwError.fixAngleOhw)} pr-8`}
                     />
                     <span className="absolute right-2 top-1/2 -translate-y-1/2 text-xs text-black-400">
-                      pcs
+                      deg
                     </span>
                   </div>
-                  <ErrorText show={doError.qtyDo} text="Required field" />
+                  <ErrorText
+                    show={ohwError.fixAngleOhw}
+                    text="Required field"
+                  />
                 </div>
 
-                {/* Fix Angle Direct Object Input */}
-                {directObject.typeOfDo === "directional" && (
-                  <div className="relative w-[140px]">
-                    <label className="block text-sm text-gray-700 mb-2">
-                      Fix Angle
-                    </label>
-                    <div className="relative">
-                      <input
-                        type="number"
-                        value={directObject.fixAngleDo}
-                        onChange={(e) =>
-                          onUpdate(directObject.idDo, {
-                            fixAngleDo: e.target.value,
-                          })
-                        }
-                        className={`${inputClass(doError.fixAngleDo)} pr-8`}
-                      />
-                      <span className="absolute right-2 top-1/2 -translate-y-1/2 text-xs text-black-400">
-                        deg
-                      </span>
-                    </div>
-                    <ErrorText
-                      show={doError.fixAngleDo}
-                      text="Required field"
+                {/* Vertical Angle Overhead Wire Input */}
+                <div className="relative w-[130px]">
+                  <label className="block text-sm text-gray-700 mb-2">
+                    Vertical Angle
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="number"
+                      value={overheadWire.verticalAngleOhw}
+                      onChange={(e) =>
+                        onUpdate(overheadWire.idOhw, {
+                          verticalAngleOhw: e.target.value,
+                        })
+                      }
+                      className={`${inputClass(
+                        ohwError.verticalAngleOhw,
+                      )} pr-8`}
                     />
+                    <span className="absolute right-2 top-1/2 -translate-y-1/2 text-xs text-black-400">
+                      deg
+                    </span>
                   </div>
-                )}
+                  <ErrorText
+                    show={ohwError.verticalAngleOhw}
+                    text="Required field"
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -436,17 +448,17 @@ export function DirectObjectInput({
       <div className="flex justify-between items-center p-6">
         {/* Add Button */}
         <button
-          onClick={handleAddDo}
-          disabled={directObjects.length >= 25}
+          onClick={handleAddOhw}
+          disabled={overheadWires.length >= 8}
           className={`flex items-center gap-2 px-7 py-2.5 font-medium text-sm rounded-lg transition-all shadow-md 
                     ${
-                      directObjects.length >= 25
+                      overheadWires.length >= 8
                         ? "bg-gray-300 text-black opacity-40 cursor-not-allowed"
                         : "bg-gradient-to-r from-[#0d3b66] to-[#3399cc] text-white hover:brightness-110"
                     }`}
         >
           <Plus className="w-5 h-5" />
-          Add Object
+          Add OHW
         </button>
       </div>
     </div>

@@ -19,8 +19,8 @@ export default function Calculation() {
         {/* <Hero title="Calculation" />
         <Breadcrumb page="Kontak" /> */}
 
-        <div className="pt-8 container flex-1">
-          <div className="min-h-screen bg-gray-50 border border-gray-250">
+        <div className="pt-8 flex justify-center">
+          <div className="min-h-screen w-4/5 bg-gray-50 border border-gray-250 hp:w-[95%]">
             <PoleCalculator />
           </div>
         </div>

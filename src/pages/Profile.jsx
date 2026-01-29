@@ -1,11 +1,12 @@
 import { Field, Formik, Form } from "formik";
-import { X, CheckCircle, AlertCircle } from "lucide-react";
+import { X, CheckCircle, AlertCircle, ChevronLeft } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 import clsx from "clsx";
 import { Helmet } from "react-helmet";
-import { motion } from "framer-motion"; // 🟢 DITAMBAHKAN
+import { motion } from "framer-motion";
 import Hero from "../components/Hero";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -167,13 +168,13 @@ export default function ProfilePage() {
     if (!updatedUser) return;
 
     try {
-      // 1️⃣ Gabungkan data lama + data baru (LOGIKA ASLI TETAP)
+      // 1 Gabungkan data lama + data baru (LOGIKA ASLI TETAP)
       const mergedUser = { ...user, ...updatedUser };
 
-      // 2️⃣ Ambil "database" anggota dari localStorage
+      // 2 Ambil "database" anggota dari localStorage
       const anggota = JSON.parse(localStorage.getItem("anggota")) || [];
 
-      // 3️⃣ Update user berdasarkan ID
+      // 3 Update user berdasarkan ID
       let isUpdated = false;
       const updatedAnggota = anggota.map((a) => {
         if (String(a.id) === String(mergedUser.id)) {
@@ -183,18 +184,18 @@ export default function ProfilePage() {
         return a;
       });
 
-      // 4️⃣ Jika user tidak ditemukan
+      // 4 Jika user tidak ditemukan
       if (!isUpdated) {
         throw new Error("User not found");
       }
 
-      // 5️⃣ Simpan kembali ke "database"
+      // 5 Simpan kembali ke "database"
       localStorage.setItem("anggota", JSON.stringify(updatedAnggota));
 
-      // 6️⃣ MENIRU server success response
+      // 6 MENIRU server success response
       const savedUser = mergedUser;
 
-      // 7️⃣ Update state (SAMA PERSIS DENGAN LOGIKA LAMA)
+      // 7 Update state (SAMA PERSIS DENGAN LOGIKA LAMA)
       setUser(savedUser);
       setOriginalUser(savedUser);
       setPhotoState((prev) => ({ ...prev, preview: null }));
@@ -218,7 +219,49 @@ export default function ProfilePage() {
   };
 
   // Tampilkan pesan loading jika data belum tersedia
-  if (!user) return <div className="profile-Loading">Loading profile...</div>;
+  // if (!user) return <div className="">Loading profile...</div>;
+  const navigate = useNavigate();
+
+  // Tampilkan loading + tombol back
+  if (!user) {
+    return (
+      <div className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 via-white to-slate-100">
+        {/* Back Button */}
+        <button
+          onClick={() => navigate(-1)}
+          className="
+            absolute top-6 left-6
+            flex items-center gap-2
+            px-5 py-2.5
+            rounded-xl
+            bg-slate-100
+            border border-slate-200
+            text-slate-700 font-medium
+            shadow-sm
+            transition-colors transition-shadow duration-200
+            hover:bg-slate-200
+            hover:border-slate-300
+            hover:text-slate-800
+            active:bg-slate-300
+          "
+        >
+          <ChevronLeft className="w-5 h-5" />
+          <span>Back</span>
+        </button>
+
+        {/* Loading */}
+        <div className="flex flex-col items-center gap-4">
+          {/* Spinner */}
+          <div className="w-[60px] h-[60px] rounded-full border-4 border-slate-200 border-t-blue-600 animate-spin" />
+
+          {/* Text */}
+          <p className="text-slate-600 text-lg tracking-wide animate-pulse">
+            Loading profile...
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   // Komponen input reusable
   const InputField = ({

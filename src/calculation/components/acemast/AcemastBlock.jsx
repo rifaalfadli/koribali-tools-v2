@@ -1,13 +1,22 @@
 import React from "react";
+import { getRowsForStep } from "../../utils/reportTextFormatter";
 
-export const createBlocks = (results = []) => {
+export const createAcemastBlocks = (
+  results = [],
+  resultsDo = [],
+  resultOhw = [],
+  condition = {},
+  structuralDesign = {},
+) => {
   const blocks = [];
-  let sectionCounter = 0; //number section
+  let sectionCounter = 0;
 
   results.forEach((r, index) => {
+    const rows = getRowsForStep(index, results, resultsDo, structuralDesign);
+
     const suffix = index + 1; // biar id unik: c1-1, c1-2, dst
 
-    //  c1 = 上柱の検討 (Consideration of upper pillars) and 荷重計算 (Load calculation)
+    //  c1 = (Consideration of pillars) and 荷重計算 (Load calculation)
     blocks.push({
       id: `c1-${suffix}`,
       node: (
@@ -43,8 +52,8 @@ export const createBlocks = (results = []) => {
               - Dead load (固定荷重)
               - Wind load (風荷重)
               - Used to find:
-              N1 = vertical force
-              Pmax1 = maximum horizontal force
+              N = vertical force
+              Pmax = maximum horizontal force
             */}
               <table className="tables-pages">
                 <thead>
@@ -95,38 +104,60 @@ export const createBlocks = (results = []) => {
                 </thead>
 
                 <tbody>
-                  {/* Item 1 */}
-                  <tr>
-                    <td className="col-num">1</td>
-                    <td className="col-1 tracking-[0.1em] jp">灯具</td>
-                    <td className="col-left">36.3</td>
-                    <td className="col-left">1</td>
-                    <td className="col-left">36.3</td>
-                    <td className="col-gap"></td>
-                    <td className="col-right">0.065</td>
-                    <td className="col-right">1.0</td>
-                    <td className="col-right">143.9</td>
-                    <td className="col-right">1</td>
-                    <td className="col-right">143.9</td>
-                  </tr>
+                  {rows.map((row, i) => (
+                    <tr key={i}>
+                      <td className="col-num">{i + 1}</td>
 
-                  {/* Item 2 */}
-                  <tr>
-                    <td className="col-num">2</td>
-                    <td className="col-1 tracking-[0.1em] jp">上柱</td>
-                    <td className="col-left">149.6</td>
-                    <td className="col-left">1</td>
-                    <td className="col-left">149.6</td>
-                    <td className="col-gap"></td>
-                    <td className="col-right">0.200</td>
-                    <td className="col-right">0.7</td>
-                    <td className="col-right">310.0</td>
-                    <td className="col-right">1</td>
-                    <td className="col-right">310.0</td>
-                  </tr>
+                      {row.type === "do" && (
+                        <>
+                          <td className="col-1 tracking-[0.1em] jp">
+                            {row.data.nameDo ?? ""}
+                          </td>
+                          <td className="col-left">
+                            {row.data.flDo?.toFixed(1) ?? ""}
+                          </td>
+                          <td className="col-left">{row.data.qtyDo ?? ""}</td>
+                          <td className="col-left">
+                            {row.data.flDo?.toFixed(1) ?? ""}
+                          </td>
+                          <td className="col-gap"></td>
+                          <td className="col-right">
+                            {row.data.frontAreaDo?.toFixed(1) ?? ""}
+                          </td>
+                          <td className="col-right">
+                            {row.data.cfDo?.toFixed(1) ?? ""}
+                          </td>
+                          <td className="col-right">
+                            {row.data.wlafDo?.toFixed(1) ?? ""}
+                          </td>
+                          <td className="col-right">{row.data.qtyDo ?? ""}</td>
+                          <td className="col-right">
+                            {row.data.wlafDo?.toFixed(1) ?? ""}
+                          </td>
+                        </>
+                      )}
+
+                      {row.type === "pole" && (
+                        <>
+                          <td className="col-1 tracking-[0.1em] jp">
+                            {row.data.description ?? ""}
+                          </td>
+                          <td className="col-left">149.6</td>
+                          <td className="col-left">{row.data.qty ?? ""}</td>
+                          <td className="col-left">149.6</td>
+                          <td className="col-gap"></td>
+                          <td className="col-right">0.203</td>
+                          <td className="col-right">0.7</td>
+                          <td className="col-right">310.0</td>
+                          <td className="col-right">{row.data.qty ?? ""}</td>
+                          <td className="col-right">310.0</td>
+                        </>
+                      )}
+                    </tr>
+                  ))}
                 </tbody>
 
-                {/* Total N1(vertical force) dan Pmax 1(horizontal force) */}
+                {/* Total N(vertical force) dan Pmax(horizontal force) */}
                 <tfoot>
                   <tr>
                     <td className="col-num"></td>

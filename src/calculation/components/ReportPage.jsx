@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import A4Report from "./A4Report";
+import LightingPoleReport from "./lightingpole_report/LightingPoleReport";
+import AcemastReport from "./acemast/AcemastReport";
 import {
   ArrowLeft,
   Download,
@@ -18,12 +19,17 @@ export function ReportPage() {
   // Jika tidak ada, fallback ke array kosong untuk mencegah error
   const reportData = location.state || {
     results: JSON.parse(sessionStorage.getItem("results") || "[]"),
-    sections: JSON.parse(sessionStorage.getItem("sections") || "[]"),
+    resultsDo: JSON.parse(sessionStorage.getItem("resultsDo") || "[]"),
+    resultsOhw: JSON.parse(sessionStorage.getItem("resultsOhw") || "[]"),
     cover: JSON.parse(sessionStorage.getItem("cover") || "{}"),
     condition: JSON.parse(sessionStorage.getItem("condition") || "{}"),
+    structuralDesign: JSON.parse(
+      sessionStorage.getItem("structuralDesign") || "{}",
+    ),
   };
 
-  const { results, sections, cover, condition } = reportData;
+  const { results, resultsDo, resultsOhw, cover, condition, structuralDesign } =
+    reportData;
 
   // Tombol kembali ke calculation page
   const onBack = () => navigate("/calculation");
@@ -47,6 +53,39 @@ export function ReportPage() {
     setShowDeleteConfirm(false);
 
     navigate("/calculation", { state: { deleteReport: true } });
+  };
+
+  // Render report component based on selected project type
+  const renderReport = () => {
+    switch (condition?.projectType) {
+      case "lightingPole":
+        return (
+          <div id="report-a4">
+            <LightingPoleReport
+              cover={cover}
+              condition={condition}
+              structuralDesign={structuralDesign}
+              results={results}
+              resultsDo={resultsDo}
+            />
+          </div>
+        );
+      case "acemast":
+        return (
+          <div id="report-a4">
+            <AcemastReport
+              cover={cover}
+              condition={condition}
+              structuralDesign={structuralDesign}
+              results={results}
+              resultsDo={resultsDo}
+              resultsOhw={resultsOhw}
+            />
+          </div>
+        );
+      default:
+        return <div />;
+    }
   };
 
   // Empty State - No Report
@@ -132,7 +171,7 @@ export function ReportPage() {
           <div className="flex items-center justify-between">
             <button
               onClick={onBack}
-              className="flex items-center gap-2 px-5 py-2.5 bg-white text-[#0d3b66] border border-[#0d3b66] rounded-xl hover:bg-blue-50 transition-colors"
+              className="flex items-center text-sm gap-2 px-5 py-2.5 bg-white text-[#0d3b66] border border-[#0d3b66] rounded-lg hover:bg-blue-50 transition-colors"
             >
               <ArrowLeft className="w-4 h-4" />
               Back to Calculator
@@ -140,14 +179,14 @@ export function ReportPage() {
             <div className="flex items-center gap-3">
               <button
                 onClick={() => setShowDeleteConfirm(true)}
-                className="flex items-center gap-2 px-5 py-2.5 bg-white text-red-600 border border-red-300 rounded-xl hover:bg-red-50 transition-colors"
+                className="flex items-center text-sm gap-2 px-5 py-2.5 bg-white text-red-600 border border-red-300 rounded-lg hover:bg-red-50 transition-colors"
               >
                 <Trash2 className="w-4 h-4" />
                 Delete Report
               </button>
               <button
                 onClick={handlePrint}
-                className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-[#0d3b66] to-[#3399cc] text-white rounded-xl hover:shadow-lg transition-all"
+                className="flex items-center text-sm gap-2 px-5 py-2.5 bg-gradient-to-r from-[#0d3b66] to-[#3399cc] text-white rounded-lg hover:brightness-110 transition-all shadow-sm"
               >
                 <Download className="w-4 h-4" />
                 Export PDF
@@ -188,16 +227,19 @@ export function ReportPage() {
       )}
 
       {/* Report Content */}
-      <div className="max-w-7xl mx-auto px-6 py-8">
+      {/* <div className="max-w-7xl mx-auto px-6 py-8">
         <div id="report-a4">
-          <A4Report
+          <LightingPoleReport
             cover={cover}
             condition={condition}
-            sections={sections}
+            structuralDesign={structuralDesign}
             results={results}
+            resultsDo={resultsDo}
           />
         </div>
-      </div>
+      </div> */}
+
+      <div className="max-w-7xl mx-auto px-6 py-8">{renderReport()}</div>
     </div>
   );
 }

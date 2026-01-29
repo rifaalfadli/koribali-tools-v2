@@ -3,12 +3,19 @@ import { PoleInput } from "./PoleInput";
 import { ResultsTable } from "./ResultsTable";
 import { useNavigate, useLocation } from "react-router-dom";
 import { ConditionInput } from "./ConditionInput";
+import { DirectObjectInput } from "./DirectObjectInput";
 import { HeaderCalculationPage } from "./PoleCalculatorHeader";
+import { StructuralDesign } from "./StructuralDesignInput";
+import { OverheadWireInput } from "./OverheadWireInput";
 import {
   CoverInputModal,
   ToastModal,
   ConfirmResetAllModal,
-  DeleteConfirmationModal,
+  ConfirmDeletePoleModal,
+  ConfirmDeleteDoModal,
+  ConfirmReduceDoModal,
+  ConfirmDeleteOhwModal,
+  ConfirmReduceOhwModal,
 } from "./PoleCalculatorModal";
 import {
   goToNextSection,
@@ -30,16 +37,42 @@ import {
   getCoverErrors,
   getConditionErrors,
   getSectionsErrors,
+  stepPoleNext,
+  removeDo,
+  updateDo,
+  resetCurrentDo,
+  isDoComplete,
+  getDoErrors,
+  clearDoError,
+  updateStructuralDesign,
+  structuralDesignComplete,
+  getStructuralDesignErrors,
+  syncDoByInput,
+  copyDo,
+  pasteDo,
+  addDo,
+  syncOhwByInput,
+  addOhw,
+  copyOhw,
+  pasteOhw,
+  removeOhw,
+  updateOhw,
+  resetCurrentOhw,
+  isOhwComplete,
+  getOhwErrors,
+  clearOhwError,
 } from "../utils/poleCalculatorUtils";
 import {
   Plus,
-  Calculator,
-  X,
   CheckCircle,
   Circle,
   RotateCcw,
   ChevronDown,
   ChevronUp,
+  ChevronRight,
+  ChevronLeft,
+  Trash2,
+  Calculator,
 } from "lucide-react";
 
 export function PoleCalculator() {
@@ -65,9 +98,18 @@ export function PoleCalculator() {
   // STATE: Condition for calculation (wind, standard)
   const [condition, setCondition] = useState(() => {
     const saved = sessionStorage.getItem("condition");
-    return saved ? JSON.parse(saved) : { designStandard: "", windSpeed: "" };
+    return saved
+      ? JSON.parse(saved)
+      : { designStandard: "", windSpeed: "", projectType: "" };
   });
   const [conditionErrors, setConditionErrors] = useState({});
+
+  // STATE: Structural Design of pole
+  const [structuralDesign, setStructuralDesign] = useState(() => {
+    const saved = sessionStorage.getItem("structuralDesign");
+    return saved ? JSON.parse(saved) : { lowestStep: "", overDesign: "" };
+  });
+  const [structuralDesignErrors, setStructuralDesignErrors] = useState({});
 
   // STATE: Sections input, each section represents one pole
   const [sections, setSections] = useState(() => {
@@ -91,9 +133,41 @@ export function PoleCalculator() {
   });
   const [sectionsErrors, setSectionsErrors] = useState({});
 
-  // STATE: Results all calculation
+  // STATE: Direct Object input
+  const [directObjects, setDirectObjects] = useState(() => {
+    const saved = sessionStorage.getItem("directObjects");
+    return saved ? JSON.parse(saved) : [];
+  });
+  const [doErrors, setDoErrors] = useState({});
+
+  // STATE: Overhead Wire input
+  const [overheadWires, setOverheadWires] = useState(() => {
+    const saved = sessionStorage.getItem("overheadWires");
+    return saved ? JSON.parse(saved) : [];
+  });
+  const [ohwErrors, setOhwErrors] = useState({});
+
+  // STATE: Results all structural design
+  const [resultStructuralDesign, setResultStructuralDesign] = useState(() => {
+    const saved = sessionStorage.getItem("resultStructuralDesign");
+    return saved ? JSON.parse(saved) : [];
+  });
+
+  // STATE: Results all step pole
   const [results, setResults] = useState(() => {
     const saved = sessionStorage.getItem("results");
+    return saved ? JSON.parse(saved) : [];
+  });
+
+  // STATE: Results all direct object
+  const [resultsDo, setResultsDo] = useState(() => {
+    const saved = sessionStorage.getItem("resultsDo");
+    return saved ? JSON.parse(saved) : [];
+  });
+
+  // STATE: Results all direct object
+  const [resultsOhw, setResultsOhw] = useState(() => {
+    const saved = sessionStorage.getItem("resultsOhw");
     return saved ? JSON.parse(saved) : [];
   });
 
@@ -113,27 +187,65 @@ export function PoleCalculator() {
   }, [condition]);
 
   useEffect(() => {
+    sessionStorage.setItem(
+      "structuralDesign",
+      JSON.stringify(structuralDesign),
+    );
+  }, [structuralDesign]);
+
+  useEffect(() => {
     sessionStorage.setItem("sections", JSON.stringify(sections));
   }, [sections]);
+
+  useEffect(() => {
+    sessionStorage.setItem("directObjects", JSON.stringify(directObjects));
+  }, [directObjects]);
+
+  useEffect(() => {
+    sessionStorage.setItem("overheadWires", JSON.stringify(overheadWires));
+  }, [overheadWires]);
 
   useEffect(() => {
     sessionStorage.setItem("results", JSON.stringify(results));
   }, [results]);
 
   useEffect(() => {
+    sessionStorage.setItem("resultsDo", JSON.stringify(resultsDo));
+  }, [resultsDo]);
+
+  useEffect(() => {
+    sessionStorage.setItem("resultsOhw", JSON.stringify(resultsOhw));
+  }, [resultsOhw]);
+
+  useEffect(() => {
     sessionStorage.setItem("showResults", JSON.stringify(showResults));
   }, [showResults]);
 
   // STATE: UI control
+  // For DO Input:
+  const [confirmReduceDo, setConfirmReduceDo] = useState(null);
+  const [doClipboard, setDoClipboard] = useState(null);
+  const [doInputValue, setDoInputValue] = useState("");
+  const [confirmDeleteDo, setConfirmDeleteDo] = useState(null);
+
+  // For OHW Input:
+  const [confirmReduceOhw, setConfirmReduceOhw] = useState(null);
+  const [ohwClipboard, setOhwClipboard] = useState(null);
+  const [ohwInputValue, setOhwInputValue] = useState("");
+  const [confirmDeleteOhw, setConfirmDeleteOhw] = useState(null);
+
+  // For All Form Input:
   const [activeTab, setActiveTab] = useState("1"); // currently active section
   const [toast, setToast] = useState(null); // toast notifications { message, type }
   const [confirmDelete, setConfirmDelete] = useState(null); // section deletion confirmation
   const [showCoverPopup, setShowCoverPopup] = useState(false); // show cover popup
   const [isExpandedPole, setIsExpandedPole] = useState(true); // expand/collapse pole input
   const [isExpandedCondition, setIsExpandedCondition] = useState(true); // expand/collapse condition input
+  const [isExpandedDo, setIsExpandedDo] = useState(false); // expand/collapse direct object input
+  const [isExpandedOhw, setIsExpandedOhw] = useState(false); // expand/collapse overhead wire input
   const [confirmResetAll, setConfirmResetAll] = useState(false); // reset all confirmation
 
-  // Generates unique section IDs and syncs with sessionStorage on mount
+  // Generates unique Pole IDs and syncs with sessionStorage on mount
   const sectionIdRef = useRef(1);
   useEffect(() => {
     const saved = sessionStorage.getItem("sections");
@@ -141,6 +253,30 @@ export function PoleCalculator() {
       const parsed = JSON.parse(saved);
       if (parsed.length > 0) {
         sectionIdRef.current = Math.max(...parsed.map((s) => Number(s.id)));
+      }
+    }
+  }, []);
+
+  // Generates unique Direct Object IDs and syncs with sessionStorage on mount
+  const doIdRef = useRef(1);
+  useEffect(() => {
+    const saved = sessionStorage.getItem("directObjects");
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (parsed.length > 0) {
+        doIdRef.current = Math.max(...parsed.map((s) => Number(s.idDo)));
+      }
+    }
+  }, []);
+
+  // Generates unique Overhead Wire IDs and syncs with sessionStorage on mount
+  const ohwIdRef = useRef(1);
+  useEffect(() => {
+    const saved = sessionStorage.getItem("overheadWires");
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (parsed.length > 0) {
+        ohwIdRef.current = Math.max(...parsed.map((s) => Number(s.idOhw)));
       }
     }
   }, []);
@@ -193,6 +329,18 @@ export function PoleCalculator() {
     conditionNext(setIsExpandedCondition, setIsExpandedPole);
   };
 
+  // ======================= Function for structural design pole input ========================
+  // FUNCTION: Update structural design data
+  const structuralDesignUpdate = (updates) => {
+    updateStructuralDesign(structuralDesign, updates, setStructuralDesign);
+    clearError(updates, setStructuralDesignErrors);
+  };
+
+  // FUNCTION: Check if structural design form is complete
+  const handleStructuralDesignComplete = () => {
+    return structuralDesignComplete(structuralDesign);
+  };
+
   // ========================== Function for PoleInput ==========================
   // FUNCTION: Add a new section (max 4 section)
   const handleAddSection = () => {
@@ -225,24 +373,176 @@ export function PoleCalculator() {
     return isSectionComplete(section);
   };
 
+  // FUNCTION: Go to Direct Object Input after Step Pole
+  const handleStepNext = () => {
+    stepPoleNext(setIsExpandedPole, setIsExpandedDo);
+  };
+
+  // ========================== Function for DirectObjectInput ==========================
+  // FUNCTION: Add a new object (max 25 object) by Input
+  const handleAddDoByInput = () => {
+    syncDoByInput(
+      doInputValue,
+      directObjects,
+      setDirectObjects,
+      doIdRef,
+      setConfirmReduceDo,
+    );
+
+    // reset input setelah reduce
+    setDoInputValue("");
+  };
+
+  // FUNCTION: Confirm reduce Direct Object
+  const confirmReduceDirectObjects = () => {
+    setDirectObjects((prev) => prev.slice(0, confirmReduceDo.to));
+    setConfirmReduceDo(null);
+  };
+
+  // FUNCTION: Cancel reduce Direct Object
+  const cancelReduceDirectObjects = () => {
+    setDoInputValue(directObjects.length.toString());
+    setConfirmReduceDo(null);
+  };
+
+  // FUNCTION: Add a new object (max 25 object) by click
+  const handleAddDo = () => {
+    addDo(directObjects, setDirectObjects, doIdRef);
+  };
+
+  // FUNCTION: Copy Direct Object data into clipboard
+  const handleCopyDo = (directObject) => {
+    copyDo(directObject, setDoClipboard);
+  };
+
+  // FUNCTION: Paste clipboard data into selected Direct Object
+  const handlePasteDo = (idDo) => {
+    pasteDo(idDo, setDirectObjects, doClipboard);
+  };
+
+  // FUNCTION: Remove a object by ID
+  const handleRemoveDo = (idDo) => {
+    removeDo(idDo, directObjects, setDirectObjects);
+  };
+
+  // FUNCTION: Update a specific object's data
+  const handleUpdateDo = (idDo, updates) => {
+    updateDo(idDo, updates, setDirectObjects, directObjects);
+    clearDoError(idDo, updates, setDoErrors);
+  };
+
+  // FUNCTION: Reset the active direct object to default values
+  const handleResetCurrentDo = (idDo) => {
+    resetCurrentDo(setDirectObjects, directObjects, idDo);
+  };
+
+  // FUNCTION: Check if a direct object is complete
+  const handleIsDoComplete = (directObject) => {
+    return isDoComplete(directObject);
+  };
+
+  // ========================== Function for OverheadWireInput ==========================
+  // FUNCTION: Add a new OHW (max 8 OHW) by Input
+  const handleAddOhwByInput = () => {
+    syncOhwByInput(
+      ohwInputValue,
+      overheadWires,
+      setOverheadWires,
+      ohwIdRef,
+      setConfirmReduceOhw,
+    );
+
+    // reset input setelah reduce
+    setOhwInputValue("");
+  };
+
+  // FUNCTION: Confirm reduce Overhead Wire
+  const confirmReduceOverheadWires = () => {
+    setOverheadWires((prev) => prev.slice(0, confirmReduceOhw.to));
+    setConfirmReduceOhw(null);
+  };
+
+  // FUNCTION: Cancel reduce Overhead Wire
+  const cancelReduceOverheadWires = () => {
+    setOhwInputValue(overheadWires.length.toString());
+    setConfirmReduceOhw(null);
+  };
+
+  // FUNCTION: Add a new OHW (max 8 OHW) by click
+  const handleAddOhw = () => {
+    addOhw(overheadWires, setOverheadWires, ohwIdRef);
+  };
+
+  // FUNCTION: Copy Direct Object data into clipboard
+  const handleCopyOhw = (overheadWire) => {
+    copyOhw(overheadWire, setOhwClipboard);
+  };
+
+  // FUNCTION: Paste clipboard data into selected Direct Object
+  const handlePasteOhw = (idOhw) => {
+    pasteOhw(idOhw, setOverheadWires, ohwClipboard);
+  };
+
+  // FUNCTION: Remove a object by ID
+  const handleRemoveOhw = (idOhw) => {
+    removeOhw(idOhw, overheadWires, setOverheadWires);
+  };
+
+  // FUNCTION: Update a specific object's data
+  const handleUpdateOhw = (idOhw, updates) => {
+    updateOhw(idOhw, updates, setOverheadWires, overheadWires);
+    clearOhwError(idOhw, updates, setOhwErrors);
+  };
+
+  // FUNCTION: Reset the active direct object to default values
+  const handleResetCurrentOhw = (idOhw) => {
+    resetCurrentOhw(setOverheadWires, overheadWires, idOhw);
+  };
+
+  // FUNCTION: Check if a direct object is complete
+  const handleIsOhwComplete = (overheadWire) => {
+    return isOhwComplete(overheadWire);
+  };
+
   // ========================== Function for All Form ==========================
   // FUNCTION: Perform calculation for all form
   const calculateResults = () => {
     const { isValid, errors } = handleCalculateResults(
       handleIsConditionComplete,
       showToast,
+      structuralDesign,
+      handleStructuralDesignComplete,
       sections,
       handleIsSectionComplete,
+      directObjects,
+      handleIsDoComplete,
+      overheadWires,
+      handleIsOhwComplete,
       setResults,
-      setShowResults
+      setResultStructuralDesign,
+      setResultsDo,
+      setResultsOhw,
+      setShowResults,
     );
 
     if (errors.condition) {
       setConditionErrors(getConditionErrors(condition));
     }
 
+    if (errors.structuralDesign) {
+      setStructuralDesignErrors(getStructuralDesignErrors(structuralDesign));
+    }
+
     if (errors.section) {
       setSectionsErrors(getSectionsErrors(sections));
+    }
+
+    if (errors.directObject) {
+      setDoErrors(getDoErrors(directObjects));
+    }
+
+    if (errors.overheadWire) {
+      setOhwErrors(getOhwErrors(overheadWires));
     }
 
     if (!isValid) return;
@@ -259,8 +559,13 @@ export function PoleCalculator() {
       showToast,
       handleIsCoverComplete,
       handleIsConditionComplete,
+      handleStructuralDesignComplete,
       sections,
-      handleIsSectionComplete
+      handleIsSectionComplete,
+      directObjects,
+      handleIsDoComplete,
+      overheadWires,
+      handleIsOhwComplete,
     );
 
     if (errors.cover) setCoverErrors(getCoverErrors(cover));
@@ -269,15 +574,32 @@ export function PoleCalculator() {
     if (errors.condition) setConditionErrors(getConditionErrors(condition));
     else setConditionErrors({});
 
+    if (errors.structuralDesign)
+      setStructuralDesignErrors(getStructuralDesignErrors(structuralDesign));
+    else setStructuralDesignErrors({});
+
     if (errors.section) setSectionsErrors(getSectionsErrors(sections));
     else setSectionsErrors({});
+
+    if (errors.directObject) setDoErrors(getDoErrors(directObjects));
+    else setDoErrors({});
+
+    if (errors.overheadWire) setOhwErrors(getOhwErrors(overheadWires));
+    else setOhwErrors({});
 
     if (!isValid) return;
 
     sessionStorage.setItem("hasReport", "true");
 
     navigate("/report", {
-      state: { results, sections, cover, condition },
+      state: {
+        results,
+        resultsDo,
+        resultsOhw,
+        cover,
+        condition,
+        structuralDesign,
+      },
     });
   };
 
@@ -285,14 +607,24 @@ export function PoleCalculator() {
   const handleDeleteReport = () => {
     deleteReport(
       setResults,
+      setResultsDo,
+      setResultsOhw,
+      setResultStructuralDesign,
       setShowResults,
       setCover,
       setCondition,
+      setStructuralDesign,
       setSections,
+      setDirectObjects,
+      setOverheadWires,
       setActiveTab,
       setIsExpandedCondition,
       setIsExpandedPole,
-      sectionIdRef
+      sectionIdRef,
+      doIdRef,
+      ohwIdRef,
+      setIsExpandedDo,
+      setIsExpandedOhw,
     );
   };
 
@@ -326,27 +658,31 @@ export function PoleCalculator() {
       {/* ============================================================
         MAIN CONTENT AREA
       ============================================================ */}
-      <div className="max-w-[84rem] mx-auto pt-1 pb-8">
+      <div className="mx-12 2040:mx-48 pt-1 pb-8 hp:mx-2">
         {/* ============================================================
           FORM CONDITION (Bagian kondisi perhitungan)
         ============================================================ */}
         <div
-          className={`bg-gradient-to-r from-[#0d3b66] to-[#3399cc] p-5 flex items-center justify-between cursor-pointer mt-8 transition-all duration-500 ease-in-out ${
-            isExpandedCondition ? "rounded-t-2xl" : "rounded-2xl"
-          }`}
+          className={`bg-gradient-to-r from-[#0d3b66] to-[#3399cc] p-4 flex items-center justify-between cursor-pointer mt-8 transition-all duration-500 ease-in-out ${
+            isExpandedCondition
+              ? "rounded-t-2xl hp:rounded-t-xl"
+              : "rounded-2xl rounded-xl"
+          } hp:px-4 py-3`}
           onClick={() => setIsExpandedCondition(!isExpandedCondition)}
         >
           {/* Judul cover */}
-          <div className="bg-white/10 backdrop-blur-sm px-4 py-2 rounded-lg border border-white/20">
-            <h2 className="text-white font-bold">Standard and Condition</h2>
+          <div className="bg-white/10 backdrop-blur-sm px-4 py-2 rounded-lg border border-white/20 hp:px-2 py-[8px]">
+            <h2 className="text-white text-sm font-bold hp:text-xs font-semibold">
+              Standard and Condition
+            </h2>
           </div>
 
           {/* Icon toggle (up/down) */}
           <div className="p-2">
             {isExpandedCondition ? (
-              <ChevronUp className="w-5 h-5 text-white" />
+              <ChevronUp className="w-5 h-5 text-white hp:w4 h-4" />
             ) : (
-              <ChevronDown className="w-5 h-5 text-white" />
+              <ChevronDown className="w-5 h-5 text-white hp:w4 h-4" />
             )}
           </div>
         </div>
@@ -371,14 +707,17 @@ export function PoleCalculator() {
           FORM POLE (Bagian input section tiang)
         ============================================================ */}
         <div
-          className={`bg-gradient-to-r from-[#0d3b66] to-[#3399cc] p-5 flex items-center justify-between cursor-pointer mt-8 transition-all duration-500 ease-in-out ${
+          className={`bg-gradient-to-r from-[#0d3b66] to-[#3399cc] p-4 flex items-center justify-between cursor-pointer mt-12 transition-all duration-500 ease-in-out ${
             isExpandedPole ? "rounded-t-2xl" : "rounded-2xl"
           }`}
           onClick={() => setIsExpandedPole(!isExpandedPole)}
         >
           {/* Judul cover */}
           <div className="bg-white/10 backdrop-blur-sm px-4 py-2 rounded-lg border border-white/20">
-            <h2 id="pole-section-title" className="text-white font-bold">
+            <h2
+              id="pole-section-title"
+              className="text-white text-sm font-bold"
+            >
               Pole Specifications
             </h2>
           </div>
@@ -397,28 +736,51 @@ export function PoleCalculator() {
         <div
           className={`transition-all duration-500 ease-in-out overflow-hidden ${
             isExpandedPole
-              ? "max-h-[900px] rounded-b-2xl"
+              ? "max-h-[10000px] rounded-b-2xl"
               : "max-h-0 rounded-b-2xl"
           }`}
         >
           <div className="bg-white rounded-b-2xl shadow-sm border border-gray-200">
-            <div className="border-b border-gray-200 px-6 py-5">
+            {/* Structural Design Form */}
+            <div className="border-b border-gray-200 px-6 pt-6 pb-7">
+              <div className="flex items-center justify-between mb-4">
+                <div>
+                  <h2 className="text-[#0d3b66] font-semibold flex items-center text-sm gap-2">
+                    <div className="w-1 h-4 bg-[#3399cc] rounded-full"></div>
+                    Structural Design
+                  </h2>
+                </div>
+              </div>
+
+              <StructuralDesign
+                structuralDesign={structuralDesign}
+                onUpdate={structuralDesignUpdate}
+                errors={structuralDesignErrors}
+              />
+            </div>
+
+            {/* Step Pole Form */}
+            <div className="px-6 pt-6">
               {/* HEADER ADD SECTION */}
               <div className="flex items-center justify-between mb-4">
                 <div>
-                  <h2 className="text-[#0d3b66] font-medium">
-                    Configure up to 4 pole step with detailed specifications
+                  <h2 className="text-[#0d3b66] font-medium text-sm flex items-center gap-1">
+                    <div className="w-1 h-5 bg-[#3399cc] rounded-full mr-1"></div>
+                    <span className="font-semibold">
+                      Configure up to 4 Step Poles
+                    </span>
+                    with detailed specifications
                   </h2>
                 </div>
                 {/* BUTTON ADD SECTION */}
                 <button
                   onClick={handleAddSection}
                   disabled={sections.length >= 4}
-                  className={`flex items-center gap-3 px-7 py-3 text-base rounded-xl transition-all shadow-md 
+                  className={`flex items-center gap-2 text-sm px-7 py-3 rounded-lg font-medium transition-all shadow-md 
                   ${
                     sections.length >= 4
                       ? "bg-gray-300 text-black opacity-40 cursor-not-allowed"
-                      : "bg-gradient-to-r from-[#0d3b66] to-[#3399cc] text-white shadow-md hover:shadow-xl transition-transform duration-300 hover:scale-105"
+                      : "bg-gradient-to-r from-[#0d3b66] to-[#3399cc] text-white hover:shadow-xl transition-transform duration-300 hover:scale-105"
                   }`}
                 >
                   <Plus className="w-5 h-5" />
@@ -436,13 +798,13 @@ export function PoleCalculator() {
                     <div key={section.id} className="relative flex-shrink-0">
                       <button
                         onClick={() => setActiveTab(section.id)}
-                        className={`flex items-center justify-between gap-3 px-5 py-3 rounded-xl border-2 transition-all w-[220px]
+                        className={`flex items-center justify-between gap-3 px-7 py-2.5 rounded-lg border-2 transition-all
                       ${
                         isActive
                           ? "bg-blue-50 border-blue-500 text-blue-700 hover:bg-blue-100 shadow-md"
                           : isComplete
-                          ? "bg-green-50 border-green-500 text-green-700 hover:bg-green-100"
-                          : "bg-gray-50 border-gray-300 text-gray-600 hover:bg-gray-100"
+                            ? "bg-green-50 border-green-500 text-green-700 hover:bg-green-100"
+                            : "bg-gray-50 border-gray-300 text-gray-600 hover:bg-gray-100"
                       }`}
                       >
                         <div className="flex items-center gap-3">
@@ -451,58 +813,80 @@ export function PoleCalculator() {
                           ) : (
                             <Circle className="w-5 h-5" />
                           )}
-                          <div className="text-left">
+                          <div className="text-left text-sm">
                             <div>Step {index + 1}</div>
                           </div>
                         </div>
-
-                        {/* BUTTON X HAPUS SECTION */}
-                        {sections.length > 1 && (
-                          <button
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              setConfirmDelete(section.id);
-                            }}
-                            className={`p-1 rounded-md transition ${
-                              isActive
-                                ? "bg-blue-100 hover:bg-blue-200 text-blue-700"
-                                : isComplete
-                                ? "bg-green-100 hover:bg-green-200 text-green-700"
-                                : "bg-gray-200 hover:bg-gray-300 text-gray-700"
-                            }`}
-                          >
-                            <X className="w-4 h-4" />
-                          </button>
-                        )}
                       </button>
                     </div>
                   );
                 })}
               </div>
+              {/* Divider */}
+              <div className="mt-5 border-t border-gray-200"></div>
             </div>
 
             {/* ACTIVE SECTION INPUT */}
             {activeSection && (
               <div className="p-6">
-                <PoleInput
-                  section={activeSection}
-                  sectionNumber={
-                    sections.findIndex((s) => s.id === activeTab) + 1
-                  }
-                  onUpdate={(updates) =>
-                    handleUpdateSection(activeTab, updates)
-                  }
-                  hideHeader={true}
-                  errors={sectionsErrors[activeTab] || {}}
-                />
+                <div className="space-y-6">
+                  {/* Header section title */}
+                  <div className="flex items-center justify-between mb-6 pb-6 border-b border-gray-200">
+                    <div className="flex items-center gap-3">
+                      <div className="w-9 h-9 text-sm rounded-lg bg-gradient-to-br from-[#0d3b66] to-[#3399cc] flex items-center justify-center text-white">
+                        {sections.findIndex((s) => s.id === activeTab) + 1}
+                      </div>
+                      <div>
+                        <h4 className="text-[#0d3b66] text-sm font-medium">
+                          Step Pole
+                          {activeSection.name && ` - ${activeSection.name}`}
+                        </h4>
+                        <p className="text-xs text-gray-500">
+                          {activeSection.poleType} Type
+                        </p>
+                      </div>
+                    </div>
+
+                    {sections.length > 1 && (
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setConfirmDelete(activeSection.id);
+                        }}
+                        className="
+                          flex items-center gap-2
+                          px-6 py-2.5
+                          rounded-lg
+                          border border-red-200
+                          text-red-600
+                          bg-red-50
+                          hover:bg-red-100 hover:border-red-300
+                          transition-all
+                          font-medium
+                          shadow-sm
+                        "
+                      >
+                        <Trash2 className="w-4 h-4" />
+                        <span className="text-xs">Delete Step</span>
+                      </button>
+                    )}
+                  </div>
+                  <PoleInput
+                    section={activeSection}
+                    onUpdate={(updates) =>
+                      handleUpdateSection(activeTab, updates)
+                    }
+                    errors={sectionsErrors[activeTab] || {}}
+                  />
+                </div>
 
                 {/* FOOTER: RESET + CALCULATE / NEXT */}
                 <div className="flex items-center justify-between mt-8 pt-6 border-t border-gray-200">
                   {/* LEFT: RESET */}
                   <button
                     onClick={resetCurrentSection}
-                    className="flex items-center gap-2 px-8 py-3 h-[48px] bg-[#eef2f6] text-[#0d3b66]
-                    border-2 border-[#d0d7e2] rounded-xl hover:bg-[#e2e8f0] transition-colors font-medium"
+                    className="flex items-center text-sm gap-2 px-7 py-2.5 bg-[#eef2f6] text-[#0d3b66]
+                    border-2 border-[#d0d7e2] rounded-lg hover:bg-[#e2e8f0] transition-colors font-medium"
                   >
                     <RotateCcw className="w-5 h-5" />
                     Reset
@@ -515,26 +899,14 @@ export function PoleCalculator() {
                       <button
                         onClick={() => {
                           const currentIndex = sections.findIndex(
-                            (s) => s.id === activeTab
+                            (s) => s.id === activeTab,
                           );
                           setActiveTab(sections[currentIndex - 1].id);
                         }}
-                        className="flex items-center gap-2 px-8 py-3 h-[48px] bg-[#eef2f6] text-[#0d3b66]
-                        border-2 border-[#d0d7e2] rounded-xl hover:bg-[#e2e8f0] transition-colors font-medium"
+                        className="flex items-center text-sm gap-2 px-7 py-2.5 bg-[#eef2f6] text-[#0d3b66]
+                        border-2 border-[#d0d7e2] rounded-lg hover:bg-[#e2e8f0] transition-colors font-medium"
                       >
-                        <svg
-                          className="w-5 h-5"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M15 19l-7-7 7-7"
-                          />
-                        </svg>
+                        <ChevronLeft className="w-5 h-5" />
                         Back
                       </button>
                     )}
@@ -544,36 +916,24 @@ export function PoleCalculator() {
                       {/* CONDITIONAL BUTTON */}
                       {isOnlySection || isLastSection ? (
                         <button
-                          onClick={calculateResults}
-                          className="flex items-center gap-3 px-8 py-3 h-[48px] bg-gradient-to-r
-                        from-[#0d3b66] to-[#3399cc] text-white rounded-xl hover:shadow-xl transition-transform duration-300 hover:scale-105
-                        transition-all font-semibold shadow-md"
+                          onClick={handleStepNext}
+                          className="flex items-center text-sm gap-2 px-7 py-2.5 bg-gradient-to-r
+                          from-[#0d3b66] to-[#3399cc] text-white rounded-lg hover:brightness-110
+                          transition-all font-medium shadow-md"
                         >
-                          <Calculator className="w-5 h-5" />
-                          Calculate Results
+                          Next Input
+                          <ChevronDown className="w-5 h-5" />
                         </button>
                       ) : (
                         <button
                           onClick={handleNextSection}
-                          className="flex items-center gap-2 px-8 py-3 h-[48px] 
-                        bg-gradient-to-r from-[#0d3b66] to-[#3399cc]
-                        text-white rounded-xl 
-                        hover:brightness-110 transition-all shadow-sm font-medium"
+                          className="flex items-center text-sm gap-2 px-7 py-2.5
+                          bg-gradient-to-r from-[#0d3b66] to-[#3399cc]
+                          text-white rounded-lg  
+                          hover:brightness-110 transition-all shadow-md font-medium"
                         >
-                          Next Section
-                          <svg
-                            className="w-5 h-5"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M9 5l7 7-7 7"
-                            />
-                          </svg>
+                          Next Step
+                          <ChevronRight className="w-5 h-5" />
                         </button>
                       )}
                     </div>
@@ -583,11 +943,135 @@ export function PoleCalculator() {
             )}
           </div>
         </div>
+
+        {/* ============================================================
+          FORM DIRECT OBJECT (Bagian Direct Object perhitungan)
+        ============================================================ */}
+        <div
+          className={`bg-gradient-to-r from-[#0d3b66] to-[#3399cc] p-4 flex items-center justify-between cursor-pointer mt-12 transition-all duration-500 ease-in-out ${
+            isExpandedDo ? "rounded-t-2xl" : "rounded-2xl"
+          }`}
+          onClick={() => setIsExpandedDo(!isExpandedDo)}
+        >
+          {/* Judul cover */}
+          <div className="bg-white/10 backdrop-blur-sm px-4 py-2 rounded-lg border border-white/20">
+            <h2 className="text-white text-sm font-bold">Direct Object</h2>
+          </div>
+
+          {/* Icon toggle (up/down) */}
+          <div className="p-2">
+            {isExpandedDo ? (
+              <ChevronUp className="w-5 h-5 text-white" />
+            ) : (
+              <ChevronDown className="w-5 h-5 text-white" />
+            )}
+          </div>
+        </div>
+
+        {/* Body form (collapsible) */}
+        <div
+          className={`transition-all duration-500 ease-in-out overflow-hidden ${
+            isExpandedDo
+              ? "max-h-[10000px] rounded-b-2xl"
+              : "max-h-0 rounded-b-2xl"
+          }`}
+        >
+          <DirectObjectInput
+            directObjects={directObjects}
+            doInputValue={doInputValue}
+            setDoInputValue={setDoInputValue}
+            onUpdate={handleUpdateDo}
+            errors={doErrors}
+            onAddDo={handleAddDoByInput}
+            onCopyDo={handleCopyDo}
+            onPasteDo={handlePasteDo}
+            hasClipboard={Boolean(doClipboard)}
+            setConfirmDeleteDo={setConfirmDeleteDo}
+            resetCurrentDo={handleResetCurrentDo}
+            handleAddDo={handleAddDo}
+          />
+        </div>
+
+        {/* ============================================================
+          FORM OVERHEAD WIRE (Bagian Overhead Wire perhitungan)
+        ============================================================ */}
+        <div
+          className={`bg-gradient-to-r from-[#0d3b66] to-[#3399cc] p-4 flex items-center justify-between cursor-pointer mt-12 transition-all duration-500 ease-in-out ${
+            isExpandedOhw ? "rounded-t-2xl" : "rounded-2xl"
+          }`}
+          onClick={() => setIsExpandedOhw(!isExpandedOhw)}
+        >
+          {/* Judul cover */}
+          <div className="bg-white/10 backdrop-blur-sm px-4 py-2 rounded-lg border border-white/20">
+            <h2 className="text-white text-sm font-bold">Overhead Wire</h2>
+          </div>
+
+          {/* Icon toggle (up/down) */}
+          <div className="p-2">
+            {isExpandedOhw ? (
+              <ChevronUp className="w-5 h-5 text-white" />
+            ) : (
+              <ChevronDown className="w-5 h-5 text-white" />
+            )}
+          </div>
+        </div>
+
+        {/* Body form (collapsible) */}
+        <div
+          className={`transition-all duration-500 ease-in-out overflow-hidden ${
+            isExpandedOhw
+              ? "max-h-[10000px] rounded-b-2xl"
+              : "max-h-0 rounded-b-2xl"
+          }`}
+        >
+          <OverheadWireInput
+            overheadWires={overheadWires}
+            ohwInputValue={ohwInputValue}
+            setOhwInputValue={setOhwInputValue}
+            onUpdate={handleUpdateOhw}
+            errors={ohwErrors}
+            onAddOhw={handleAddOhwByInput}
+            onCopyOhw={handleCopyOhw}
+            onPasteOhw={handlePasteOhw}
+            hasClipboard={Boolean(ohwClipboard)}
+            setConfirmDeleteOhw={setConfirmDeleteOhw}
+            resetCurrentOhw={handleResetCurrentOhw}
+            handleAddOhw={handleAddOhw}
+          />
+        </div>
+
+        <div className="flex justify-center items-center p-5 mt-6 mb-12 bg-gradient-to-b from-white to-slate-50 rounded-2xl border border-gray-200 shadow-sm relative">
+          <button
+            onClick={calculateResults}
+            className="
+              group
+              flex items-center gap-3
+              px-9 py-3
+              bg-gradient-to-r from-[#0d3b66] to-[#3399cc]
+              text-white
+              rounded-xl
+              text-sm
+              font-semibold
+              shadow-md
+              transition-all duration-300
+              hover:shadow-2xl
+              hover:scale-[1.06]
+              active:scale-[0.97]
+              focus:outline-none focus:ring-2 focus:ring-[#3399cc]/40
+            "
+          >
+            <Calculator className="w-5 h-5" />
+            Calculate Results
+          </button>
+        </div>
+
         {/* TABEL HASIL KALKULASI */}
         <div id="results-section">
           {showResults && (
             <ResultsTable
               results={results}
+              resultsDo={resultsDo}
+              resultsOhw={resultsOhw}
               onCoverInput={handleOpenCoverPopup}
             />
           )}
@@ -614,11 +1098,39 @@ export function PoleCalculator() {
         handleDeleteReport={handleDeleteReport}
       />
 
-      {/* Delete Confirmation Modal */}
-      <DeleteConfirmationModal
+      {/* Delete Confirmation Modal for Step Pole */}
+      <ConfirmDeletePoleModal
         confirmDelete={confirmDelete}
         onClose={() => setConfirmDelete(false)}
         handleRemoveSection={() => handleRemoveSection(confirmDelete)}
+      />
+
+      {/* Delete Confirmation Modal for Direct Object */}
+      <ConfirmDeleteDoModal
+        confirmDelete={confirmDeleteDo}
+        onClose={() => setConfirmDeleteDo(false)}
+        handleRemoveDo={() => handleRemoveDo(confirmDeleteDo)}
+      />
+
+      {/* Delete Confirmation Modal for Direct Object */}
+      <ConfirmReduceDoModal
+        confirmReduceDo={confirmReduceDo}
+        cancelReduceDirectObjects={cancelReduceDirectObjects}
+        confirmReduceDirectObjects={confirmReduceDirectObjects}
+      />
+
+      {/* Delete Confirmation Modal for Direct Object */}
+      <ConfirmDeleteOhwModal
+        confirmDelete={confirmDeleteOhw}
+        onClose={() => setConfirmDeleteOhw(false)}
+        handleRemoveOhw={() => handleRemoveOhw(confirmDeleteOhw)}
+      />
+
+      {/* Delete Confirmation Modal for Direct Object */}
+      <ConfirmReduceOhwModal
+        confirmReduceOhw={confirmReduceOhw}
+        cancelReduceOverheadWires={cancelReduceOverheadWires}
+        confirmReduceOverheadWires={confirmReduceOverheadWires}
       />
     </div>
   );

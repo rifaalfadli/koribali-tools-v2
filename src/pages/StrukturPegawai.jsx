@@ -1,6 +1,8 @@
 import { Helmet } from "react-helmet";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion"; //Tambahan motion
+import { ChevronLeft } from "lucide-react";
 import Breadcrumb from "../components/Breadcrumb";
 import Hero from "../components/Hero";
 import Header from "../components/Header";
@@ -126,7 +128,48 @@ export default function StrukturPegawai() {
   const yp = anggota.filter((a) => a.divisi === "YP");
   const dev = anggota.filter((a) => a.divisi === "Development");
 
-  if (loading) return <div className="profile-Loading">Loading data...</div>;
+  // Tampilkan pesan loading jika data belum tersedia
+  // if (loading) return <div className="profile-Loading">Loading data...</div>;
+  const navigate = useNavigate();
+  if (loading) {
+    return (
+      <div className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 via-white to-slate-100">
+        {/* Back Button */}
+        <button
+          onClick={() => navigate(-1)}
+          className="
+            absolute top-6 left-6
+            flex items-center gap-2
+            px-5 py-2.5
+            rounded-xl
+            bg-slate-100
+            border border-slate-200
+            text-slate-700 font-medium
+            shadow-sm
+            transition-colors transition-shadow duration-200
+            hover:bg-slate-200
+            hover:border-slate-300
+            hover:text-slate-800
+            active:bg-slate-300
+          "
+        >
+          <ChevronLeft className="w-5 h-5" />
+          <span>Back</span>
+        </button>
+
+        {/* Loading */}
+        <div className="flex flex-col items-center gap-4">
+          {/* Spinner */}
+          <div className="w-[60px] h-[60px] rounded-full border-4 border-slate-200 border-t-blue-600 animate-spin" />
+
+          {/* Text */}
+          <p className="text-slate-600 text-lg tracking-wide animate-pulse">
+            Loading data...
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>

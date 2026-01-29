@@ -1,8 +1,16 @@
 import React from "react";
-import { formatJP, getDesignStandardText } from "../utils/reportTextFormatter";
-import "../styles/page.css";
+import {
+  formatJP,
+  getDesignStandardText,
+} from "../../utils/reportTextFormatter";
+import "../../styles/page.css";
 
-export default function A4Pages({ cover, condition, results, pages }) {
+export default function LightingPolePages({
+  cover,
+  condition,
+  results,
+  pages,
+}) {
   return (
     <>
       {/* ================================= COVER PAGE ================================= */}
@@ -128,8 +136,8 @@ export default function A4Pages({ cover, condition, results, pages }) {
               <div className="flex justify-start ml-[19px]">
                 <span className="jp tracking-[0.1em] mr-[2px]">○鋼管:</span>
                 <span className="mr-9">0.7</span>
-                <span className="jp tracking-[0.1em] mr-[2px]">灯具:</span>
-                <span>1.0</span>
+                {/* <span className="jp tracking-[0.1em] mr-[2px]">灯具:</span>
+                <span>1.0</span> */}
               </div>
 
               <div className="flex justify-start">

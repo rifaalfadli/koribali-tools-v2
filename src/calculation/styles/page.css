@@ -18,6 +18,11 @@
   font-family: "Times New Roman", serif;
 }
 
+.page-a4 .katex {
+  font-size: inherit;
+  font-family: "Times New Roman", Times, serif;
+}
+
 /* header di dalam margin atas 15mm */
 .page-header {
   text-align: right;

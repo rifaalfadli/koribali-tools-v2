@@ -1,12 +1,21 @@
 import React from "react";
 import { useRef, useMemo } from "react";
-import { createBlocks } from "./A4BlockPage";
-import { useA4Pagination } from "./useA4Pagination";
-import A4Pages from "./A4Pages";
-import "../styles/page.css";
+import { createBlocks } from "./LightingPoleBlock";
+import { useA4Pagination } from "../useA4Pagination";
+import LightingPolePages from "./LightingPolePages";
+import "../../styles/page.css";
 
-export default function A4Report({ cover, condition, sections, results }) {
-  const blocks = useMemo(() => createBlocks(results), [results]); // Memoize blocks so they are created only once
+export default function LightingPoleReport({
+  cover,
+  condition,
+  structuralDesign,
+  results,
+  resultsDo,
+}) {
+  const blocks = useMemo(
+    () => createBlocks(results, resultsDo, structuralDesign),
+    [results, resultsDo, structuralDesign],
+  ); // Memoize blocks so they are created only once
   const measureRef = useRef(null); // Ref to hidden div for measuring block heights
 
   // Get paginated pages based on A4 page height
@@ -18,7 +27,7 @@ export default function A4Report({ cover, condition, sections, results }) {
   return (
     <>
       {/* Render actual A4 pages using paginated data */}
-      <A4Pages
+      <LightingPolePages
         cover={cover}
         condition={condition}
         results={results}

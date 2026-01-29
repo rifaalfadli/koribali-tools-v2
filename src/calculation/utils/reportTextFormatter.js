@@ -31,3 +31,57 @@ export const getDesignStandardText = (value) => {
       return "";
   }
 };
+
+// Function to generate load table rows based on step height criteria
+export const getRowsForStep = (
+  stepIndex,
+  resultsPole,
+  resultsDo,
+  structuralDesign
+) => {
+  // Current pole step
+  const currentStep = resultsPole[stepIndex];
+
+  // Pole below current step (if any)
+  const nextStep = resultsPole[stepIndex + 1];
+
+  // Current pole step height
+  const currentH = Number(currentStep.heightPole);
+
+  // Height of the pole below (null if last step)
+  const nextH = nextStep ? Number(nextStep.heightPole) : null;
+
+  // The most basic lower limit
+  const lowestPole = Number(structuralDesign?.lowestStep) || 0;
+
+  const rows = [];
+
+  // ===== DIRECT OBJECT (DO) =====
+  resultsDo.forEach((doItem) => {
+    const doHeight = Number(doItem.heightDo) || 0;
+
+    // appear in this step?
+    const passHeight = nextStep ? doHeight > nextH : doHeight >= lowestPole;
+
+    if (!passHeight) return;
+
+    rows.push({
+      type: "do",
+      data: doItem,
+    });
+  });
+
+  // ===== POLE =====
+  resultsPole.forEach((pole) => {
+    const poleH = Number(pole.heightPole) || 0;
+
+    if (poleH >= currentH) {
+      rows.push({
+        type: "pole",
+        data: pole,
+      });
+    }
+  });
+
+  return rows;
+};

@@ -1,4 +1,4 @@
-import { RotateCcw, AlertCircle } from "lucide-react";
+import { RotateCcw, ChevronRight } from "lucide-react";
 
 export function CoverInput({ cover, onUpdate, onMake, errors }) {
   // Function to reset all imputs to default (empty)
@@ -26,8 +26,7 @@ export function CoverInput({ cover, onUpdate, onMake, errors }) {
   const ErrorText = ({ show, text }) =>
     show ? (
       <div className="absolute left-0 -bottom-5 flex items-center gap-1 text-[11px] text-red-500">
-        <AlertCircle size={12} />
-        <span>{text}</span>
+        <span>*{text}</span>
       </div>
     ) : null;
 
@@ -89,7 +88,7 @@ export function CoverInput({ cover, onUpdate, onMake, errors }) {
             <ErrorText show={errors.projectName} text="Required field" />
           </div>
 
-          {/* FIELD: Content Row 2 */}
+          {/* FIELD: Content Row 2 (Optional) */}
           <div className="md:col-span-2">
             <label className="block text-gray-700 mb-2 text-sm font-medium">
               Line 2 (Optional)
@@ -133,40 +132,28 @@ export function CoverInput({ cover, onUpdate, onMake, errors }) {
         {/* Divider */}
         <div className="mt-8 border-t border-gray-200"></div>
 
-        {/* FOOTER: LEFT (Reset) & RIGHT (Completion Status) */}
+        {/* FOOTER: LEFT (Reset) & RIGHT (Make Report) */}
         <div className="flex justify-between items-center pt-6">
-          {/* RESET BUTTON */}
+          {/* Reset Button */}
           <button
             onClick={handleReset}
             className="flex items-center gap-2 px-7 py-2.5 h-[45px] bg-[#eef2f6] text-[#0d3b66]
-            border-2 border-[#d0d7e2] rounded-xl hover:bg-[#e2e8f0] transition-colors font-medium"
+            border-2 border-[#d0d7e2] rounded-lg hover:bg-[#e2e8f0] transition-colors font-medium"
           >
             <RotateCcw className="w-4 h-4" />
             Reset
           </button>
 
-          {/* COMPLETION STATUS BADGE */}
+          {/* Make Report Button */}
           <button
             onClick={onMake}
             className="flex items-center gap-2 px-7 py-2.5 h-[45px] 
             bg-gradient-to-r from-[#0d3b66] to-[#3399cc]
-            text-white rounded-xl 
+            text-white rounded-lg 
             hover:brightness-110 transition-all shadow-sm font-medium"
           >
             Make Report
-            <svg
-              className="w-5 h-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M9 5l7 7-7 7"
-              />
-            </svg>
+            <ChevronRight className="w-5 h-5" />
           </button>
         </div>
       </div>
