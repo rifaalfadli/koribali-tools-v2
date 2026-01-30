@@ -1,8 +1,10 @@
 import React from "react";
-import {
-  formatJP,
-  getDesignStandardText,
-} from "../../utils/reportTextFormatter";
+// import {
+//   formatJP,
+//   getDesignStandardText,
+// } from "../../utils/reportTextFormatter";
+
+import { formatJP } from "../../utils/reportTextFormatter";
 import "../../styles/page.css";
 
 export default function AcemastPages({ cover, condition, results, pages }) {
