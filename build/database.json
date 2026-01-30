@@ -127,6 +127,13 @@
       "phoneNumber": "08111999881",
       "divisi": "YP",
       "password": "1234Raden"
+    },
+    {
+      "id": "mr1",
+      "fullname": "Kotani Shinsuke",
+      "email": "kotani@gmail.com",
+      "phoneNumber": "0812345678",
+      "password": "Kotani123"
     }
   ],
   "pesan": [
