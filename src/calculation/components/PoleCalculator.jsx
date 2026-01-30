@@ -148,7 +148,7 @@ export function PoleCalculator() {
   const [ohwErrors, setOhwErrors] = useState({});
 
   // STATE: Results all structural design
-  const [resultStructuralDesign, setResultStructuralDesign] = useState(() => {
+  const [, setResultStructuralDesign] = useState(() => {
     const saved = sessionStorage.getItem("resultStructuralDesign");
     return saved ? JSON.parse(saved) : [];
   });
