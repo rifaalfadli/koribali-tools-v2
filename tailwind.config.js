@@ -4,7 +4,7 @@ module.exports = {
   theme: {
     extend: {
       screens: {
-        hp: { max: "400px" },
+        hp: { max: "500px" },
         2040: "2040px", // custom breakpoint
       },
     },

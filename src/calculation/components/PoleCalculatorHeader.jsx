@@ -2,38 +2,56 @@ import { Layout, RotateCcw } from "lucide-react";
 
 export function HeaderCalculationPage({ onResetAll }) {
   return (
-    <div className="bg-gradient-to-r from-[#0d3b66] to-[#0d3b66] py-[23px] px-12 shadow-lg sticky top-[70px] z-40 flex justify-between hp:px-5 py-[15px] top-[60px]">
-      <div className="max-w-7xl hp:w-[180px] hp:flex items-center">
-        <div className="flex items-center gap-3 hp:gap-0">
-          {/* ICON KIRI */}
-          <div className="bg-[#3399cc] p-[8px] rounded-lg hp:hidden">
-            <Layout className="w-[28px] h-[28px] text-white" />
+    <div
+      className="
+    bg-gradient-to-r from-[#0d3b66] to-[#0d3b66]
+    shadow-lg
+    sticky top-[70px] z-40
+    px-12 py-[23px]
+    hp:px-4 hp:py-3 hp:top-[59px]
+  "
+    >
+      <div className="flex items-center justify-between gap-3">
+        {/* LEFT : ICON + TITLE */}
+        <div className="flex items-center gap-3 hp:gap-2">
+          <div className="bg-[#3399cc] p-2 hp:p-1.5 rounded-lg">
+            <Layout className="w-6 h-6 hp:w-5 hp:h-5 text-white" />
           </div>
-          {/* TEKS HEADER */}
+
           <div>
-            <h1 className="text-white mb-0.5 text-[15px] font-bold hp:text-sm">
+            <h1 className="text-white text-[15px] hp:text-sm font-bold hp:font-semibold leading-tight">
               Calculation System
             </h1>
+
+            {/* desktop only */}
             <p className="text-white/70 text-xs font-semibold hp:hidden">
               Professional structural analysis tools
             </p>
           </div>
         </div>
-      </div>
 
-      {/* BUTTONS */}
-      <div className="flex items-center">
+        {/* RIGHT : RESET BUTTON */}
         <button
           onClick={onResetAll}
-          className="flex items-center gap-2 bg-gray-200 text-[#0d3b66] px-7 py-3 rounded-lg font-medium shadow-sm
-            hover:bg-gray-300 hover:shadow-md
-            active:scale-95 text-sm font-semibold
-            transition-all duration-200 ease-out
-            hp:px-3 py-[10px] text-xs gap-[5px]
-            "
+          className="
+        flex items-center gap-2
+        bg-gray-200 text-[#0d3b66]
+        px-7 py-3
+        hp:px-4 hp:py-2.5
+        rounded-lg hp:rounded-md
+        font-semibold
+        text-sm hp:text-xs
+        shadow-sm
+        hover:bg-gray-300 hover:shadow-md
+        active:scale-95
+        transition-all duration-200 ease-out
+      "
         >
-          <RotateCcw className="w-4 h-4" />
-          <span>Reset All</span>
+          <RotateCcw className="w-5 h-5 hp:w-4 hp:h-4" />
+
+          {/* text control */}
+          <span className="hp:hidden">Reset All</span>
+          <span className="hidden hp:inline">Reset</span>
         </button>
       </div>
     </div>

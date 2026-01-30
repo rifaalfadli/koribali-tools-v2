@@ -15,37 +15,55 @@ export function ResultsTable({ results, resultsDo, resultsOhw, onCoverInput }) {
   return (
     <div className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden mt-12">
       {/* Header */}
-      <div className="bg-gradient-to-r from-[#0d3b66] to-[#0d3b66] px-6 py-5">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="bg-white/10 backdrop-blur-sm p-2 rounded-lg">
-              <CheckCircle2 className="w-6 h-6 text-white" />
+      <div className="bg-gradient-to-r from-[#0d3b66] to-[#0d3b66] px-6 py-5 hp:px-4 hp:py-3">
+        <div className="flex items-center justify-between gap-3">
+          {/* LEFT */}
+          <div className="flex items-center gap-3 hp:gap-2">
+            <div className="bg-white/10 backdrop-blur-sm p-2 hp:p-1.5 rounded-lg">
+              <CheckCircle2 className="w-6 h-6 hp:w-5 hp:h-5 text-white" />
             </div>
+
             <div>
-              <h2 className="text-white mb-0.5 text-sm font-semibold">
+              <h2 className="text-white mb-0.5 text-sm hp:text-xs font-semibold">
                 Calculation Results
               </h2>
-              <p className="text-white/70 text-xs font-medium">
+
+              {/* hide description on mobile */}
+              <p className="text-white/70 text-xs font-medium hp:hidden">
                 Comprehensive structural analysis output
               </p>
             </div>
           </div>
 
+          {/* RIGHT BUTTON */}
           <button
             onClick={onCoverInput}
-            className="flex items-center gap-2 px-7 py-2.5 
-            bg-white text-[#0d3b66] rounded-lg text-sm
-            shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105 border-2 border-transparent font-medium"
+            className="
+              flex items-center gap-2
+              px-7 py-2.5
+              hp:px-3 hp:py-2
+              bg-white text-[#0d3b66]
+              rounded-lg hp:rounded-md
+              text-sm hp:text-xs
+              shadow-md hover:shadow-lg
+              transition-all duration-300
+              transform hover:scale-105
+              border-2 border-transparent
+              font-medium
+            "
           >
-            <FileText className="w-5 h-5" />
-            Make Report
+            <FileText className="w-5 h-5 hp:w-4 hp:h-4" />
+
+            {/* text shorten on mobile */}
+            <span className="hp:hidden">Make Report</span>
+            <span className="hidden hp:inline">Report</span>
           </button>
         </div>
       </div>
 
       {/* Tabel Result Pole */}
       {r && (
-        <div className="mx-6 my-6 mb-16 space-y-6">
+        <div className="mx-6 my-6 mb-16 space-y-6 hp:mx-2 hp:mt-4 hp:mb-8 ">
           <div className="bg-gradient-to-r from-[#0d3b66] to-[#0d3b66] px-5 py-4 shadow-sm">
             <div className="flex items-center gap-3">
               <div className="bg-white/15 backdrop-blur-sm p-2 rounded-lg">
@@ -59,7 +77,7 @@ export function ResultsTable({ results, resultsDo, resultsOhw, onCoverInput }) {
             </div>
           </div>
 
-          <div className="overflow-x-auto">
+          <div className="hidden md:block overflow-x-auto">
             <table className="min-w-full border-collapse border border-gray-300">
               <thead>
                 <tr className="bg-blue-50 text-[#0d3b66] text-xs">
@@ -181,6 +199,63 @@ export function ResultsTable({ results, resultsDo, resultsOhw, onCoverInput }) {
                 ))}
               </tbody>
             </table>
+          </div>
+
+          {/* ================= MOBILE VERSION ================= */}
+          <div className="md:hidden space-y-4">
+            {results.map((r, i) => (
+              <div
+                key={i}
+                className="
+        bg-white
+        border border-gray-300
+        rounded-xl
+        p-4
+        shadow-sm
+        transition
+        hover:shadow-md
+      "
+              >
+                {/* HEADER */}
+                <div className="flex items-start justify-between mb-3">
+                  <div>
+                    <h3 className="text-sm font-semibold text-[#0d3b66]">
+                      Pole {r.pole}
+                    </h3>
+                    <p className="text-xs text-gray-500 leading-snug">
+                      {r.description}
+                    </p>
+                  </div>
+
+                  <span
+                    className="
+          text-xs font-medium
+          px-2 py-1
+          rounded-md
+          bg-blue-50 text-blue-700
+          whitespace-nowrap
+        "
+                  >
+                    {r.poleType}
+                  </span>
+                </div>
+
+                {/* BODY DATA */}
+                <div className="grid grid-cols-2 gap-x-4 gap-y-3 text-xs">
+                  <DataItem label="Dia Upper (mm)" value={r.diaUpper} />
+                  <DataItem label="Dia Lower (mm)" value={r.diaLower} />
+
+                  <DataItem label="Thick Upper (mm)" value={r.thickUpper} />
+                  <DataItem label="Thick Lower (mm)" value={r.thickLower} />
+
+                  <DataItem label="Length (mm)" value={r.length} />
+                  <DataItem label="Height Z (mm)" value={r.heightPole} />
+
+                  <DataItem label="Center Point (mm)" value={r.centerPoint} />
+                  <DataItem label="Material" value={r.material} />
+                </div>
+              </div>
+            ))}
           </div>
 
           {/* ---------- TABLE 2 : CALCULATED RESULTS ---------- */}
@@ -868,3 +943,12 @@ ResultsTable.propTypes = {
     }),
   ).isRequired,
 };
+
+function DataItem({ label, value }) {
+  return (
+    <div className="flex flex-col">
+      <span className="text-gray-500">{label}</span>
+      <span className="font-medium text-gray-800">{value ?? "-"}</span>
+    </div>
+  );
+}

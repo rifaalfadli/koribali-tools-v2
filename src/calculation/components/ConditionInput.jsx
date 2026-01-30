@@ -17,12 +17,12 @@ export function ConditionInput({ condition, onUpdate, onNext, errors }) {
     hasError
       ? "border border-red-500 bg-[#fff5f5] ring-1 ring-red-200 focus:border-red-500 focus:ring-1 focus:ring-red-200"
       : "border-gray-300 bg-white focus:border-[#3399cc] focus:ring-1 focus:ring-[#3399cc]"
-  }hp:p-2 rounded-md text-xs`;
+  } hp:py-2 hp:pl-2 hp:pr-10 hp:rounded-md hp:text-xs`;
 
   // Function to helper text error
   const ErrorText = ({ show, text }) =>
     show ? (
-      <div className="absolute left-0 -bottom-5 flex items-center gap-1 text-[11px] text-red-500">
+      <div className="absolute left-0 -bottom-5 flex items-center gap-1 text-[11px] text-red-500 hp:text-[9px] hp:-bottom-4">
         <span>*{text}</span>
       </div>
     ) : null;
@@ -32,10 +32,10 @@ export function ConditionInput({ condition, onUpdate, onNext, errors }) {
       {/* FORM CARD WRAPPER */}
       <div className="p-6 shadow-sm hp:p-4">
         {/* 2-Column Grid (Responsive) */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-x-4 gap-y-8 hp:gap-y-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-x-4 gap-y-8 hp:gap-y-6">
           {/* FIELD : Design Standard Dropdown */}
           <div className="relative">
-            <label className="block text-sm text-gray-700 mb-2 hp:text-xs">
+            <label className="block text-sm text-gray-700 mb-2 hp:text-xs hp:mb-1">
               Design Standard
             </label>
             <select
@@ -56,7 +56,7 @@ export function ConditionInput({ condition, onUpdate, onNext, errors }) {
 
           {/* FIELD : Design Wind Speed Input */}
           <div className="relative">
-            <label className="block text-sm text-gray-700 mb-2 hp:text-xs">
+            <label className="block text-sm text-gray-700 mb-2 hp:text-xs hp:mb-1">
               Design Wind Speed
             </label>
             <div className="relative">
@@ -64,7 +64,7 @@ export function ConditionInput({ condition, onUpdate, onNext, errors }) {
                 type="number"
                 value={condition.windSpeed}
                 onChange={(e) => onUpdate({ windSpeed: e.target.value })}
-                className={inputClass(errors.windSpeed)}
+                className={`${inputClass(errors.windSpeed)} hp:px-3`}
               />
               <span className="absolute right-4 top-1/2 -translate-y-1/2 text-sm text-black-400 hp:text-xs">
                 m/s
@@ -75,7 +75,7 @@ export function ConditionInput({ condition, onUpdate, onNext, errors }) {
 
           {/* FIELD : Project Type Dropdown */}
           <div className="relative">
-            <label className="block text-sm text-gray-700 mb-2 hp:text-xs">
+            <label className="block text-sm text-gray-700 mb-2 hp:text-xs hp:mb-1">
               Project Type
             </label>
             <select
@@ -101,14 +101,14 @@ export function ConditionInput({ condition, onUpdate, onNext, errors }) {
         <div className="mt-6 border-t border-gray-200"></div>
 
         {/* FOOTER: LEFT (Reset Button) & RIGHT (Next Input) */}
-        <div className="flex justify-between items-center pt-6">
+        <div className="flex justify-between items-center pt-6 hp:pt-4">
           {/* Reset Button */}
           <button
             onClick={handleReset}
             className="flex items-center gap-2 px-7 py-2.5 bg-[#eef2f6] text-[#0d3b66] text-sm
-            border-2 border-[#d0d7e2] rounded-lg hover:bg-[#e2e8f0] transition-colors font-medium hp:text-xs px-3 py-[10px]"
+            border-2 border-[#d0d7e2] rounded-lg hover:bg-[#e2e8f0] transition-colors font-medium hp:text-xs hp:px-[22px] hp:py-[10px]"
           >
-            <RotateCcw className="w-5 h-5 hp:w-4 h-4" />
+            <RotateCcw className="w-5 h-5 hp:w-4 hp:h-4" />
             Reset
           </button>
 
@@ -118,10 +118,10 @@ export function ConditionInput({ condition, onUpdate, onNext, errors }) {
             className="flex items-center gap-2 px-7 py-2.5
             bg-gradient-to-r from-[#0d3b66] to-[#3399cc]
             text-white rounded-lg text-sm
-            hover:brightness-110 transition-all shadow-sm font-medium hp:text-xs px-3 py-[10px]"
+            hover:brightness-110 transition-all shadow-sm font-medium hp:text-xs hp:px-[22px] hp:py-[10px]"
           >
             Next Input
-            <ChevronDown className="w-5 h-5 hp:w-4 h-4" />
+            <ChevronDown className="w-5 h-5 hp:w-4 hp:h-4" />
           </button>
         </div>
       </div>

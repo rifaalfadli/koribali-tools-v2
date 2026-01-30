@@ -29,12 +29,12 @@ export function DirectObjectInput({
     hasError
       ? "border-red-500 bg-[#fff5f5] ring-1 ring-red-200 focus:border-red-500"
       : "border-gray-300 bg-white focus:border-[#3399cc] focus:ring-1 focus:ring-[#3399cc]"
-  }`;
+  } hp:p-2 hp:rounded-md hp:text-xs`;
 
   // Function to helper text error
   const ErrorText = ({ show, text }) =>
     show ? (
-      <div className="absolute left-0 -bottom-5 flex items-center gap-1 text-[11px] text-red-500">
+      <div className="absolute left-0 -bottom-5 flex items-center gap-1 text-[11px] text-red-500 hp:text-[9px] hp:-bottom-4">
         <span>*{text}</span>
       </div>
     ) : null;
@@ -47,18 +47,18 @@ export function DirectObjectInput({
     doValueNumber > 25;
 
   return (
-    <div className="rounded-b-2xl shadow-sm border border-gray-200 overflow-hidden bg-white">
-      <div className="px-6 pt-6 pb-3">
+    <div className="rounded-b-2xl shadow-sm border border-gray-200 overflow-hidden bg-white hp:rounded-b-xl">
+      <div className="px-6 pt-6 pb-3 hp:px-4 hp:pt-4 hp:pb-2">
         <div>
           {/* HEADER DIRECT OBJECT INPUT */}
           <div className="flex items-center justify-between mb-1">
             <div>
-              <h2 className="text-[#0d3b66] font-medium text-sm flex items-center gap-1">
-                <div className="w-1 h-4 bg-[#3399cc] rounded-full mr-1"></div>
+              <h2 className="text-[#0d3b66] font-medium text-sm flex items-center gap-1 hp:text-xs">
+                <div className="w-1 h-5 bg-[#3399cc] rounded-full mr-1 hp:h-4"></div>
                 <span className="font-semibold">
                   Configure up to 25 Direct Objects
                 </span>
-                <span>with detailed specifications</span>
+                <span className="hp:hidden">with detailed specifications</span>
               </h2>
             </div>
           </div>
@@ -66,9 +66,26 @@ export function DirectObjectInput({
       </div>
 
       <div className="border-b border-gray-200">
-        <div className="flex items-center justify-between overflow-x-auto pb-2 px-6 pt-3 pb-6">
+        <div
+          className="
+            flex items-center justify-between
+            px-6 pt-3 pb-6
+
+            hp:flex-col
+            hp:items-stretch
+            hp:gap-3
+            hp:px-3
+            hp:pt-2
+          "
+        >
           {/* INPUT + BUTTON */}
-          <div className="flex items-center gap-3">
+          <div
+            className="
+              flex items-center gap-3
+
+              hp:gap-2
+            "
+          >
             <input
               type="number"
               min={1}
@@ -76,31 +93,57 @@ export function DirectObjectInput({
               placeholder="Object Count"
               value={doInputValue}
               onChange={(e) => setDoInputValue(e.target.value)}
-              className="w-[180px] px-7 py-2.5 text-center text-sm rounded-lg outline-none transition-all border border-[#3399cc] bg-white focus:ring-1 focus:ring-[#3399cc]"
+              className="
+                w-[180px] px-7 py-2.5 text-center text-sm rounded-lg outline-none
+                transition-all border border-[#3399cc] bg-white
+                focus:ring-1 focus:ring-[#3399cc]
+
+                hp:w-[120px]
+                hp:px-1
+                hp:py-2
+                hp:text-xs
+              "
             />
 
             <button
               onClick={onAddDo}
               disabled={isDoInputValue}
-              className={`flex items-center gap-2 px-7 py-2.5 text-sm font-medium rounded-lg transition-all shadow-md border 
-                    ${
-                      isDoInputValue
-                        ? "bg-gray-50 border-gray-300 text-gray-600 opacity-40 cursor-not-allowed"
-                        : "bg-blue-50 border-blue-500 text-blue-700 hover:bg-blue-100"
-                    }`}
+              className={`
+                flex items-center gap-2 px-7 py-2.5 text-sm font-medium rounded-lg
+                transition-all shadow-md border
+
+                hp:px-6
+                hp:py-2
+                hp:text-xs
+
+                ${
+                  isDoInputValue
+                    ? "bg-gray-50 border-gray-300 text-gray-600 opacity-40 cursor-not-allowed"
+                    : "bg-blue-50 border-blue-500 text-blue-700 hover:bg-blue-100"
+                }
+              `}
             >
-              {/* Status Icon */}
               {isDoInputValue ? (
-                <Circle className="w-5 h-5 text-gray-400" />
+                <Circle className="w-4 h-4 text-gray-400" />
               ) : (
-                <CheckCircle className="w-5 h-5 text-blue-500" />
+                <CheckCircle className="w-4 h-4 text-blue-500" />
               )}
               OK
             </button>
           </div>
 
           {/* Show Object Count */}
-          <div className="flex items-center gap-2 px-7 py-2.5 text-sm rounded-lg bg-slate-50 border border-slate-200 text-slate-700 font-medium">
+          <div
+            className="
+                flex items-center gap-2 px-7 py-2.5 text-sm rounded-lg
+                bg-slate-50 border border-slate-200 text-slate-700 font-medium
+
+                hp:px-3
+                hp:py-2
+                hp:text-xs
+                hp:justify-center
+              "
+          >
             <span className="text-[#0d3b66] font-semibold">
               {directObjects.length}
             </span>
@@ -111,7 +154,7 @@ export function DirectObjectInput({
       </div>
 
       {directObjects.length === 0 && (
-        <div className="text-center text-gray-400 text-sm py-6">
+        <div className="text-center text-gray-400 text-sm py-6 hp:text-xs hp:py-4">
           No Direct Object added yet
         </div>
       )}
@@ -126,49 +169,52 @@ export function DirectObjectInput({
           <div
             key={directObject.idDo}
             className={`hover:bg-blue-50 p-6 
-            ${hasMultiple && !isLast ? "border-b border-gray-200" : ""}`}
+            ${hasMultiple && !isLast ? "border-b border-gray-200" : ""} hp:px-4 hp:pb-6 hp:pt-4`}
           >
             {/* Header section title */}
-            <div className="flex items-center justify-between mb-4 pb-4 border-b border-gray-200">
+            <div
+              className="
+                flex items-center justify-between
+                mb-4 pb-4 border-b border-gray-200
+
+                hp:flex-col
+                hp:items-start
+                hp:gap-4
+              "
+            >
               <div className="flex items-center gap-3">
                 <div
                   className="w-9 h-9 rounded-lg
                   bg-gradient-to-br from-[#0d3b66] to-[#3399cc]
                   flex items-center justify-center
-                  text-white text-sm font-medium"
+                  text-white text-sm font-medium hp:w-8 hp:h-8"
                 >
                   {index + 1}
                 </div>
 
                 <div>
-                  <h4 className="text-base text-[#0d3b66] text-sm font-medium leading-snug">
+                  <h4 className="text-base text-[#0d3b66] text-sm font-medium leading-snug hp:text-xs">
                     Direct Object
                     {directObject.nameDo && ` - ${directObject.nameDo}`}
                   </h4>
-                  <p className="text-xs text-gray-500">
+                  <p className="text-xs text-gray-500 hp:text-[10px]">
                     {directObject.typeOfDo} Type
                   </p>
                 </div>
               </div>
 
-              <div className="flex gap-4">
-                {/* BUTTON COPY / PASTE */}
+              {/* DEKSTOP */}
+              <div className="flex items-center gap-6 hp:hidden">
+                {/* COPY / PASTE */}
                 <div className="flex items-center gap-2 ml-2">
-                  {/* COPY */}
                   <button
                     onClick={() => onCopyDo(directObject)}
                     title="Copy this Direct Object"
-                    className="
-                      p-2 rounded-md border
-                      bg-blue-50 text-blue-600
-                      hover:bg-blue-100
-                      transition
-                    "
+                    className="p-2 rounded-md border bg-blue-50 text-blue-600 hover:bg-blue-100 transition"
                   >
                     <Copy className="w-4 h-4" />
                   </button>
 
-                  {/* PASTE */}
                   <button
                     onClick={() => onPasteDo(directObject.idDo)}
                     disabled={!hasClipboard}
@@ -177,60 +223,107 @@ export function DirectObjectInput({
                         ? "Paste copied Direct Object"
                         : "No copied Direct Object"
                     }
-                    className={`
-                      p-2 rounded-md border transition
-                      ${
-                        hasClipboard
-                          ? "bg-green-50 text-green-600 hover:bg-green-100"
-                          : "bg-gray-200 text-gray-400 cursor-not-allowed"
-                      }
-                    `}
+                    className={`p-2 rounded-md border transition ${
+                      hasClipboard
+                        ? "bg-green-50 text-green-600 hover:bg-green-100"
+                        : "bg-gray-200 text-gray-400 cursor-not-allowed"
+                    }`}
                   >
                     <ClipboardPaste className="w-4 h-4" />
                   </button>
                 </div>
+
+                {/* DIVIDER */}
+                <div className="h-8 w-px bg-gray-300 opacity-70" />
+
+                {/* RESET */}
                 <button
                   onClick={() => resetCurrentDo(directObject.idDo)}
-                  className="flex items-center gap-2
-                  px-5 py-2 h-[40px] text-xs
-                  bg-[#eef2f6] text-[#0d3b66]
-                  border border-[#d0d7e2]
-                  rounded-lg
-                  hover:bg-[#e2e8f0]
-                  transition-colors
-                  text-sm font-medium"
+                  className="flex items-center gap-2 px-5 py-2 h-[40px] bg-[#eef2f6] text-[#0d3b66] border border-[#d0d7e2] rounded-lg hover:bg-[#e2e8f0] transition text-xs font-medium"
                 >
                   <RotateCcw className="w-4 h-4" />
                   Reset
                 </button>
 
+                {/* DELETE */}
                 <button
                   onClick={(e) => {
                     e.stopPropagation();
                     setConfirmDeleteDo(directObject.idDo);
                   }}
-                  className="flex items-center gap-2
-                  px-4 py-2 h-[40px]
-                  rounded-lg text-xs
-                  border border-red-200
-                  text-red-600
-                  bg-red-50
-                  hover:bg-red-100 hover:border-red-300
-                  transition-all
-                  text-sm font-medium"
+                  className="flex items-center gap-2 px-4 py-2 h-[40px] rounded-lg border border-red-200 text-red-600 bg-red-50 hover:bg-red-100 transition text-xs font-medium"
                 >
                   <Trash2 className="w-4 h-4" />
-                  <span>Delete Object</span>
+                  Delete Object
                 </button>
+              </div>
+
+              {/* MOBILE */}
+              <div className="hidden hp:flex items-center justify-between gap-2 w-full">
+                {/* LEFT: COPY / PASTE */}
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => onCopyDo(directObject)}
+                    title="Copy"
+                    className="h-8 w-8 rounded-md border bg-blue-50 text-blue-600 hover:bg-blue-100 transition flex items-center justify-center"
+                  >
+                    <Copy className="w-4 h-4" />
+                  </button>
+
+                  <button
+                    onClick={() => onPasteDo(directObject.idDo)}
+                    disabled={!hasClipboard}
+                    title="Paste"
+                    className={`h-8 w-8 rounded-md border transition flex items-center justify-center ${
+                      hasClipboard
+                        ? "bg-green-50 text-green-600 hover:bg-green-100"
+                        : "bg-gray-200 text-gray-400 cursor-not-allowed"
+                    }`}
+                  >
+                    <ClipboardPaste className="w-4 h-4" />
+                  </button>
+                </div>
+
+                {/* RIGHT: RESET / DELETE */}
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => resetCurrentDo(directObject.idDo)}
+                    title="Reset"
+                    className="h-8 w-8 rounded-md border bg-[#eef2f6] text-[#0d3b66] hover:bg-[#e2e8f0] transition flex items-center justify-center"
+                  >
+                    <RotateCcw className="w-4 h-4" />
+                  </button>
+
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setConfirmDeleteDo(directObject.idDo);
+                    }}
+                    title="Delete"
+                    className="h-8 w-8 rounded-md border border-red-200 text-red-600 bg-red-50 hover:bg-red-100 transition flex items-center justify-center"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                  </button>
+                </div>
               </div>
             </div>
 
             {/* FORM CARD WRAPPER */}
             <div>
-              <div className="flex space-x-2">
+              <div
+                className="
+                  flex items-start space-x-2
+
+                  hp:grid
+                  hp:grid-cols-2
+                  hp:gap-3
+                  hp:space-x-0
+                  hp:gap-y-6
+                "
+              >
                 {/* Direct Object Name Input */}
-                <div className="relative w-[200px]">
-                  <label className="block text-sm text-gray-700 mb-2">
+                <div className="relative w-[200px] hp:w-full hp:col-span-2">
+                  <label className="block text-sm text-gray-700 mb-2 hp:text-xs hp:mb-1">
                     Object Name
                   </label>
                   <input
@@ -246,8 +339,8 @@ export function DirectObjectInput({
                 </div>
 
                 {/* Type of Direct Object Selector */}
-                <div className="relative w-[140px]">
-                  <label className="block text-sm text-gray-700 mb-2">
+                <div className="relative w-[140px] hp:w-full">
+                  <label className="block text-sm text-gray-700 mb-2 hp:text-xs hp:mb-1">
                     Type of DO
                   </label>
                   <select
@@ -264,8 +357,8 @@ export function DirectObjectInput({
                 </div>
 
                 {/* Front Area Direct Object Input */}
-                <div className="relative w-[140px]">
-                  <label className="block text-sm text-gray-700 mb-2">
+                <div className="relative w-[140px] hp:w-full">
+                  <label className="block text-sm text-gray-700 mb-2 hp:text-xs hp:mb-1">
                     Front Area
                   </label>
                   <div className="relative">
@@ -277,7 +370,7 @@ export function DirectObjectInput({
                           frontAreaDo: e.target.value,
                         })
                       }
-                      className={`${inputClass(doError.frontAreaDo)} pr-6`}
+                      className={`${inputClass(doError.frontAreaDo)} pr-6 hp:py-[9.5px] hp:pr-6`}
                     />
                     <span className="absolute right-2 top-1/2 -translate-y-1/2 text-xs text-black-400">
                       m<sup>2</sup>
@@ -288,8 +381,8 @@ export function DirectObjectInput({
 
                 {/* Side Area Direct Object Input */}
                 {directObject.typeOfDo === "directional" && (
-                  <div className="relative w-[140px]">
-                    <label className="block text-sm text-gray-700 mb-2">
+                  <div className="relative w-[140px] hp:w-full">
+                    <label className="block text-sm text-gray-700 mb-2 hp:text-xs hp:mb-1">
                       Side Area
                     </label>
                     <div className="relative">
@@ -301,7 +394,7 @@ export function DirectObjectInput({
                             sideAreaDo: e.target.value,
                           })
                         }
-                        className={`${inputClass(doError.sideAreaDo)} pr-6`}
+                        className={`${inputClass(doError.sideAreaDo)} pr-6 hp:pr-6`}
                       />
                       <span className="absolute right-2 top-1/2 -translate-y-1/2 text-xs text-black-400">
                         m<sup>2</sup>
@@ -315,8 +408,8 @@ export function DirectObjectInput({
                 )}
 
                 {/* Weight Direct Object Input */}
-                <div className="relative w-[140px]">
-                  <label className="block text-sm text-gray-700 mb-2">
+                <div className="relative w-[140px] hp:w-full">
+                  <label className="block text-sm text-gray-700 mb-2 hp:text-xs hp:mb-1">
                     Weight
                   </label>
                   <div className="relative">
@@ -328,7 +421,7 @@ export function DirectObjectInput({
                           weightDo: e.target.value,
                         })
                       }
-                      className={`${inputClass(doError.weightDo)} pr-6`}
+                      className={`${inputClass(doError.weightDo)} pr-6 hp:pr-6`}
                     />
                     <span className="absolute right-2 top-1/2 -translate-y-1/2 text-xs text-black-400">
                       kg
@@ -338,8 +431,8 @@ export function DirectObjectInput({
                 </div>
 
                 {/* Z (Height) Direct Object Input */}
-                <div className="relative w-[140px]">
-                  <label className="block text-sm text-gray-700 mb-2">
+                <div className="relative w-[140px] hp:w-full">
+                  <label className="block text-sm text-gray-700 mb-2 hp:text-xs hp:mb-1">
                     Z (Height)
                   </label>
                   <div className="relative">
@@ -351,7 +444,7 @@ export function DirectObjectInput({
                           heightDo: e.target.value,
                         })
                       }
-                      className={`${inputClass(doError.heightDo)} pr-8`}
+                      className={`${inputClass(doError.heightDo)} pr-8 hp:pr-8`}
                     />
                     <span className="absolute right-2 top-1/2 -translate-y-1/2 text-xs text-black-400">
                       mm
@@ -361,8 +454,8 @@ export function DirectObjectInput({
                 </div>
 
                 {/* nnC Direct Object Input */}
-                <div className="relative w-[140px]">
-                  <label className="block text-sm text-gray-700 mb-2">
+                <div className="relative w-[140px] hp:w-full">
+                  <label className="block text-sm text-gray-700 mb-2 hp:text-xs hp:mb-1">
                     nnC
                   </label>
                   <input
@@ -377,8 +470,8 @@ export function DirectObjectInput({
                 </div>
 
                 {/* Quantity Direct Object Input */}
-                <div className="relative w-[100px]">
-                  <label className="block text-sm text-gray-700 mb-2">
+                <div className="relative w-[100px] hp:w-full">
+                  <label className="block text-sm text-gray-700 mb-2 hp:text-xs hp:mb-1">
                     Quantity
                   </label>
                   <div className="relative">
@@ -388,7 +481,7 @@ export function DirectObjectInput({
                       onChange={(e) =>
                         onUpdate(directObject.idDo, { qtyDo: e.target.value })
                       }
-                      className={`${inputClass(doError.qtyDo)} pr-8`}
+                      className={`${inputClass(doError.qtyDo)} pr-8 hp:pr-8`}
                     />
                     <span className="absolute right-2 top-1/2 -translate-y-1/2 text-xs text-black-400">
                       pcs
@@ -399,8 +492,8 @@ export function DirectObjectInput({
 
                 {/* Fix Angle Direct Object Input */}
                 {directObject.typeOfDo === "directional" && (
-                  <div className="relative w-[140px]">
-                    <label className="block text-sm text-gray-700 mb-2">
+                  <div className="relative w-[140px] hp:w-full">
+                    <label className="block text-sm text-gray-700 mb-2 hp:text-xs hp:mb-1">
                       Fix Angle
                     </label>
                     <div className="relative">
@@ -412,7 +505,7 @@ export function DirectObjectInput({
                             fixAngleDo: e.target.value,
                           })
                         }
-                        className={`${inputClass(doError.fixAngleDo)} pr-8`}
+                        className={`${inputClass(doError.fixAngleDo)} pr-8 hp:pr-8`}
                       />
                       <span className="absolute right-2 top-1/2 -translate-y-1/2 text-xs text-black-400">
                         deg
@@ -433,7 +526,7 @@ export function DirectObjectInput({
       <div className="border-t border-gray-200"></div>
 
       {/* FOOTER: LEFT (Reset Button) & RIGHT (Next Input) */}
-      <div className="flex justify-between items-center p-6">
+      <div className="flex justify-between items-center p-6 hp:p-4 hp:justify-center">
         {/* Add Button */}
         <button
           onClick={handleAddDo}
@@ -443,9 +536,9 @@ export function DirectObjectInput({
                       directObjects.length >= 25
                         ? "bg-gray-300 text-black opacity-40 cursor-not-allowed"
                         : "bg-gradient-to-r from-[#0d3b66] to-[#3399cc] text-white hover:brightness-110"
-                    }`}
+                    } hp:text-xs hp:px-[22px]`}
         >
-          <Plus className="w-5 h-5" />
+          <Plus className="w-5 h-5 hp:w-4 hp:h-4" />
           Add Object
         </button>
       </div>

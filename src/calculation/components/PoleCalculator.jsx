@@ -666,13 +666,13 @@ export function PoleCalculator() {
           className={`bg-gradient-to-r from-[#0d3b66] to-[#3399cc] p-4 flex items-center justify-between cursor-pointer mt-8 transition-all duration-500 ease-in-out ${
             isExpandedCondition
               ? "rounded-t-2xl hp:rounded-t-xl"
-              : "rounded-2xl rounded-xl"
-          } hp:px-4 py-3`}
+              : "rounded-2xl hp:rounded-xl"
+          } hp:px-4 hp:py-3`}
           onClick={() => setIsExpandedCondition(!isExpandedCondition)}
         >
           {/* Judul cover */}
-          <div className="bg-white/10 backdrop-blur-sm px-4 py-2 rounded-lg border border-white/20 hp:px-2 py-[8px]">
-            <h2 className="text-white text-sm font-bold hp:text-xs font-semibold">
+          <div className="bg-white/10 backdrop-blur-sm px-4 py-2 rounded-lg border border-white/20 hp:px-2 hp:py-[8px]">
+            <h2 className="text-white text-sm font-bold hp:text-xs hp:font-semibold">
               Standard and Condition
             </h2>
           </div>
@@ -680,9 +680,9 @@ export function PoleCalculator() {
           {/* Icon toggle (up/down) */}
           <div className="p-2">
             {isExpandedCondition ? (
-              <ChevronUp className="w-5 h-5 text-white hp:w4 h-4" />
+              <ChevronUp className="w-5 h-5 text-white hp:w4 hp:h-4" />
             ) : (
-              <ChevronDown className="w-5 h-5 text-white hp:w4 h-4" />
+              <ChevronDown className="w-5 h-5 text-white hp:w4 hp:h-4" />
             )}
           </div>
         </div>
@@ -691,8 +691,8 @@ export function PoleCalculator() {
         <div
           className={`transition-all duration-500 ease-in-out overflow-hidden ${
             isExpandedCondition
-              ? "max-h-[500px] rounded-b-2xl"
-              : "max-h-0 rounded-b-2xl"
+              ? "max-h-[500px] rounded-b-2xl hp:rounded-b-xl"
+              : "max-h-0 rounded-b-2xl hp:rounded-b-xl"
           }`}
         >
           <ConditionInput
@@ -708,15 +708,17 @@ export function PoleCalculator() {
         ============================================================ */}
         <div
           className={`bg-gradient-to-r from-[#0d3b66] to-[#3399cc] p-4 flex items-center justify-between cursor-pointer mt-12 transition-all duration-500 ease-in-out ${
-            isExpandedPole ? "rounded-t-2xl" : "rounded-2xl"
-          }`}
+            isExpandedPole
+              ? "rounded-t-2xl hp:rounded-t-xl"
+              : "rounded-2xl hp:rounded-xl"
+          } hp:px-4 hp:py-3`}
           onClick={() => setIsExpandedPole(!isExpandedPole)}
         >
           {/* Judul cover */}
-          <div className="bg-white/10 backdrop-blur-sm px-4 py-2 rounded-lg border border-white/20">
+          <div className="bg-white/10 backdrop-blur-sm px-4 py-2 rounded-lg border border-white/20 hp:px-2 hp:py-[8px]">
             <h2
               id="pole-section-title"
-              className="text-white text-sm font-bold"
+              className="text-white text-sm font-bold hp:text-xs hp:font-semibold"
             >
               Pole Specifications
             </h2>
@@ -725,9 +727,9 @@ export function PoleCalculator() {
           {/* Icon toggle (up/down) */}
           <div className="p-2">
             {isExpandedPole ? (
-              <ChevronUp className="w-5 h-5 text-white" />
+              <ChevronUp className="w-5 h-5 text-white hp:w4 hp:h-4" />
             ) : (
-              <ChevronDown className="w-5 h-5 text-white" />
+              <ChevronDown className="w-5 h-5 text-white hp:w4 hp:h-4" />
             )}
           </div>
         </div>
@@ -736,17 +738,17 @@ export function PoleCalculator() {
         <div
           className={`transition-all duration-500 ease-in-out overflow-hidden ${
             isExpandedPole
-              ? "max-h-[10000px] rounded-b-2xl"
-              : "max-h-0 rounded-b-2xl"
+              ? "max-h-[10000px] rounded-b-2xl hp:rounded-b-xl"
+              : "max-h-0 rounded-b-2xl hp:rounded-b-xl"
           }`}
         >
-          <div className="bg-white rounded-b-2xl shadow-sm border border-gray-200">
+          <div className="bg-white rounded-b-2xl shadow-sm border border-gray-200 hp:rounded-b-xl">
             {/* Structural Design Form */}
-            <div className="border-b border-gray-200 px-6 pt-6 pb-7">
-              <div className="flex items-center justify-between mb-4">
+            <div className="border-b border-gray-200 px-6 pt-6 pb-7 hp:px-4 hp:pt-4">
+              <div className="flex items-center justify-between mb-4 hp:mb-2">
                 <div>
-                  <h2 className="text-[#0d3b66] font-semibold flex items-center text-sm gap-2">
-                    <div className="w-1 h-4 bg-[#3399cc] rounded-full"></div>
+                  <h2 className="text-[#0d3b66] font-semibold flex items-center text-sm gap-2 hp:text-xs hp:font-medium">
+                    <div className="w-1 h-5 bg-[#3399cc] rounded-full hp:h-4"></div>
                     Structural Design
                   </h2>
                 </div>
@@ -760,16 +762,18 @@ export function PoleCalculator() {
             </div>
 
             {/* Step Pole Form */}
-            <div className="px-6 pt-6">
+            <div className="px-6 pt-6 hp:p-4">
               {/* HEADER ADD SECTION */}
-              <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center justify-between mb-4 hp:items-start hp:flex-col hp:gap-6 hp:mb-6">
                 <div>
-                  <h2 className="text-[#0d3b66] font-medium text-sm flex items-center gap-1">
-                    <div className="w-1 h-5 bg-[#3399cc] rounded-full mr-1"></div>
+                  <h2 className="text-[#0d3b66] text-sm flex items-center gap-1 hp:text-xs hp:flex hp:items-start">
+                    <div className="w-1 h-5 bg-[#3399cc] rounded-full mr-1 hp:h-4"></div>
                     <span className="font-semibold">
                       Configure up to 4 Step Poles
                     </span>
-                    with detailed specifications
+                    <span className=" font-medium hp:hidden">
+                      with detailed specifications
+                    </span>
                   </h2>
                 </div>
                 {/* BUTTON ADD SECTION */}
@@ -781,67 +785,80 @@ export function PoleCalculator() {
                     sections.length >= 4
                       ? "bg-gray-300 text-black opacity-40 cursor-not-allowed"
                       : "bg-gradient-to-r from-[#0d3b66] to-[#3399cc] text-white hover:shadow-xl transition-transform duration-300 hover:scale-105"
-                  }`}
+                  } hp:text-xs hp:px-[22px] hp:py-[10px] hp:self-center`}
                 >
-                  <Plus className="w-5 h-5" />
+                  <Plus className="w-5 h-5 hp:w-4 hp:h-4" />
                   Add Step
                 </button>
               </div>
 
               {/* TABS SECTION */}
-              <div className="flex items-center gap-2 overflow-x-auto pb-2">
+              <div className="flex items-center gap-2 overflow-x-auto pb-2 hp:gap-2 hp:px-2 hp:justify-center">
                 {sections.map((section, index) => {
                   const isComplete = handleIsSectionComplete(section);
                   const isActive = activeTab === section.id;
 
                   return (
-                    <div key={section.id} className="relative flex-shrink-0">
+                    <div key={section.id} className="flex-shrink-0">
                       <button
                         onClick={() => setActiveTab(section.id)}
-                        className={`flex items-center justify-between gap-3 px-7 py-2.5 rounded-lg border-2 transition-all
-                      ${
-                        isActive
-                          ? "bg-blue-50 border-blue-500 text-blue-700 hover:bg-blue-100 shadow-md"
-                          : isComplete
-                            ? "bg-green-50 border-green-500 text-green-700 hover:bg-green-100"
-                            : "bg-gray-50 border-gray-300 text-gray-600 hover:bg-gray-100"
-                      }`}
+                        className={`
+                          flex items-center gap-3 px-7 py-2.5 rounded-lg border-2 transition-all
+                          ${
+                            isActive
+                              ? "bg-blue-50 border-blue-500 text-blue-700 hover:bg-blue-100 shadow-md"
+                              : isComplete
+                                ? "bg-green-50 border-green-500 text-green-700 hover:bg-green-100"
+                                : "bg-gray-50 border-gray-300 text-gray-600 hover:bg-gray-100"
+                          }
+
+                          hp:px-4 hp:py-2
+                          
+                          hp:border
+                          hp:shadow-none
+                          hp:gap-2
+                        `}
                       >
-                        <div className="flex items-center gap-3">
-                          {isComplete ? (
-                            <CheckCircle className="w-5 h-5" />
-                          ) : (
-                            <Circle className="w-5 h-5" />
-                          )}
-                          <div className="text-left text-sm">
-                            <div>Step {index + 1}</div>
-                          </div>
-                        </div>
+                        {/* ICON */}
+                        {isComplete ? (
+                          <CheckCircle className="w-5 h-5 hp:w-4 hp:h-4" />
+                        ) : (
+                          <Circle className="w-5 h-5 hp:w-4 hp:h-4" />
+                        )}
+
+                        {/* TEXT */}
+                        <span className="text-sm font-medium hp:text-xs">
+                          <span className="hidden hp:inline">{index + 1}</span>
+                          <span className="hp:hidden">
+                            {isActive ? `Step ${index + 1}` : index + 1}
+                          </span>
+                        </span>
                       </button>
                     </div>
                   );
                 })}
               </div>
+
               {/* Divider */}
               <div className="mt-5 border-t border-gray-200"></div>
             </div>
 
             {/* ACTIVE SECTION INPUT */}
             {activeSection && (
-              <div className="p-6">
-                <div className="space-y-6">
+              <div className="p-6 hp:px-4 hp:pt-2 hp:pb-4">
+                <div className="space-y-6 hp:space-y-4">
                   {/* Header section title */}
-                  <div className="flex items-center justify-between mb-6 pb-6 border-b border-gray-200">
-                    <div className="flex items-center gap-3">
-                      <div className="w-9 h-9 text-sm rounded-lg bg-gradient-to-br from-[#0d3b66] to-[#3399cc] flex items-center justify-center text-white">
+                  <div className="flex items-center justify-between mb-6 pb-6 border-b border-gray-200 hp:mb-4 hp:pb-4">
+                    <div className="flex items-center gap-3 hp:gap-2">
+                      <div className="w-9 h-9 text-sm rounded-lg bg-gradient-to-br from-[#0d3b66] to-[#3399cc] flex items-center justify-center text-white hp:w-8 hp:h-8">
                         {sections.findIndex((s) => s.id === activeTab) + 1}
                       </div>
                       <div>
-                        <h4 className="text-[#0d3b66] text-sm font-medium">
+                        <h4 className="text-[#0d3b66] text-sm font-medium hp:text-xs">
                           Step Pole
                           {activeSection.name && ` - ${activeSection.name}`}
                         </h4>
-                        <p className="text-xs text-gray-500">
+                        <p className="text-xs text-gray-500 hp:text-[10px]">
                           {activeSection.poleType} Type
                         </p>
                       </div>
@@ -853,6 +870,7 @@ export function PoleCalculator() {
                           e.stopPropagation();
                           setConfirmDelete(activeSection.id);
                         }}
+                        title="Delete Step"
                         className="
                           flex items-center gap-2
                           px-6 py-2.5
@@ -864,10 +882,12 @@ export function PoleCalculator() {
                           transition-all
                           font-medium
                           shadow-sm
+
+                          hp:px-[11px] hp:py-[8px]
                         "
                       >
                         <Trash2 className="w-4 h-4" />
-                        <span className="text-xs">Delete Step</span>
+                        <span className="text-xs hp:hidden">Delete Step</span>
                       </button>
                     )}
                   </div>
@@ -881,19 +901,19 @@ export function PoleCalculator() {
                 </div>
 
                 {/* FOOTER: RESET + CALCULATE / NEXT */}
-                <div className="flex items-center justify-between mt-8 pt-6 border-t border-gray-200">
+                <div className="flex items-center justify-between mt-8 pt-6 border-t border-gray-200 hp:mt-5 hp:pt-4">
                   {/* LEFT: RESET */}
                   <button
                     onClick={resetCurrentSection}
                     className="flex items-center text-sm gap-2 px-7 py-2.5 bg-[#eef2f6] text-[#0d3b66]
-                    border-2 border-[#d0d7e2] rounded-lg hover:bg-[#e2e8f0] transition-colors font-medium"
+                    border-2 border-[#d0d7e2] rounded-lg hover:bg-[#e2e8f0] transition-colors font-medium hp:text-xs hp:px-[22px] hp:py-[8px]"
                   >
-                    <RotateCcw className="w-5 h-5" />
+                    <RotateCcw className="w-5 h-5 hp:w-4 hp:h-4" />
                     Reset
                   </button>
 
                   {/* RIGHT: CALCULATE / NEXT SECTION */}
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-3 hp:gap-2">
                     {/* BACK BUTTON */}
                     {sections.findIndex((s) => s.id === activeTab) > 0 && (
                       <button
@@ -904,10 +924,10 @@ export function PoleCalculator() {
                           setActiveTab(sections[currentIndex - 1].id);
                         }}
                         className="flex items-center text-sm gap-2 px-7 py-2.5 bg-[#eef2f6] text-[#0d3b66]
-                        border-2 border-[#d0d7e2] rounded-lg hover:bg-[#e2e8f0] transition-colors font-medium"
+                        border-2 border-[#d0d7e2] rounded-lg hover:bg-[#e2e8f0] transition-colors font-medium hp:text-xs hp:px-[10px] hp:py-[8px] hp:border-none"
                       >
-                        <ChevronLeft className="w-5 h-5" />
-                        Back
+                        <ChevronLeft className="w-5 h-5 hp:w-4 hp:h-4" />
+                        <span className="hp:hidden">Back</span>
                       </button>
                     )}
 
@@ -919,10 +939,10 @@ export function PoleCalculator() {
                           onClick={handleStepNext}
                           className="flex items-center text-sm gap-2 px-7 py-2.5 bg-gradient-to-r
                           from-[#0d3b66] to-[#3399cc] text-white rounded-lg hover:brightness-110
-                          transition-all font-medium shadow-md"
+                          transition-all font-medium shadow-md hp:text-xs hp:px-[22px] hp:py-[8px]"
                         >
                           Next Input
-                          <ChevronDown className="w-5 h-5" />
+                          <ChevronDown className="w-5 h-5 hp:w-4 hp:h-4" />
                         </button>
                       ) : (
                         <button
@@ -930,10 +950,10 @@ export function PoleCalculator() {
                           className="flex items-center text-sm gap-2 px-7 py-2.5
                           bg-gradient-to-r from-[#0d3b66] to-[#3399cc]
                           text-white rounded-lg  
-                          hover:brightness-110 transition-all shadow-md font-medium"
+                          hover:brightness-110 transition-all shadow-md font-medium hp:text-xs hp:px-[22px] hp:py-[8px]"
                         >
                           Next Step
-                          <ChevronRight className="w-5 h-5" />
+                          <ChevronRight className="w-5 h-5 hp:w-4 hp:h-4" />
                         </button>
                       )}
                     </div>
@@ -949,21 +969,25 @@ export function PoleCalculator() {
         ============================================================ */}
         <div
           className={`bg-gradient-to-r from-[#0d3b66] to-[#3399cc] p-4 flex items-center justify-between cursor-pointer mt-12 transition-all duration-500 ease-in-out ${
-            isExpandedDo ? "rounded-t-2xl" : "rounded-2xl"
-          }`}
+            isExpandedDo
+              ? "rounded-t-2xl hp:rounded-t-xl"
+              : "rounded-2xl hp:rounded-xl"
+          } hp:px-4 hp:py-3`}
           onClick={() => setIsExpandedDo(!isExpandedDo)}
         >
           {/* Judul cover */}
-          <div className="bg-white/10 backdrop-blur-sm px-4 py-2 rounded-lg border border-white/20">
-            <h2 className="text-white text-sm font-bold">Direct Object</h2>
+          <div className="bg-white/10 backdrop-blur-sm px-4 py-2 rounded-lg border border-white/20 hp:px-2 hp:py-[8px]">
+            <h2 className="text-white text-sm font-bold hp:text-xs hp:font-semibold">
+              Direct Object
+            </h2>
           </div>
 
           {/* Icon toggle (up/down) */}
           <div className="p-2">
             {isExpandedDo ? (
-              <ChevronUp className="w-5 h-5 text-white" />
+              <ChevronUp className="w-5 h-5 text-white hp:w4 hp:h-4" />
             ) : (
-              <ChevronDown className="w-5 h-5 text-white" />
+              <ChevronDown className="w-5 h-5 text-white hp:w4 hp:h-4" />
             )}
           </div>
         </div>
@@ -972,8 +996,8 @@ export function PoleCalculator() {
         <div
           className={`transition-all duration-500 ease-in-out overflow-hidden ${
             isExpandedDo
-              ? "max-h-[10000px] rounded-b-2xl"
-              : "max-h-0 rounded-b-2xl"
+              ? "max-h-[10000px] rounded-b-2xl hp:rounded-b-xl"
+              : "max-h-0 rounded-b-2xl hp:rounded-b-xl"
           }`}
         >
           <DirectObjectInput
@@ -997,21 +1021,25 @@ export function PoleCalculator() {
         ============================================================ */}
         <div
           className={`bg-gradient-to-r from-[#0d3b66] to-[#3399cc] p-4 flex items-center justify-between cursor-pointer mt-12 transition-all duration-500 ease-in-out ${
-            isExpandedOhw ? "rounded-t-2xl" : "rounded-2xl"
-          }`}
+            isExpandedOhw
+              ? "rounded-t-2xl hp:rounded-t-xl"
+              : "rounded-2xl hp:rounded-xl"
+          } hp:px-4 hp:py-3`}
           onClick={() => setIsExpandedOhw(!isExpandedOhw)}
         >
           {/* Judul cover */}
-          <div className="bg-white/10 backdrop-blur-sm px-4 py-2 rounded-lg border border-white/20">
-            <h2 className="text-white text-sm font-bold">Overhead Wire</h2>
+          <div className="bg-white/10 backdrop-blur-sm px-4 py-2 rounded-lg border border-white/20 hp:px-2 hp:py-[8px]">
+            <h2 className="text-white text-sm font-bold hp:text-xs hp:font-semibold">
+              Overhead Wire
+            </h2>
           </div>
 
           {/* Icon toggle (up/down) */}
           <div className="p-2">
             {isExpandedOhw ? (
-              <ChevronUp className="w-5 h-5 text-white" />
+              <ChevronUp className="w-5 h-5 text-white hp:w4 hp:h-4" />
             ) : (
-              <ChevronDown className="w-5 h-5 text-white" />
+              <ChevronDown className="w-5 h-5 text-white hp:w4 hp:h-4" />
             )}
           </div>
         </div>
@@ -1020,8 +1048,8 @@ export function PoleCalculator() {
         <div
           className={`transition-all duration-500 ease-in-out overflow-hidden ${
             isExpandedOhw
-              ? "max-h-[10000px] rounded-b-2xl"
-              : "max-h-0 rounded-b-2xl"
+              ? "max-h-[10000px] rounded-b-2xl hp:rounded-b-xl"
+              : "max-h-0 rounded-b-2xl hp:rounded-b-xl"
           }`}
         >
           <OverheadWireInput
@@ -1040,7 +1068,7 @@ export function PoleCalculator() {
           />
         </div>
 
-        <div className="flex justify-center items-center p-5 mt-6 mb-12 bg-gradient-to-b from-white to-slate-50 rounded-2xl border border-gray-200 shadow-sm relative">
+        <div className="flex justify-center items-center p-5 mt-6 mb-12 bg-gradient-to-b from-white to-slate-50 rounded-2xl border border-gray-200 shadow-sm relative hp:p-4 hp:rounded-xl">
           <button
             onClick={calculateResults}
             className="
@@ -1058,9 +1086,10 @@ export function PoleCalculator() {
               hover:scale-[1.06]
               active:scale-[0.97]
               focus:outline-none focus:ring-2 focus:ring-[#3399cc]/40
+              hp:text-xs hp:px-[22px] hp:rounded-lg
             "
           >
-            <Calculator className="w-5 h-5" />
+            <Calculator className="w-5 h-5 hp:w-4 hp:h-4" />
             Calculate Results
           </button>
         </div>
