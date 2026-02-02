@@ -20,12 +20,12 @@ export function CoverInput({ cover, onUpdate, onMake, errors }) {
     hasError
       ? "border border-red-500 bg-[#fff5f5] ring-1 ring-red-200 focus:border-red-500 focus:ring-1 focus:ring-red-200"
       : "border-gray-300 bg-white focus:border-[#3399cc] focus:ring-1 focus:ring-[#3399cc]"
-  }`;
+  } hp:py-2 hp:px-2 hp:rounded-md hp:text-xs`;
 
   // Function to helper text error
   const ErrorText = ({ show, text }) =>
     show ? (
-      <div className="absolute left-0 -bottom-5 flex items-center gap-1 text-[11px] text-red-500">
+      <div className="absolute left-0 -bottom-5 flex items-center gap-1 text-[11px] text-red-500 hp:text-[9px] hp:-bottom-4">
         <span>*{text}</span>
       </div>
     ) : null;
@@ -33,11 +33,11 @@ export function CoverInput({ cover, onUpdate, onMake, errors }) {
   return (
     <div>
       {/* FORM CARD WRAPPER */}
-      <div className="bg-white border border-gray-200 p-5 rounded-b-xl shadow-sm">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-7">
+      <div className="bg-white border border-gray-200 p-5 rounded-b-xl shadow-sm hp:p-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-7 hp:gap-y-5">
           {/* FIELD: Management Code */}
           <div className="relative">
-            <label className="block text-gray-700 mb-2 text-sm font-medium">
+            <label className="block text-gray-700 mb-2 text-sm font-medium hp:text-xs hp:mb-1">
               Management Code
             </label>
             <input
@@ -62,7 +62,7 @@ export function CoverInput({ cover, onUpdate, onMake, errors }) {
 
           {/* FIELD: Calculation Document Number */}
           <div className="relative">
-            <label className="block text-gray-700 mb-2 text-sm font-medium">
+            <label className="block text-gray-700 mb-2 text-sm font-medium hp:text-xs hp:mb-1">
               Calculation Document Number
             </label>
             <input
@@ -76,7 +76,7 @@ export function CoverInput({ cover, onUpdate, onMake, errors }) {
 
           {/* FIELD: Project Name */}
           <div className="relative md:col-span-2">
-            <label className="block text-gray-700 mb-2 text-sm font-medium">
+            <label className="block text-gray-700 mb-2 text-sm font-medium hp:text-xs hp:mb-1">
               Line 1
             </label>
             <input
@@ -90,33 +90,33 @@ export function CoverInput({ cover, onUpdate, onMake, errors }) {
 
           {/* FIELD: Content Row 2 (Optional) */}
           <div className="md:col-span-2">
-            <label className="block text-gray-700 mb-2 text-sm font-medium">
+            <label className="block text-gray-700 mb-2 text-sm font-medium hp:text-xs hp:mb-1">
               Line 2 (Optional)
             </label>
             <input
               type="text"
               value={cover.contentr2}
               onChange={(e) => onUpdate({ contentr2: e.target.value })}
-              className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-1 focus:ring-[#3399cc] focus:border-[#3399cc] outline-none transition-all bg-white"
+              className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-1 focus:ring-[#3399cc] focus:border-[#3399cc] outline-none transition-all bg-white  hp:py-2 hp:px-2 hp:rounded-md hp:text-xs"
             />
           </div>
 
           {/* FIELD: Content Row 3 (Optional) */}
           <div className="md:col-span-2">
-            <label className="block text-gray-700 mb-2 text-sm font-medium">
+            <label className="block text-gray-700 mb-2 text-sm font-medium hp:text-xs hp:mb-1">
               Line 3 (Optional)
             </label>
             <input
               type="text"
               value={cover.contentr3}
               onChange={(e) => onUpdate({ contentr3: e.target.value })}
-              className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-1 focus:ring-[#3399cc] focus:border-[#3399cc] outline-none transition-all bg-white"
+              className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-1 focus:ring-[#3399cc] focus:border-[#3399cc] outline-none transition-all bg-white  hp:py-2 hp:px-2 hp:rounded-md hp:text-xs"
             />
           </div>
 
           {/* FIELD: Document Date */}
           <div className="relative md:col-span-2">
-            <label className="block text-gray-700 mb-2 text-sm font-medium">
+            <label className="block text-gray-700 mb-2 text-sm font-medium hp:text-xs hp:mb-1">
               Document Date
             </label>
             <input
@@ -130,17 +130,17 @@ export function CoverInput({ cover, onUpdate, onMake, errors }) {
         </div>
 
         {/* Divider */}
-        <div className="mt-8 border-t border-gray-200"></div>
+        <div className="mt-8 border-t border-gray-200 hp:mt-6"></div>
 
         {/* FOOTER: LEFT (Reset) & RIGHT (Make Report) */}
-        <div className="flex justify-between items-center pt-6">
+        <div className="flex justify-between items-center pt-6 hp:pt-4">
           {/* Reset Button */}
           <button
             onClick={handleReset}
             className="flex items-center gap-2 px-7 py-2.5 h-[45px] bg-[#eef2f6] text-[#0d3b66]
-            border-2 border-[#d0d7e2] rounded-lg hover:bg-[#e2e8f0] transition-colors font-medium"
+            border-2 border-[#d0d7e2] rounded-lg hover:bg-[#e2e8f0] transition-colors font-medium hp:h-[40px] hp:text-xs hp:px-[20px] hp:py-[10px] hp:h-0"
           >
-            <RotateCcw className="w-4 h-4" />
+            <RotateCcw className="w-5 h-5 hp:w-4 hp:h-4" />
             Reset
           </button>
 
@@ -150,10 +150,10 @@ export function CoverInput({ cover, onUpdate, onMake, errors }) {
             className="flex items-center gap-2 px-7 py-2.5 h-[45px] 
             bg-gradient-to-r from-[#0d3b66] to-[#3399cc]
             text-white rounded-lg 
-            hover:brightness-110 transition-all shadow-sm font-medium"
+            hover:brightness-110 transition-all shadow-sm font-medium hp:h-[40px] hp:text-xs hp:px-[20px] hp:py-[10px]"
           >
             Make Report
-            <ChevronRight className="w-5 h-5" />
+            <ChevronRight className="w-5 h-5 hp:w-4 hp:h-4" />
           </button>
         </div>
       </div>
