@@ -240,9 +240,9 @@
 
 @media screen and (max-width: 500px) {
   .page-preview {
-    transform: scale(0.44);
-    transform-origin: top left;
-    height: calc(297mm * 0.44);
+    transform: scale(0.446);
+    transform-origin: top;
+    height: calc(297mm * 0.446);
     margin-bottom: 12px; /* jarak antar halaman */
   }
 

@@ -15,8 +15,8 @@ export default function Report() {
             content="Report System CV. KORI BALI menyajikan hasil analisis dan ringkasan data struktur pole secara lengkap."
           />
         </Helmet>
-        <div className="pt-8 container flex-1">
-          <div className="border border-gray-250">
+        <div className="pt-8 flex justify-center">
+          <div className="min-h-screen w-4/5 bg-gray-50 border border-gray-250 hp:w-[95%]">
             <ReportPage />
           </div>
         </div>

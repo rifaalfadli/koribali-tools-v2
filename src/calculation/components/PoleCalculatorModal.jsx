@@ -31,7 +31,7 @@ export const CoverInputModal = ({
         </div>
 
         {/* BODY */}
-        <div className="p-6 max-h-[75vh] overflow-y-auto hp:p-2 hp:h-[61.5vh]">
+        <div className="p-6 max-h-[75vh] overflow-y-auto hp:p-2">
           <CoverInput
             cover={cover}
             onUpdate={onUpdateCover}

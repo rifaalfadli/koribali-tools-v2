@@ -4859,7 +4859,7 @@ export default function AcemastPages({ cover, condition, results, pages }) {
       </div>
       {/* =================================== PAGE ++ =================================== */}
       {pages.map((pageBlocks, i) => (
-        <div className="page-preview key={i}">
+        <div className="page-preview" key={i}>
           <div className="page-a4">
             <div className="page-header">
               No. {cover.calculationNumber} P-{i + 2}
