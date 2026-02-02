@@ -4,7 +4,7 @@ import React from "react";
 //   getDesignStandardText,
 // } from "../../utils/reportTextFormatter";
 
-import { formatJP } from "../../utils/reportTextFormatter";
+import { formatJpYp, NameCell } from "../../utils/reportTextFormatter";
 import "../../styles/page.css";
 
 export default function AcemastPages({ cover, condition, results, pages }) {
@@ -27,13 +27,13 @@ export default function AcemastPages({ cover, condition, results, pages }) {
             </div>
 
             {/* Recipient */}
-            <div className="cover-row-2 ml-[10px] jp">殿</div>
+            <div className="cover-row-2-yp ml-[10px] jp">殿</div>
 
             {/* Main title */}
             <h1 className="cover-title text-center jp">強 度 計 算 書</h1>
 
             {/* Project information block */}
-            <div className="cover-double-line">
+            <div className="cover-double-line-yp">
               <p className="cover-inner-text cover-inner-text-line text-center py-[7px] jp">
                 {cover.projectName}
               </p>
@@ -52,14 +52,23 @@ export default function AcemastPages({ cover, condition, results, pages }) {
                 {cover.contentr3 || ""}
               </p>
             </div>
+            <br />
+            <div className="tracking-[0.05em] mb-[220px] flex justify-center">
+              <div className="border border-black px-6">
+                <span className="jp">建築基準法：地方区分（三）</span>Vo = 34
+                m/s ，<span className="jp">粗度区分</span>II
+              </div>
+            </div>
 
             {/* Date & logo */}
             <div className="cover-row-3 text-center jp">
-              {formatJP(cover.date)}
+              {formatJpYp(cover.date)}
             </div>
+            <br />
+            <br />
             <img
-              src="/images/YSpole2.png"
-              alt="logo YS"
+              src="/images/yp-logo.jpg"
+              alt="logo YP"
               className="mx-auto w-[300px]"
             />
           </div>
@@ -611,8 +620,8 @@ export default function AcemastPages({ cover, condition, results, pages }) {
                 <span className="jp">に準拠し、水平震度 </span>k = 0.5
                 <span className="jp">とする。</span>
               </div>
-              <br />
-              <div className="ml-[22px]">
+
+              <div className="ml-[22px] mt-3">
                 <span className="mr-4">Pk = k • W</span>
                 <span>
                   W: <span className="jp">鉛直荷重[</span>N
@@ -1165,7 +1174,7 @@ export default function AcemastPages({ cover, condition, results, pages }) {
                 からの高さ
               </span>
             </div>
-            <div className="ml-[22px]">
+            <div>
               <table className="border border-black border-collapse w-full">
                 <thead>
                   <tr>
@@ -1266,7 +1275,7 @@ export default function AcemastPages({ cover, condition, results, pages }) {
                       1
                     </td>
                     <td className="border tracking-[0.05em] text-left align-middle px-1 border-black">
-                      Lighting Rod
+                      <NameCell text="Lighting Rod" />
                     </td>
                     <td className="border tracking-[0.05em] text-right align-middle px-1 border-black">
                       127.5
@@ -1302,7 +1311,7 @@ export default function AcemastPages({ cover, condition, results, pages }) {
                       2
                     </td>
                     <td className="border tracking-[0.05em] text-left align-middle px-1 border-black">
-                      3-yagi antenna
+                      <NameCell text="3-yagi antenna" />
                     </td>
                     <td className="border tracking-[0.05em] text-right align-middle px-1 border-black">
                       107.9
@@ -1338,7 +1347,7 @@ export default function AcemastPages({ cover, condition, results, pages }) {
                       3
                     </td>
                     <td className="border tracking-[0.05em] text-left align-middle px-1 border-black">
-                      Mounting Bracket
+                      <NameCell text="Mounting Bracket" />
                     </td>
                     <td className="border tracking-[0.05em] text-right align-middle px-1 border-black">
                       98.1
@@ -1374,7 +1383,7 @@ export default function AcemastPages({ cover, condition, results, pages }) {
                       4
                     </td>
                     <td className="border tracking-[0.05em] text-left align-middle px-1 border-black">
-                      Box
+                      <NameCell text="Box" />
                     </td>
                     <td className="border tracking-[0.05em] text-right align-middle px-1 border-black">
                       29.4
@@ -1410,7 +1419,7 @@ export default function AcemastPages({ cover, condition, results, pages }) {
                       5
                     </td>
                     <td className="border tracking-[0.05em] text-left align-middle px-1 border-black">
-                      Co linear antenna
+                      <NameCell text="Co Linear antenna" />
                     </td>
                     <td className="border tracking-[0.05em] text-right align-middle px-1 border-black">
                       29.4
@@ -1446,7 +1455,7 @@ export default function AcemastPages({ cover, condition, results, pages }) {
                       6
                     </td>
                     <td className="border tracking-[0.05em] text-left align-middle px-1 border-black">
-                      Mounting Bracket
+                      <NameCell text="Mounting Bracket" />
                     </td>
                     <td className="border tracking-[0.05em] text-right align-middle px-1 border-black">
                       205.9
@@ -1482,7 +1491,7 @@ export default function AcemastPages({ cover, condition, results, pages }) {
                       7
                     </td>
                     <td className="border tracking-[0.05em] text-left align-middle px-1 border-black">
-                      Box
+                      <NameCell text="Box" />
                     </td>
                     <td className="border tracking-[0.05em] text-right align-middle px-1 border-black">
                       39.2
@@ -2793,7 +2802,7 @@ export default function AcemastPages({ cover, condition, results, pages }) {
               </span>
             </div>
             <div className="ml-[44px]">
-              <table className="border border-black border-collapse w-[75%]">
+              <table className="border border-black border-collapse w-[80%]">
                 <thead>
                   <tr>
                     <th className="border border-black" rowSpan={2}>
@@ -2941,6 +2950,7 @@ export default function AcemastPages({ cover, condition, results, pages }) {
                     <td className="border tracking-[0.05em] text-center align-middle px-1 border-black">
                       4
                     </td>
+
                     <td className="border tracking-[0.05em] text-left align-middle px-1 border-black">
                       Box
                     </td>

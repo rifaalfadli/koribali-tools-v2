@@ -856,7 +856,7 @@ export function PoleCalculator() {
                       <div>
                         <h4 className="text-[#0d3b66] text-sm font-medium hp:text-xs">
                           Step Pole
-                          {activeSection.name && ` - ${activeSection.name}`}
+                          {activeSection.name && ` : ${activeSection.name}`}
                         </h4>
                         <p className="text-xs text-gray-500 hp:text-[10px]">
                           {activeSection.poleType} Type

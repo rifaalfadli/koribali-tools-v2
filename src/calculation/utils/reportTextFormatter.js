@@ -16,6 +16,39 @@ export const formatJP = (dateString) => {
   );
 };
 
+// Function to convert a "YYYY-MM-DD" date string into Japanese format "YYYY年M月D日"
+export const formatJpYp = (dateString) => {
+  if (!dateString) return "";
+
+  const [y, m, d] = dateString.split("-");
+
+  return (
+    <>
+      <span className="jp">平成</span>
+      <span className="latin">{y}</span>
+      <span className="jp">年</span>
+      <span className="latin">{parseInt(m)}</span>
+      <span className="jp">月</span>
+      <span className="latin">{parseInt(d)}</span>
+      <span className="jp">日</span>
+    </>
+  );
+};
+
+// Function to convert a "YYYY-MM-DD" date string into Japanese format "YYYY年M月D日"
+export function NameCell({ text }) {
+  let fontSize = "9.5pt";
+
+  if (text.length > 22) fontSize = "7pt";
+  else if (text.length > 21) fontSize = "7.4pt";
+  else if (text.length > 20) fontSize = "7.8pt";
+  else if (text.length > 19) fontSize = "8.2pt";
+  else if (text.length > 18) fontSize = "8.6pt";
+  else if (text.length > 17) fontSize = "9pt";
+
+  return <span style={{ fontSize, lineHeight: 1 }}>{text}</span>;
+}
+
 // Function to return the corresponding design standard text based on the given key
 export const getDesignStandardText = (value) => {
   switch (value) {
@@ -37,7 +70,7 @@ export const getRowsForStep = (
   stepIndex,
   resultsPole,
   resultsDo,
-  structuralDesign
+  structuralDesign,
 ) => {
   // Current pole step
   const currentStep = resultsPole[stepIndex];
