@@ -330,7 +330,7 @@ export function ReportPage() {
         </div>
       </div> */}
 
-      <div className="max-w-7xl mx-auto px-6 py-8 hp:mx-0 hp:px-0 hp:flex hp:justify-center">
+      <div className="max-w-7xl mx-auto px-6 py-8 hp:mx-0 hp:px-0 hp:flex hp:justify-center hp:max-w-[100vh] hp:overflow-hidden">
         {renderReport()}
       </div>
     </div>
