@@ -64,87 +64,97 @@ export function ResultsTable({ results, resultsDo, resultsOhw, onCoverInput }) {
       {/* Tabel Result Pole */}
       {r && (
         <div className="mx-6 my-6 mb-16 space-y-6 hp:mx-2 hp:mt-4 hp:mb-8 ">
-          <div className="bg-gradient-to-r from-[#0d3b66] to-[#0d3b66] px-5 py-4 shadow-sm">
-            <div className="flex items-center gap-3">
-              <div className="bg-white/15 backdrop-blur-sm p-2 rounded-lg">
+          <div className="bg-gradient-to-r from-[#0d3b66] to-[#0d3b66] px-5 py-4 shadow-sm hp:px-4 hp:py-3">
+            <div className="flex items-center gap-3 hp:gap-2">
+              <div className="bg-white/15 backdrop-blur-sm p-2 rounded-lg hp:p-1.5">
                 <FileSpreadsheet className="w-4 h-4 text-white" />
               </div>
               <div>
-                <h3 className="text-white font-semibold text-sm leading-tight">
+                <h3 className="text-white font-semibold text-sm leading-tight hp:text-xs">
                   Pole Specifications
                 </h3>
               </div>
             </div>
           </div>
 
-          <div className="hidden md:block overflow-x-auto">
+          <div className="overflow-x-auto">
             <table className="min-w-full border-collapse border border-gray-300">
               <thead>
-                <tr className="bg-blue-50 text-[#0d3b66] text-xs">
-                  <th className="px-3 py-2 border border-gray-300 text-center font-semibold">
+                <tr className="bg-blue-50 text-[#0d3b66] text-xs hp:text-[10px]">
+                  <th className="px-3 py-2 border border-gray-300 text-center font-semibold hp:font-medium">
                     POLE
                   </th>
 
-                  <th className="px-3 py-2 border border-gray-300 text-center font-semibold">
+                  <th className="px-3 py-2 border border-gray-300 text-center font-semibold hp:font-medium">
                     Description
                   </th>
 
-                  <th className="px-3 py-2 border border-gray-300 text-center font-semibold">
+                  <th className="px-3 py-2 border border-gray-300 text-center font-semibold hp:font-medium">
                     Pole Type
                   </th>
 
                   <th className="px-3 py-2 border border-gray-300 text-center leading-tight">
-                    <div className="font-semibold">Dia Upper</div>
-                    <div className="text-[13px] pt-[4px] text-gray-500">
+                    <div className="font-semibold hp:font-medium">
+                      Dia Upper
+                    </div>
+                    <div className="text-[13px] pt-[4px] text-gray-500 hp:text-[10px]">
                       (mm)
                     </div>
                   </th>
 
                   <th className="px-3 py-2 border border-gray-300 text-center leading-tight">
-                    <div className="font-semibold">Dia Lower</div>
-                    <div className="text-[13px] pt-[4px] text-gray-500">
+                    <div className="font-semibold hp:font-medium">
+                      Dia Lower
+                    </div>
+                    <div className="text-[13px] pt-[4px] text-gray-500 hp:text-[10px]">
                       (mm)
                     </div>
                   </th>
 
                   <th className="px-3 py-2 border border-gray-300 text-center leading-tight">
-                    <div className="font-semibold">Thick Upper</div>
-                    <div className="text-[13px] pt-[4px] text-gray-500">
+                    <div className="font-semibold hp:font-medium">
+                      Thick Upper
+                    </div>
+                    <div className="text-[13px] pt-[4px] text-gray-500 hp:text-[10px]">
                       (mm)
                     </div>
                   </th>
 
                   <th className="px-3 py-2 border border-gray-300 text-center leading-tight">
-                    <div className="font-semibold">Thick Lower</div>
-                    <div className="text-[13px] pt-[4px] text-gray-500">
+                    <div className="font-semibold hp:font-medium">
+                      Thick Lower
+                    </div>
+                    <div className="text-[13px] pt-[4px] text-gray-500 hp:text-[10px]">
                       (mm)
                     </div>
                   </th>
 
                   <th className="px-3 py-2 border border-gray-300 text-center leading-tight">
-                    <div className="font-semibold">Length</div>
-                    <div className="text-[13px] pt-[4px] text-gray-500">
+                    <div className="font-semibold hp:font-medium">Length</div>
+                    <div className="text-[13px] pt-[4px] text-gray-500 hp:text-[10px]">
                       (mm)
                     </div>
                   </th>
 
                   <th className="px-3 py-2 border border-gray-300 text-center leading-tight">
-                    <div className="font-semibold">Height (z)</div>
-                    <div className="text-[13px] pt-[4px] text-gray-500">
+                    <div className="font-semibold hp:font-medium">
+                      Height (z)
+                    </div>
+                    <div className="text-[13px] pt-[4px] text-gray-500 hp:text-[10px]">
                       (mm)
                     </div>
                   </th>
 
                   <th className="px-3 py-2 border border-gray-300 text-center leading-tight">
-                    <div className="font-semibold whitespace-nowrap">
+                    <div className="font-semibold whitespace-nowrap hp:font-medium">
                       Center Point
                     </div>
-                    <div className="text-[13px] pt-[4px] text-gray-500 whitespace-nowrap">
+                    <div className="text-[13px] pt-[4px] text-gray-500 whitespace-nowrap hp:text-[10px]">
                       CP (mm)
                     </div>
                   </th>
 
-                  <th className="px-3 py-2 border border-gray-300 text-center font-semibold">
+                  <th className="px-3 py-2 border border-gray-300 text-center font-semibold hp:font-medium">
                     Material
                   </th>
                 </tr>
@@ -154,45 +164,45 @@ export function ResultsTable({ results, resultsDo, resultsOhw, onCoverInput }) {
                 {results.map((r, i) => (
                   <tr
                     key={i}
-                    className="hover:bg-[#3399cc]/10 transition-colors text-xs"
+                    className="hover:bg-[#3399cc]/10 transition-colors text-xs hp:text-[10px]"
                   >
-                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center">
+                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center hp:px-3 hp:py-2">
                       {r.pole}
                     </td>
-                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center">
+                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center hp:px-3 hp:py-2">
                       {r.description}
                     </td>
-                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center">
+                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center hp:px-3 hp:py-2">
                       {r.poleType}
                     </td>
 
-                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center">
+                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center hp:px-3 hp:py-2">
                       {r.poleType === "Straight" ? r.diaLower : r.diaUpper}
                     </td>
 
-                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center">
+                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center hp:px-3 hp:py-2">
                       {r.diaLower}
                     </td>
 
-                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center">
+                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center hp:px-3 hp:py-2">
                       {r.poleType === "Straight" ? r.thickLower : r.thickUpper}
                     </td>
 
-                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center">
+                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center hp:px-3 hp:py-2">
                       {r.thickLower}
                     </td>
 
-                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center">
+                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center hp:px-3 hp:py-2">
                       {r.length}
                     </td>
-                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center">
+                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center hp:px-3 hp:py-2">
                       {r.heightPole}
                     </td>
-                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center">
+                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center hp:px-3 hp:py-2">
                       {r.centerPoint}
                     </td>
 
-                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center">
+                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center hp:px-3 hp:py-2">
                       {r.material}
                     </td>
                   </tr>
@@ -201,72 +211,15 @@ export function ResultsTable({ results, resultsDo, resultsOhw, onCoverInput }) {
             </table>
           </div>
 
-          {/* ================= MOBILE VERSION ================= */}
-          <div className="md:hidden space-y-4">
-            {results.map((r, i) => (
-              <div
-                key={i}
-                className="
-        bg-white
-        border border-gray-300
-        rounded-xl
-        p-4
-        shadow-sm
-        transition
-        hover:shadow-md
-      "
-              >
-                {/* HEADER */}
-                <div className="flex items-start justify-between mb-3">
-                  <div>
-                    <h3 className="text-sm font-semibold text-[#0d3b66]">
-                      Pole {r.pole}
-                    </h3>
-                    <p className="text-xs text-gray-500 leading-snug">
-                      {r.description}
-                    </p>
-                  </div>
-
-                  <span
-                    className="
-          text-xs font-medium
-          px-2 py-1
-          rounded-md
-          bg-blue-50 text-blue-700
-          whitespace-nowrap
-        "
-                  >
-                    {r.poleType}
-                  </span>
-                </div>
-
-                {/* BODY DATA */}
-                <div className="grid grid-cols-2 gap-x-4 gap-y-3 text-xs">
-                  <DataItem label="Dia Upper (mm)" value={r.diaUpper} />
-                  <DataItem label="Dia Lower (mm)" value={r.diaLower} />
-
-                  <DataItem label="Thick Upper (mm)" value={r.thickUpper} />
-                  <DataItem label="Thick Lower (mm)" value={r.thickLower} />
-
-                  <DataItem label="Length (mm)" value={r.length} />
-                  <DataItem label="Height Z (mm)" value={r.heightPole} />
-
-                  <DataItem label="Center Point (mm)" value={r.centerPoint} />
-                  <DataItem label="Material" value={r.material} />
-                </div>
-              </div>
-            ))}
-          </div>
-
           {/* ---------- TABLE 2 : CALCULATED RESULTS ---------- */}
           <div className="overflow-x-auto">
             <table className="min-w-full border-collapse border border-gray-300">
               <thead>
                 {/* ================== ROW 1 ================== */}
-                <tr className="bg-blue-50 text-[#0d3b66] text-xs">
+                <tr className="bg-blue-50 text-[#0d3b66] text-xs hp:text-[10px]">
                   {/* Group Header */}
                   <th
-                    className="px-3 py-2 border border-gray-300 text-center font-semibold"
+                    className="px-3 py-2 border border-gray-300 text-center font-semibold hp:font-medium"
                     colSpan={4}
                   >
                     Allowable (Stress)
@@ -277,8 +230,10 @@ export function ResultsTable({ results, resultsDo, resultsOhw, onCoverInput }) {
                     className="px-3 py-2 border border-gray-300 text-center leading-tight"
                     rowSpan={2}
                   >
-                    <div className="font-semibold">Section Area</div>
-                    <div className="text-[13px] pt-[4px] text-gray-500">
+                    <div className="font-semibold hp:font-medium">
+                      Section Area
+                    </div>
+                    <div className="text-[13px] pt-[4px] text-gray-500 hp:text-[10px]">
                       (cm<sup>2</sup>)
                     </div>
                   </th>
@@ -287,8 +242,10 @@ export function ResultsTable({ results, resultsDo, resultsOhw, onCoverInput }) {
                     className="px-3 py-2 border border-gray-300 text-center leading-tight"
                     rowSpan={2}
                   >
-                    <div className="font-semibold">Section Modulus</div>
-                    <div className="text-[13px] pt-[4px] text-gray-500">
+                    <div className="font-semibold hp:font-medium">
+                      Section Modulus
+                    </div>
+                    <div className="text-[13px] pt-[4px] text-gray-500 hp:text-[10px]">
                       (cm<sup>3</sup>)
                     </div>
                   </th>
@@ -297,8 +254,10 @@ export function ResultsTable({ results, resultsDo, resultsOhw, onCoverInput }) {
                     className="px-3 py-2 border border-gray-300 text-center leading-tight"
                     rowSpan={2}
                   >
-                    <div className="font-semibold">Moment Inertia</div>
-                    <div className="text-[13px] pt-[4px] text-gray-500">
+                    <div className="font-semibold hp:font-medium">
+                      Moment Inertia
+                    </div>
+                    <div className="text-[13px] pt-[4px] text-gray-500 hp:text-[10px]">
                       (cm<sup>4</sup>)
                     </div>
                   </th>
@@ -307,8 +266,8 @@ export function ResultsTable({ results, resultsDo, resultsOhw, onCoverInput }) {
                     className="px-3 py-2 border border-gray-300 text-center leading-tight"
                     rowSpan={2}
                   >
-                    <div className="font-semibold">Ip</div>
-                    <div className="text-[13px] pt-[4px] text-gray-500">
+                    <div className="font-semibold hp:font-medium">Ip</div>
+                    <div className="text-[13px] pt-[4px] text-gray-500 hp:text-[10px]">
                       (cm<sup>4</sup>)
                     </div>
                   </th>
@@ -317,8 +276,10 @@ export function ResultsTable({ results, resultsDo, resultsOhw, onCoverInput }) {
                     className="px-3 py-2 border border-gray-300 text-center leading-tight"
                     rowSpan={2}
                   >
-                    <div className="font-semibold">Radius Gyration</div>
-                    <div className="text-[13px] pt-[4px] text-gray-500">
+                    <div className="font-semibold hp:font-medium">
+                      Radius Gyration
+                    </div>
+                    <div className="text-[13px] pt-[4px] text-gray-500 hp:text-[10px]">
                       (cm)
                     </div>
                   </th>
@@ -327,14 +288,16 @@ export function ResultsTable({ results, resultsDo, resultsOhw, onCoverInput }) {
                     className="px-3 py-2 border border-gray-300 text-center leading-tight"
                     rowSpan={2}
                   >
-                    <div className="font-semibold">Taper Ratio</div>
-                    <div className="text-[13px] pt-[4px] text-gray-500">
+                    <div className="font-semibold hp:font-medium">
+                      Taper Ratio
+                    </div>
+                    <div className="text-[13px] pt-[4px] text-gray-500 hp:text-[10px]">
                       (mm)
                     </div>
                   </th>
 
                   <th
-                    className="px-3 py-2 border border-gray-300 text-center font-semibold"
+                    className="px-3 py-2 border border-gray-300 text-center font-semibold hp:font-medium"
                     rowSpan={2}
                   >
                     Type of taper
@@ -344,27 +307,27 @@ export function ResultsTable({ results, resultsDo, resultsOhw, onCoverInput }) {
                     className="px-3 py-2 border border-gray-300 text-center leading-tight"
                     rowSpan={2}
                   >
-                    <div className="font-semibold whitespace-nowrap">
+                    <div className="font-semibold whitespace-nowrap hp:font-medium">
                       HeightSection
                     </div>
-                    <div className="text-[13px] pt-[4px] text-gray-500 whitespace-nowrap">
+                    <div className="text-[13px] pt-[4px] text-gray-500 whitespace-nowrap hp:text-[10px]">
                       (mm)
                     </div>
                   </th>
                 </tr>
 
                 {/* ================== ROW 2 ================== */}
-                <tr className="bg-blue-50 text-[#0d3b66] text-xs">
-                  <th className="px-3 py-2 border border-gray-300 text-center font-semibold">
+                <tr className="bg-blue-50 text-[#0d3b66] text-xs hp:text-[10px]">
+                  <th className="px-3 py-2 border border-gray-300 text-center font-semibold hp:font-medium">
                     fb
                   </th>
-                  <th className="px-3 py-2 border border-gray-300 text-center font-semibold">
+                  <th className="px-3 py-2 border border-gray-300 text-center font-semibold hp:font-medium">
                     stb
                   </th>
-                  <th className="px-3 py-2 border border-gray-300 text-center font-semibold">
+                  <th className="px-3 py-2 border border-gray-300 text-center font-semibold hp:font-medium">
                     sts
                   </th>
-                  <th className="px-3 py-2 border border-gray-300 text-center font-semibold">
+                  <th className="px-3 py-2 border border-gray-300 text-center font-semibold hp:font-medium">
                     stc
                   </th>
                 </tr>
@@ -374,45 +337,45 @@ export function ResultsTable({ results, resultsDo, resultsOhw, onCoverInput }) {
                 {results.map((r, i) => (
                   <tr
                     key={i}
-                    className="hover:bg-[#3399cc]/10 transition-colors text-xs"
+                    className="hover:bg-[#3399cc]/10 transition-colors text-xs hp:text-[10px]"
                   >
-                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center">
+                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center hp:px-3 hp:py-2">
                       {r.fb}
                     </td>
-                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center">
+                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center hp:px-3 hp:py-2">
                       {r.stb}
                     </td>
-                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center">
+                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center hp:px-3 hp:py-2">
                       {r.sts}
                     </td>
-                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center">
+                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center hp:px-3 hp:py-2">
                       {r.stc}
                     </td>
 
-                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center">
+                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center hp:px-3 hp:py-2">
                       {r.sectionArea.toFixed(2)}
                     </td>
-                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center">
+                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center hp:px-3 hp:py-2">
                       {r.sectionModulus.toFixed(2)}
                     </td>
-                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center">
+                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center hp:px-3 hp:py-2">
                       {r.momentInertia.toFixed(2)}
                     </td>
-                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center">
+                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center hp:px-3 hp:py-2">
                       {r.ip}
                     </td>
-                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center">
+                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center hp:px-3 hp:py-2">
                       {r.radiusGyr.toFixed(2)}
                     </td>
 
-                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center">
+                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center hp:px-3 hp:py-2">
                       {r.poleType === "Straight" ? "" : r.taperRatio}
                     </td>
-                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center text-[12px]">
+                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center text-[12px] hp:px-3 hp:py-2 hp:text-[10px]">
                       {r.poleType === "Straight" ? "" : r.typeofTaper}
                     </td>
 
-                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center">
+                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center hp:px-3 hp:py-2">
                       {r.heightSection}
                     </td>
                   </tr>
@@ -425,14 +388,14 @@ export function ResultsTable({ results, resultsDo, resultsOhw, onCoverInput }) {
 
       {/* Tabel Result Direct Object */}
       {rDo && (
-        <div className="mx-6 my-6 mb-16 space-y-6">
-          <div className="bg-gradient-to-r from-[#0d3b66] to-[#0d3b66] px-5 py-4 shadow-sm">
-            <div className="flex items-center gap-3">
-              <div className="bg-white/15 backdrop-blur-sm p-2 rounded-lg">
+        <div className="mx-6 my-6 mb-16 space-y-6 hp:mx-2 hp:mt-4 hp:mb-8">
+          <div className="bg-gradient-to-r from-[#0d3b66] to-[#0d3b66] px-5 py-4 shadow-sm hp:px-4 hp:py-3">
+            <div className="flex items-center gap-3 hp:gap-2">
+              <div className="bg-white/15 backdrop-blur-sm p-2 rounded-lg hp:p-1.5">
                 <FileSpreadsheet className="w-4 h-4 text-white" />
               </div>
               <div>
-                <h3 className="text-white font-semibold text-sm leading-tight">
+                <h3 className="text-white font-semibold text-sm leading-tight hp:text-xs">
                   Direct Object Calculation
                 </h3>
               </div>
@@ -442,77 +405,93 @@ export function ResultsTable({ results, resultsDo, resultsOhw, onCoverInput }) {
           <div className="overflow-x-auto">
             <table className="min-w-full border-collapse border border-gray-300">
               <thead>
-                <tr className="bg-blue-50 text-[#0d3b66] text-xs">
-                  <th className="px-3 py-2 border border-gray-300 text-center font-semibold">
+                <tr className="bg-blue-50 text-[#0d3b66] text-xs hp:text-[10px]">
+                  <th className="px-3 py-2 border border-gray-300 text-center font-semibold hp:font-medium">
                     DO
                   </th>
 
-                  <th className="px-3 py-2 border border-gray-300 text-center font-semibold">
+                  <th className="px-3 py-2 border border-gray-300 text-center font-semibold hp:font-medium">
                     Description
                   </th>
 
                   <th className="px-3 py-2 border border-gray-300 text-center leading-tight">
-                    <div className="font-semibold">Massa</div>
-                    <div className="text-[13px] pt-[4px] text-gray-500">
+                    <div className="font-semibold hp:font-medium">Massa</div>
+                    <div className="text-[13px] pt-[4px] text-gray-500 hp:text-[10px]">
                       (kg)
                     </div>
                   </th>
 
                   <th className="px-3 py-2 border border-gray-300 text-center leading-tight">
-                    <div className="font-semibold">Fixed Load</div>
-                    <div className="text-[13px] pt-[4px] text-gray-500">
+                    <div className="font-semibold hp:font-medium">
+                      Fixed Load
+                    </div>
+                    <div className="text-[13px] pt-[4px] text-gray-500 hp:text-[10px]">
                       (N)
                     </div>
                   </th>
 
                   <th className="px-3 py-2 border border-gray-300 text-center leading-tight">
-                    <div className="font-semibold">Front Area</div>
-                    <div className="text-[13px] pt-[4px] text-gray-500">
+                    <div className="font-semibold hp:font-medium">
+                      Front Area
+                    </div>
+                    <div className="text-[13px] pt-[4px] text-gray-500 hp:text-[10px]">
                       (m<sup>2</sup>)
                     </div>
                   </th>
 
                   <th className="px-3 py-2 border border-gray-300 text-center leading-tight">
-                    <div className="font-semibold">Side Area</div>
-                    <div className="text-[13px] pt-[4px] text-gray-500">
+                    <div className="font-semibold hp:font-medium">
+                      Side Area
+                    </div>
+                    <div className="text-[13px] pt-[4px] text-gray-500 hp:text-[10px]">
                       (m<sup>2</sup>)
                     </div>
                   </th>
 
                   <th className="px-3 py-2 border border-gray-300 text-center leading-tight">
-                    <div className="font-semibold">Cf</div>
+                    <div className="font-semibold hp:font-medium">Cf</div>
                   </th>
 
                   <th className="px-3 py-2 border border-gray-300 text-center leading-tight">
-                    <div className="font-semibold">Height (Z)</div>
-                    <div className="text-[13px] pt-[4px] text-gray-500">
+                    <div className="font-semibold hp:font-medium">
+                      Height (Z)
+                    </div>
+                    <div className="text-[13px] pt-[4px] text-gray-500 hp:text-[10px]">
                       (mm)
                     </div>
                   </th>
 
                   <th className="px-3 py-2 border border-gray-300 text-center leading-tight">
-                    <div className="font-semibold">Wind Load Area Front</div>
-                    <div className="text-[13px] pt-[4px] text-gray-500">
+                    <div className="font-semibold hp:font-medium">
+                      Wind Load Area Front
+                    </div>
+                    <div className="text-[13px] pt-[4px] text-gray-500 hp:text-[10px]">
                       (N)
                     </div>
                   </th>
 
                   <th className="px-3 py-2 border border-gray-300 text-center leading-tight">
-                    <div className="font-semibold">Wind Load Area Side</div>
-                    <div className="text-[13px] pt-[4px] text-gray-500">
+                    <div className="font-semibold  hp:font-medium">
+                      Wind Load Area Side
+                    </div>
+                    <div className="text-[13px] pt-[4px] text-gray-500 hp:text-[10px]">
                       (N)
                     </div>
                   </th>
 
                   <th className="px-3 py-2 border border-gray-300 text-center leading-tight">
-                    <div className="font-semibold">Seismic Load</div>
-                    <div className="text-[13px] pt-[4px] text-gray-500">
+                    <div className="font-semibold  hp:font-medium">
+                      Seismic Load
+                    </div>
+                    <div className="text-[13px] pt-[4px] text-gray-500 hp:text-[10px]">
                       (N)
                     </div>
                   </th>
 
                   <th className="px-3 py-2 border border-gray-300 text-center leading-tight">
-                    <div className="font-semibold">Quantity</div>
+                    <div className="font-semibold  hp:font-medium">
+                      Quantity
+                    </div>
                   </th>
                 </tr>
               </thead>
@@ -521,53 +500,53 @@ export function ResultsTable({ results, resultsDo, resultsOhw, onCoverInput }) {
                 {resultsDo.map((r, i) => (
                   <tr
                     key={i}
-                    className="hover:bg-[#3399cc]/10 transition-colors text-xs"
+                    className="hover:bg-[#3399cc]/10 transition-colors text-xs hp:text-[10px]"
                   >
-                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center">
+                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center hp:px-3 hp:py-2">
                       {r.doNum}
                     </td>
 
-                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center">
+                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center hp:px-3 hp:py-2">
                       {r.nameDo}
                     </td>
 
-                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center">
+                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center hp:px-3 hp:py-2">
                       {r.weightDo.toFixed(2)}
                     </td>
 
-                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center">
+                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center hp:px-3 hp:py-2">
                       {r.flDo.toFixed(2)}
                     </td>
 
-                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center">
+                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center hp:px-3 hp:py-2">
                       {r.frontAreaDo.toFixed(2)}
                     </td>
 
-                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center">
+                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center hp:px-3 hp:py-2">
                       {r.sideAreaDo.toFixed(2)}
                     </td>
 
-                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center">
+                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center hp:px-3 hp:py-2">
                       {r.cfDo.toFixed(2)}
                     </td>
 
-                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center">
+                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center hp:px-3 hp:py-2">
                       {r.heightDo.toFixed(2)}
                     </td>
 
-                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center">
+                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center hp:px-3 hp:py-2">
                       {r.wlafDo.toFixed(2)}
                     </td>
 
-                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center">
+                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center hp:px-3 hp:py-2">
                       {r.wlasDo.toFixed(2)}
                     </td>
 
-                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center">
+                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center hp:px-3 hp:py-2">
                       {r.slDo.toFixed(2)}
                     </td>
 
-                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center">
+                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center hp:px-3 hp:py-2">
                       {r.qtyDo}
                     </td>
                   </tr>
@@ -580,14 +559,14 @@ export function ResultsTable({ results, resultsDo, resultsOhw, onCoverInput }) {
 
       {/* Tabel Result Overhead Wire */}
       {rOhw && (
-        <div className="mx-6 my-6 mb-16 space-y-6">
-          <div className="bg-gradient-to-r from-[#0d3b66] to-[#0d3b66] px-5 py-4 shadow-sm">
-            <div className="flex items-center gap-3">
-              <div className="bg-white/15 backdrop-blur-sm p-2 rounded-lg">
+        <div className="mx-6 my-6 mb-16 space-y-6 hp:mx-2 hp:mt-4 hp:mb-8">
+          <div className="bg-gradient-to-r from-[#0d3b66] to-[#0d3b66] px-5 py-4 shadow-sm hp:px-4 hp:py-3">
+            <div className="flex items-center gap-3 hp:gap-2">
+              <div className="bg-white/15 backdrop-blur-sm p-2 rounded-lg hp:p-1.5">
                 <FileSpreadsheet className="w-4 h-4 text-white" />
               </div>
               <div>
-                <h3 className="text-white font-semibold text-sm leading-tight">
+                <h3 className="text-white font-semibold text-sm leading-tight hp:text-xs">
                   Overhead Wire Calculation
                 </h3>
               </div>
@@ -597,71 +576,77 @@ export function ResultsTable({ results, resultsDo, resultsOhw, onCoverInput }) {
           <div className="overflow-x-auto">
             <table className="min-w-full border-collapse border border-gray-300">
               <thead>
-                <tr className="bg-blue-50 text-[#0d3b66] text-xs">
-                  <th className="px-3 py-2 border border-gray-300 text-center font-semibold">
+                <tr className="bg-blue-50 text-[#0d3b66] text-xs hp:text-[10px]">
+                  <th className="px-3 py-2 border border-gray-300 text-center font-semibold hp:font-medium">
                     OHW
                   </th>
 
-                  <th className="px-3 py-2 border border-gray-300 text-center font-semibold">
+                  <th className="px-3 py-2 border border-gray-300 text-center font-semibold hp:font-medium">
                     Description
                   </th>
 
                   <th className="px-3 py-2 border border-gray-300 text-center leading-tight">
-                    <div className="font-semibold">Diameter</div>
-                    <div className="text-[13px] pt-[4px] text-gray-500">
+                    <div className="font-semibold hp:font-medium">Diameter</div>
+                    <div className="text-[13px] pt-[4px] text-gray-500 hp:text-[10px]">
                       (mm)
                     </div>
                   </th>
 
                   <th className="px-3 py-2 border border-gray-300 text-center leading-tight">
-                    <div className="font-semibold">Span</div>
-                    <div className="text-[13px] pt-[4px] text-gray-500">
+                    <div className="font-semibold hp:font-medium">Span</div>
+                    <div className="text-[13px] pt-[4px] text-gray-500 hp:text-[10px]">
                       (m)
                     </div>
                   </th>
 
                   <th className="px-3 py-2 border border-gray-300 text-center leading-tight">
-                    <div className="font-semibold">Sagging Ratio</div>
-                    <div className="text-[13px] pt-[4px] text-gray-500">
+                    <div className="font-semibold hp:font-medium">
+                      Sagging Ratio
+                    </div>
+                    <div className="text-[13px] pt-[4px] text-gray-500 hp:text-[10px]">
                       (%)
                     </div>
                   </th>
 
                   <th className="px-3 py-2 border border-gray-300 text-center leading-tight">
-                    <div className="font-semibold">Weight</div>
-                    <div className="text-[13px] pt-[4px] text-gray-500">
+                    <div className="font-semibold hp:font-medium">Weight</div>
+                    <div className="text-[13px] pt-[4px] text-gray-500 hp:text-[10px]">
                       (kg/m)
                     </div>
                   </th>
 
                   <th className="px-3 py-2 border border-gray-300 text-center leading-tight">
-                    <div className="font-semibold">FL</div>
-                    <div className="text-[13px] pt-[4px] text-gray-500">
+                    <div className="font-semibold hp:font-medium">FL</div>
+                    <div className="text-[13px] pt-[4px] text-gray-500 hp:text-[10px]">
                       (kg)
                     </div>
                   </th>
 
                   <th className="px-3 py-2 border border-gray-300 text-center leading-tight">
-                    <div className="font-semibold">FL</div>
-                    <div className="text-[13px] pt-[4px] text-gray-500">
+                    <div className="font-semibold hp:font-medium">FL</div>
+                    <div className="text-[13px] pt-[4px] text-gray-500 hp:text-[10px]">
                       (N)
                     </div>
                   </th>
 
                   <th className="px-3 py-2 border border-gray-300 text-center leading-tight">
-                    <div className="font-semibold whitespace-nowrap">Area</div>
-                    <div className="text-[13px] pt-[4px] text-gray-500 whitespace-nowrap">
+                    <div className="font-semibold whitespace-nowrap hp:font-medium">
+                      Area
+                    </div>
+                    <div className="text-[13px] pt-[4px] text-gray-500 whitespace-nowrap hp:text-[10px]">
                       (m<sup>2</sup>)
                     </div>
                   </th>
 
-                  <th className="px-3 py-2 border border-gray-300 text-center font-semibold">
+                  <th className="px-3 py-2 border border-gray-300 text-center font-semibold hp:font-medium">
                     Cf
                   </th>
 
                   <th className="px-3 py-2 border border-gray-300 text-center leading-tight">
-                    <div className="font-semibold">Height (Z)</div>
-                    <div className="text-[13px] pt-[4px] text-gray-500">
+                    <div className="font-semibold hp:font-medium">
+                      Height (Z)
+                    </div>
+                    <div className="text-[13px] pt-[4px] text-gray-500 hp:text-[10px]">
                       (mm)
                     </div>
                   </th>
@@ -672,49 +657,49 @@ export function ResultsTable({ results, resultsDo, resultsOhw, onCoverInput }) {
                 {resultsOhw.map((r, i) => (
                   <tr
                     key={i}
-                    className="hover:bg-[#3399cc]/10 transition-colors text-xs"
+                    className="hover:bg-[#3399cc]/10 transition-colors text-xs hp:text-[10px]"
                   >
-                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center">
+                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center hp:px-3 hp:py-2">
                       {r.ohwNum}
                     </td>
 
-                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center">
+                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center hp:px-3 hp:py-2">
                       {r.nameOhw}
                     </td>
 
-                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center">
+                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center hp:px-3 hp:py-2">
                       {r.diameterOhw}
                     </td>
 
-                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center">
+                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center hp:px-3 hp:py-2">
                       {r.spanOhw}
                     </td>
 
-                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center">
+                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center hp:px-3 hp:py-2">
                       {r.saggingOhw}
                     </td>
 
-                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center">
+                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center hp:px-3 hp:py-2">
                       {r.weightOhw}
                     </td>
 
-                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center">
+                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center hp:px-3 hp:py-2">
                       {r.flOhwKg}
                     </td>
 
-                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center">
+                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center hp:px-3 hp:py-2">
                       {r.flOhwN}
                     </td>
 
-                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center">
+                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center hp:px-3 hp:py-2">
                       {r.AreaOhw}
                     </td>
 
-                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center">
+                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center hp:px-3 hp:py-2">
                       {r.cfOhw}
                     </td>
 
-                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center">
+                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center hp:px-3 hp:py-2">
                       {r.fixheightOhw}
                     </td>
                   </tr>
@@ -727,66 +712,78 @@ export function ResultsTable({ results, resultsDo, resultsOhw, onCoverInput }) {
           <div className="overflow-x-auto">
             <table className="min-w-full border-collapse border border-gray-300">
               <thead>
-                <tr className="bg-blue-50 text-[#0d3b66] text-xs">
+                <tr className="bg-blue-50 text-[#0d3b66] text-xs hp:text-[10px]">
                   <th className="px-3 py-2 border border-gray-300 text-center leading-tight">
-                    <div className="font-semibold">Wind Load</div>
-                    <div className="text-[13px] pt-[4px] text-gray-500">
+                    <div className="font-semibold hp:font-medium">
+                      Wind Load
+                    </div>
+                    <div className="text-[13px] pt-[4px] text-gray-500 hp:text-[10px]">
                       (N)
                     </div>
                   </th>
 
-                  <th className="px-3 py-2 border border-gray-300 text-center font-semibold">
+                  <th className="px-3 py-2 border border-gray-300 text-center font-semibold hp:font-medium">
                     Fix Angle
                   </th>
 
                   <th className="px-3 py-2 border border-gray-300 text-center leading-tight">
-                    <div className="font-semibold">Seismic Load</div>
-                    <div className="text-[13px] pt-[4px] text-gray-500">
+                    <div className="font-semibold hp:font-medium">
+                      Seismic Load
+                    </div>
+                    <div className="text-[13px] pt-[4px] text-gray-500 hp:text-[10px]">
                       (N)
                     </div>
                   </th>
 
-                  <th className="px-3 py-2 border border-gray-300 text-center font-semibold">
+                  <th className="px-3 py-2 border border-gray-300 text-center font-semibold hp:font-medium">
                     Pw_Fix
                   </th>
 
-                  <th className="px-3 py-2 border border-gray-300 text-center font-semibold">
+                  <th className="px-3 py-2 border border-gray-300 text-center font-semibold hp:font-medium">
                     Pw_Straight
                   </th>
 
-                  <th className="px-3 py-2 border border-gray-300 text-center font-semibold">
+                  <th className="px-3 py-2 border border-gray-300 text-center font-semibold hp:font-medium">
                     Pw_Oblique
                   </th>
 
                   <th className="px-3 py-2 border border-gray-300 text-center leading-tight">
-                    <div className="font-semibold">Tension Fix</div>
-                    <div className="text-[13px] pt-[4px] text-gray-500">
+                    <div className="font-semibold hp:font-medium">
+                      Tension Fix
+                    </div>
+                    <div className="text-[13px] pt-[4px] text-gray-500 hp:text-[10px]">
                       (N)
                     </div>
                   </th>
 
                   <th className="px-3 py-2 border border-gray-300 text-center leading-tight">
-                    <div className="font-semibold">Tension Straight</div>
-                    <div className="text-[13px] pt-[4px] text-gray-500">
+                    <div className="font-semibold hp:font-medium">
+                      Tension Straight
+                    </div>
+                    <div className="text-[13px] pt-[4px] text-gray-500 hp:text-[10px]">
                       (N)
                     </div>
                   </th>
 
                   <th className="px-3 py-2 border border-gray-300 text-center leading-tight">
-                    <div className="font-semibold">Tension Oblique</div>
-                    <div className="text-[13px] pt-[4px] text-gray-500">
+                    <div className="font-semibold hp:font-medium">
+                      Tension Oblique
+                    </div>
+                    <div className="text-[13px] pt-[4px] text-gray-500 hp:text-[10px]">
                       (N)
                     </div>
                   </th>
 
                   <th className="px-3 py-2 border border-gray-300 text-center leading-tight">
-                    <div className="font-semibold">Vertical Angle</div>
-                    <div className="text-[13px] pt-[4px] text-gray-500">
+                    <div className="font-semibold hp:font-medium">
+                      Vertical Angle
+                    </div>
+                    <div className="text-[13px] pt-[4px] text-gray-500 hp:text-[10px]">
                       (deg)
                     </div>
                   </th>
 
-                  <th className="px-3 py-2 border border-gray-300 text-center font-semibold">
+                  <th className="px-3 py-2 border border-gray-300 text-center font-semibold hp:font-medium">
                     Cos Vertical Angle
                   </th>
                 </tr>
@@ -796,49 +793,49 @@ export function ResultsTable({ results, resultsDo, resultsOhw, onCoverInput }) {
                 {resultsOhw.map((r, i) => (
                   <tr
                     key={i}
-                    className="hover:bg-[#3399cc]/10 transition-colors text-xs"
+                    className="hover:bg-[#3399cc]/10 transition-colors text-xs hp:text-[10px]"
                   >
-                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center">
+                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center hp:px-3 hp:py-2">
                       {r.wlOhw}
                     </td>
 
-                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center">
+                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center hp:px-3 hp:py-2">
                       {r.fixAngleOhw}
                     </td>
 
-                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center">
+                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center hp:px-3 hp:py-2">
                       {r.slOhw}
                     </td>
 
-                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center">
+                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center hp:px-3 hp:py-2">
                       {r.pwFixOhw}
                     </td>
 
-                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center">
+                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center hp:px-3 hp:py-2">
                       {r.pwStraightOhw}
                     </td>
 
-                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center">
+                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center hp:px-3 hp:py-2">
                       {r.pwObliqueOhw}
                     </td>
 
-                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center">
+                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center hp:px-3 hp:py-2">
                       {r.tensionFixOhw}
                     </td>
 
-                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center">
+                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center hp:px-3 hp:py-2">
                       {r.tensionStraightOhw}
                     </td>
 
-                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center">
+                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center hp:px-3 hp:py-2">
                       {r.tensionObliqueOhw}
                     </td>
 
-                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center">
+                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center hp:px-3 hp:py-2">
                       {r.verticalAngleOhw}
                     </td>
 
-                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center">
+                    <td className="px-4 py-3 border border-gray-300 text-gray-700 text-center hp:px-3 hp:py-2">
                       {r.cosVerticalAngleOhw}
                     </td>
                   </tr>
@@ -943,12 +940,3 @@ ResultsTable.propTypes = {
     }),
   ).isRequired,
 };
-
-function DataItem({ label, value }) {
-  return (
-    <div className="flex flex-col">
-      <span className="text-gray-500">{label}</span>
-      <span className="font-medium text-gray-800">{value ?? "-"}</span>
-    </div>
-  );
-}

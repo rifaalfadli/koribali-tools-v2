@@ -3,6 +3,7 @@ import { useRef, useMemo } from "react";
 import { createAcemastBlocks } from "./AcemastBlock";
 import { useA4Pagination } from "../useA4Pagination";
 import AcemastPages from "./AcemastPages";
+import AcemastV60Pages from "./AcemastV60Pages";
 import "../../styles/page.css";
 
 export default function AcemastReport({
@@ -35,7 +36,13 @@ export default function AcemastReport({
   return (
     <>
       {/* Render actual A4 pages using paginated data */}
-      <AcemastPages
+      {/* <AcemastPages
+        cover={cover}
+        condition={condition}
+        results={results}
+        pages={pages}
+      /> */}
+      <AcemastV60Pages
         cover={cover}
         condition={condition}
         results={results}

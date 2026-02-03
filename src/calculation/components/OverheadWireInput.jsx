@@ -194,7 +194,7 @@ export function OverheadWireInput({
                 <div>
                   <h4 className="text-base text-[#0d3b66] text-sm font-medium leading-snug hp:text-xs">
                     Overhide Wire{" "}
-                    {overheadWire.nameOhw && `- ${overheadWire.nameOhw}`}
+                    {overheadWire.nameOhw && `: ${overheadWire.nameOhw}`}
                   </h4>
                 </div>
               </div>

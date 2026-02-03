@@ -195,7 +195,7 @@ export function DirectObjectInput({
                 <div>
                   <h4 className="text-base text-[#0d3b66] text-sm font-medium leading-snug hp:text-xs">
                     Direct Object
-                    {directObject.nameDo && ` - ${directObject.nameDo}`}
+                    {directObject.nameDo && ` : ${directObject.nameDo}`}
                   </h4>
                   <p className="text-xs text-gray-500 hp:text-[10px]">
                     {directObject.typeOfDo} Type
